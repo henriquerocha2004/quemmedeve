@@ -8,13 +8,14 @@ public class DebtsDbHelper extends SQLiteOpenHelper {
 
 
     public static final String TABLE_NAME = "debts";
-    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_ID = "_id";
     public static final String COLUMN_USU_ID = "usu_id_debt";
     public static final String COLUMN_DEBT_DESC = "debt_desc";
     public static final String COLUMN_VALUE = "value";
     public static final String COLUMN_DATE_DEBT = "date_debt";
     public static final String COLUMN_DEBT_SPLIT = "debt_split";
     public static final String COLUMN_VALUE_SPLIT = "value_split";
+    public static final String COLUMN_STATUS_DEBT = "status_debt";
     private static final String SQL_DELETE_DEBTS = "DROP TABLE IF EXISTS " + TABLE_NAME;
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "qmd.db";
@@ -22,12 +23,13 @@ public class DebtsDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_DEBTS =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    COLUMN_USU_ID + " INTEGER NOT NULL REFERENCES debtors(id)," +
+                    COLUMN_USU_ID + " INTEGER NOT NULL REFERENCES debtors(_id)," +
                     COLUMN_DEBT_DESC + " TEXT(200) NOT NULL, "+
                     COLUMN_VALUE + " TEXT(50) NOT NULL, "+
                     COLUMN_DATE_DEBT + " DATE NOT NULL," +
                     COLUMN_DEBT_SPLIT + " INTEGER NOT NULL," +
-                    COLUMN_VALUE_SPLIT +" DOUBLE" +
+                    COLUMN_VALUE_SPLIT +" DOUBLE ," +
+                    COLUMN_STATUS_DEBT + " BOOLEAN NOT NULL DEFAULT(0)"+
               ")";
 
     public DebtsDbHelper(Context context){
@@ -43,6 +45,10 @@ public class DebtsDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_DEBTS);
+    }
+
+    public String getSQL_CREATE_DEBTS(){
+        return SQL_CREATE_DEBTS;
     }
 
 

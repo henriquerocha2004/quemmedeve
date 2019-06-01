@@ -15,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Henrique Rocha"
+        android:text="Cliente"
         android:textColor="@android:color/background_dark"
         android:textSize="30sp"
         app:fontFamily="sans-serif-smallcaps"
@@ -57,7 +57,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="R$ 120,00"
+        android:text="R$ 0,00"
         android:textColor="@android:color/holo_red_light"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -124,19 +124,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.225" />
 
-    <ScrollView
-        android:layout_width="395dp"
-        android:layout_height="437dp"
+    <ListView
+        android:id="@+id/listDebitos"
+        android:layout_width="372dp"
+        android:layout_height="438dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.697"
-        tools:layout_editor_absoluteX="8dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintVertical_bias="0.696" />
 </android.support.constraint.ConstraintLayout>

@@ -8,7 +8,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
 
 
     public static final String TABLE_NAME = "users";
-    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_PHONE = "phone";
     public static final String COLUMN_LOGIN = "login";
@@ -39,6 +39,10 @@ public class UserDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_USERS);
+    }
+
+    public String getSQL_CREATE_USER(){
+        return SQL_CREATE_USERS;
     }
 
 

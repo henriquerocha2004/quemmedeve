@@ -8,7 +8,7 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
 
 
     public static String TABLE_NAME = "payment";
-    public static String COLUMN_ID = "id";
+    public static String COLUMN_ID = "_id";
     public static String COLUMN_DEBT_ID = "debt_id";
     public static String COLUMN_AMOUNT_PAY = "amount_to_pay";
     public static String COLUMN_PAYDAY = "payday";
@@ -21,10 +21,10 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_PAYMENT =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    COLUMN_DEBT_ID + " INTEGER NOT NULL REFERENCES debts(id)," +
+                    COLUMN_DEBT_ID + " INTEGER NOT NULL REFERENCES debts(_id)," +
                     COLUMN_AMOUNT_PAY + " DOUBLE NOT NULL, "+
                     COLUMN_PAYDAY + " DATE NOT NULL, "+
-                    COLUMN_STATUS_PAYMENT + " BOOLEAN NOT NULL DEFAULT(false))";
+                    COLUMN_STATUS_PAYMENT + " BOOLEAN NOT NULL DEFAULT(0))";
 
 
 
@@ -42,6 +42,10 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_PAYMENT);
         onCreate(db);
+    }
+
+    public String getSQL_CREATE_PAYMENT(){
+        return SQL_CREATE_PAYMENT;
     }
 
 

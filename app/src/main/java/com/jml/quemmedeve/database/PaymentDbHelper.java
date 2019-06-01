@@ -6,17 +6,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class PaymentDbHelper extends SQLiteOpenHelper {
 
-    private static final String SQL_CREATE_PAYMENT =
-            "CREATE TABLE " + PaymentContract.Payment.TABLE_NAME + " (" +
-                    PaymentContract.Payment.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    PaymentContract.Payment.COLUMN_DEBT_ID + " INTEGER NOT NULL REFERENCES debts(id)," +
-                    PaymentContract.Payment.COLUMN_AMOUNT_PAY + " DOUBLE NOT NULL, "+
-                    PaymentContract.Payment.COLUMN_PAYDAY + " DATE NOT NULL, "+
-                    PaymentContract.Payment.COLUMN_STATUS_PAYMENT + " BOOLEAN NOT NULL DEFAULT(false))";
 
-    private static final String SQL_DELETE_PAYMENT = "DROP TABLE IF EXISTS " + PaymentContract.Payment.TABLE_NAME;
+    public static String TABLE_NAME = "payment";
+    public static String COLUMN_ID = "id";
+    public static String COLUMN_DEBT_ID = "debt_id";
+    public static String COLUMN_AMOUNT_PAY = "amount_to_pay";
+    public static String COLUMN_PAYDAY = "payday";
+    public static String COLUMN_STATUS_PAYMENT = "status_payment";
+    private static final String SQL_DELETE_PAYMENT = "DROP TABLE IF EXISTS " + TABLE_NAME;
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "qmd.db";
+
+
+    private static final String SQL_CREATE_PAYMENT =
+            "CREATE TABLE " + TABLE_NAME + " (" +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    COLUMN_DEBT_ID + " INTEGER NOT NULL REFERENCES debts(id)," +
+                    COLUMN_AMOUNT_PAY + " DOUBLE NOT NULL, "+
+                    COLUMN_PAYDAY + " DATE NOT NULL, "+
+                    COLUMN_STATUS_PAYMENT + " BOOLEAN NOT NULL DEFAULT(false))";
+
+
 
     public PaymentDbHelper(Context context){
         super(context,DATABASE_NAME,null, DATABASE_VERSION);
@@ -31,6 +41,7 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_PAYMENT);
+        onCreate(db);
     }
 
 

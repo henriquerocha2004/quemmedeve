@@ -6,22 +6,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DebtorsDbHelper extends SQLiteOpenHelper {
 
-    private static final String TEXT_TYPE = "TEXT";
-    private static final String COMMA_SEP = ",";
-    private static final String SQL_CREATE_DEBTORS =
-       "CREATE TABLE " + DebtorsContract.Debtors.TABLE_NAME + " (" +
-       DebtorsContract.Debtors.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-       DebtorsContract.Debtors.COLUMN_NAME + " TEXT(100) NOT NULL," +
-       DebtorsContract.Debtors.COLUMN_PHONE + " NUMERIC(20) NOT NULL )";
-
-    private static final String SQL_DELETE_DEBTORS = "DROP TABLE IF EXISTS " + DebtorsContract.Debtors.TABLE_NAME;
-    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "qmd.db";
+    public static final String TABLE_NAME = "debtors";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_PHONE = "phone";
+    public static final String COLUMN_ID = "id";
+    public static final int DATABASE_VERSION = 1;
+    private static final String SQL_DELETE_DEBTORS = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+    private static final String SQL_CREATE_DEBTORS =
+       "CREATE TABLE " + TABLE_NAME+ " (" +
+           COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+           COLUMN_NAME + " TEXT(100) NOT NULL," +
+           COLUMN_PHONE + " NUMERIC(20) NOT NULL " +
+         ")";
+
 
     public DebtorsDbHelper(Context context){
         super(context,DATABASE_NAME,null, DATABASE_VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

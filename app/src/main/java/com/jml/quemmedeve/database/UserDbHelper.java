@@ -6,17 +6,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class UserDbHelper extends SQLiteOpenHelper {
 
-    private static final String SQL_CREATE_USERS =
-            "CREATE TABLE " + UserContract.User.TABLE_NAME + " (" +
-                    UserContract.User.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    UserContract.User.COLUMN_NAME + " TEXT(100) NOT NULL," +
-                    UserContract.User.COLUMN_PHONE + " TEXT(20) NOT NULL, "+
-                    UserContract.User.COLUMN_LOGIN + " TEXT(50) NOT NULL, "+
-                    UserContract.User.COLUMN_PASSWORD + " TEXT(50) NOT NULL)";
 
-    private static final String SQL_DELETE_USERS = "DROP TABLE IF EXISTS " + UserContract.User.TABLE_NAME;
+    public static final String TABLE_NAME = "users";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_PHONE = "phone";
+    public static final String COLUMN_LOGIN = "login";
+    public static final String COLUMN_PASSWORD = "password";
+    private static final String SQL_DELETE_USERS = "DROP TABLE IF EXISTS " + TABLE_NAME;
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "qmd.db";
+
+    private static final String SQL_CREATE_USERS =
+            "CREATE TABLE " + TABLE_NAME + " (" +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    COLUMN_NAME + " TEXT(100) NOT NULL," +
+                    COLUMN_PHONE + " TEXT(20) NOT NULL, "+
+                    COLUMN_LOGIN + " TEXT(50) NOT NULL, "+
+                    COLUMN_PASSWORD + " TEXT(50) NOT NULL" +
+            ")";
 
     public UserDbHelper(Context context){
         super(context,DATABASE_NAME,null, DATABASE_VERSION);

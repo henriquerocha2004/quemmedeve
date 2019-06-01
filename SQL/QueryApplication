@@ -1,0 +1,5 @@
+select debts.debt_desc ,debts.value,debts.date_debt, debts.debt_split
+    from debtors 
+        inner join debts on debts.usu_id_debt = debtors.id
+where debtors.id = 1 and debts.status_debt = 0;        
+        

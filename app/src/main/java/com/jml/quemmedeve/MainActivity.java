@@ -12,9 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.jml.quemmedeve.database.DebtorsContract;
-import com.jml.quemmedeve.database.DebtorsDbHelper;
 
+import com.jml.quemmedeve.controllers.ClienteController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,14 +50,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                DebtorsDbHelper debtorsHelper = new DebtorsDbHelper(getApplicationContext());
-                SQLiteDatabase db = debtorsHelper.getWritableDatabase();
-                ContentValues valores = new ContentValues();
+                long idRow = ClienteController.store(nomeCliente.getText().toString(), telefoneCliente.getText().toString(), getApplicationContext());
 
-                valores.put(DebtorsContract.Debtors.COLUMN_NAME, nomeCliente.getText().toString());
-                valores.put(DebtorsContract.Debtors.COLUMN_PHONE, telefoneCliente.getText().toString());
-
-                long idRow = db.insert(DebtorsContract.Debtors.TABLE_NAME, null, valores);
                 int duracao = Toast.LENGTH_SHORT;
                 Toast toast = null;
 

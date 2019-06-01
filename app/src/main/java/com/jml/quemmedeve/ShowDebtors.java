@@ -26,10 +26,10 @@ public class ShowDebtors extends AppCompatActivity {
         if(idCliente != 0){
             DebtorsDbHelper helper = new DebtorsDbHelper(getApplicationContext());
             SQLiteDatabase db = helper.getReadableDatabase();
-            String[] campos = {DebtorsContract.Debtors.COLUMN_NAME};
-            String condicao = DebtorsContract.Debtors.COLUMN_ID + " = ?";
+            String[] campos = {DebtorsDbHelper.COLUMN_NAME};
+            String condicao = DebtorsDbHelper.COLUMN_ID + " = ?";
             String[] args = {Long.toString(idCliente)};
-            Cursor c = db.query(DebtorsContract.Debtors.TABLE_NAME, campos,condicao,args,null,null,null);
+            Cursor c = db.query(DebtorsDbHelper.TABLE_NAME, campos,condicao,args,null,null,null);
             c.moveToFirst();
             txtNomeClient.setText(c.getString(c.getColumnIndex("name")));
         }

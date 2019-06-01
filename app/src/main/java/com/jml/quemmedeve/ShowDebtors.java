@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.jml.quemmedeve.database.DebtorsContract;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
 
 public class ShowDebtors extends AppCompatActivity {

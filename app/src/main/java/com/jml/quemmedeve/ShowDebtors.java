@@ -9,6 +9,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.jml.quemmedeve.controllers.ClienteController;
+import com.jml.quemmedeve.database.DebtorsDbHelper;
 import com.jml.quemmedeve.database.DebtsDbHelper;
 
 import java.text.NumberFormat;
@@ -26,34 +27,40 @@ public class ShowDebtors extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_debtor);
-        txtNomeClient = findViewById(R.id.txtNomeClient);
-        txtValTotal = findViewById(R.id.txtValTotal);
+
         Intent it = getIntent();
         idCliente = Long.toString(it.getLongExtra("idCliente", 0));
 
+        idCliente = "1";
+
         Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
         Cursor debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext());
+
+
 
         float valorTotal = 0;
         try{
             if(debitos != null){
 
-                while(debitos.moveToNext()){
-                    valorTotal += debitos.getFloat(1);
+                if(debitos.getCount() > 0){
+                    valorTotal += debitos.getFloat(debitos.getColumnIndex("value"));
                 }
 
                 debitos.moveToFirst();
 
-                txtNomeClient.setText(cliente.getString(cliente.getColumnIndex("name")));
-                txtValTotal.setText(NumberFormat.getCurrencyInstance(ptBR).format(valorTotal));
 
-                String[] collumnsBd = new String[] {DebtsDbHelper.COLUMN_ID,DebtsDbHelper.COLUMN_DEBT_DESC, DebtsDbHelper.COLUMN_VALUE, DebtsDbHelper.COLUMN_DATE_DEBT, DebtsDbHelper.COLUMN_DEBT_SPLIT};
+                String[] collumnsBd = new String[] {DebtsDbHelper.COLUMN_DEBT_DESC, DebtsDbHelper.COLUMN_VALUE, DebtsDbHelper.COLUMN_DATE_DEBT, DebtsDbHelper.COLUMN_DEBT_SPLIT};
                 int[] idFieldsView = new int[] {R.id.desc_debt,R.id.date_debt,R.id.debt_split, R.id.debt_value};
 
-                SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.show_debtor, debitos,collumnsBd,idFieldsView, 0);
+                SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.fields_list_view_cliente, debitos,collumnsBd,idFieldsView, 0);
 
                 lista = findViewById(R.id.listDebitos);
                 lista.setAdapter(adapter);
+
+                txtNomeClient = findViewById(R.id.txtNomeClient);
+                txtValTotal = findViewById(R.id.txtValTotal);
+                txtNomeClient.setText(cliente.getString(cliente.getColumnIndex("name")));
+                txtValTotal.setText(NumberFormat.getCurrencyInstance(ptBR).format(valorTotal));
             }
 
 

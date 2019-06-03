@@ -59,18 +59,17 @@ public class ClienteController {
     public static Cursor getDebtsClient(String id, Context context){
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
-        DebtsDbHelper debt = new DebtsDbHelper(context);
-        SQLiteDatabase db = debt.getReadableDatabase();
-        db = helper.getReadableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor result = null;
 
         try {
 
          String[] arg = {id};
-         result = db.rawQuery("SELECT debts.debt_desc ,debts.value,debts.date_debt, debts.debt_split" +
+         result = db.rawQuery("SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, strftime('%d-%m-%Y', debts.date_debt) as date_debt , debts.debt_split" +
                                     " FROM debtors" +
-                                    " INNER JOIN debts ON debts.usu_id_debt = debtors.id" +
-                                    " WHERE debtors.id = ? AND debts.status_debt = 0", arg);
+                                    " INNER JOIN debts ON debts.usu_id_debt = debtors._id" +
+                                    " WHERE debtors._id = ? AND debts.status_debt = 0", arg);
+
          if(result != null){
              result.moveToFirst();
          }

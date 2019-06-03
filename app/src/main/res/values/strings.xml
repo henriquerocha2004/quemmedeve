@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Quem me deve?</string>
+    <string name="parcelas">Parcelas</string>
+    <string name="descri_o">Descrição</string>
+    <string name="data_do_d_bito">Data do débito</string>
+    <string name="valor">Valor</string>
+
+    <string-array name="payments_options">
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+    </string-array>
 </resources>
+
+
+

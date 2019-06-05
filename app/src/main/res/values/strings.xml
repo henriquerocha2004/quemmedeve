@@ -6,6 +6,7 @@
     <string name="valor">Valor</string>
 
     <string-array name="payments_options">
+        <item></item>
         <item>1x</item>
         <item>2x</item>
         <item>3x</item>

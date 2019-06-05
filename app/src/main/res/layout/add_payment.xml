@@ -7,8 +7,8 @@
 
     <ru.kolotnev.formattedittext.DecimalEditText
         android:id="@+id/txtValueFull"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
+        android:layout_width="293dp"
+        android:layout_height="41dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -21,13 +21,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rounding="2"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.101"
+        app:rounding="2" />
 
     <EditText
         android:id="@+id/txtDescPay"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
+        android:layout_width="296dp"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -139,13 +139,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Data do pagamento das parcelas:"
+        android:text="Data de limite de pagamento:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.433" />
+        app:layout_constraintVertical_bias="0.435" />
 
     <EditText
         android:id="@+id/datePaySplit"
@@ -176,7 +176,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Parcelado em 1x de R$ 500,00"
+        android:text="Dívida de R$ 0,00"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -196,11 +196,14 @@
         android:layout_marginTop="116dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Salvar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescPagamento" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDescPagamento"
+        app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
         android:id="@+id/cbLembrarMe"
@@ -217,6 +220,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescPagamento" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDescPagamento"
+        app:layout_constraintVertical_bias="0.971" />
 
 </android.support.constraint.ConstraintLayout>

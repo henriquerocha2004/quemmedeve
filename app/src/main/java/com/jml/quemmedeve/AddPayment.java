@@ -1,14 +1,18 @@
 package com.jml.quemmedeve;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -16,6 +20,11 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jml.quemmedeve.controllers.DebtController;
+import com.jml.quemmedeve.database.DebtsDbHelper;
+import com.jml.quemmedeve.database.PaymentDbHelper;
+import com.jml.quemmedeve.ultility.DateUltility;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -31,24 +40,36 @@ public class AddPayment extends AppCompatActivity {
     private RadioGroup rdGrpFormPay;
     private DecimalEditText txtValueFull;
     private TextView txtDescPagamento;
-    private EditText datePaySplit;
+    private TextView datePaySplit;
+    private EditText txtDescPay;
+    private Button btnCalendar;
+    private Button btnSalvar;
+    private String formaPagamento;
+    private String qtdParcelas;
     private Locale ptBR = new Locale("pt", "BR");
-    private int valorParcelado;
+    private BigDecimal valorParcelado;
+    private String idCliente;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_payment);
+        Intent it = getIntent();
+        idCliente = Long.toString(it.getLongExtra("idCliente", 0));
 
         txtValueFull = findViewById(R.id.txtValueFull);
         txtDescPagamento = findViewById(R.id.txtDescPagamento);
         datePaySplit = findViewById(R.id.datePaySplit);
+        btnCalendar = findViewById(R.id.btnCalendar);
+        btnSalvar = findViewById(R.id.btnSalvar);
+        txtDescPay = findViewById(R.id.txtDescPay);
 
         mountSpinner();
         eventFormPayment();
         eventChangeValue();
         datePicker();
+        salvar();
     }
 
 
@@ -116,15 +137,19 @@ public class AddPayment extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 String descPagamento = null;
 
                 if(spPaymentSplit.isEnabled() == true){
                     String itemSpinner = spPaymentSplit.getSelectedItem().toString();
-                    BigDecimal valorTotal = txtValueFull.getValue();
-                    String qtdParcelas = itemSpinner.substring(0, itemSpinner.indexOf("x"));
-                    BigDecimal valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorTotal);
-                    descPagamento = String.format("Parcelado em %s de R$ %,.2f", qtdParcelas, valorParcelado);
+
+                    if(!itemSpinner.isEmpty()){
+                        BigDecimal valorTotal = txtValueFull.getValue();
+                        qtdParcelas = itemSpinner.substring(0, itemSpinner.indexOf("x"));
+                        BigDecimal valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorTotal);
+                        descPagamento = String.format("Parcelado em %s de R$ %,.2f", qtdParcelas, valorParcelado);
+                    }else{
+                       Toast.makeText(getApplicationContext(), "Informe um valor válido para o parcelamento!", Toast.LENGTH_SHORT);
+                    }
 
                 }else {
                     descPagamento = String.format("Dívida de R$ %,.2f", txtValueFull.getValue());
@@ -144,7 +169,7 @@ public class AddPayment extends AppCompatActivity {
 
         final Calendar c = Calendar.getInstance();
 
-        datePaySplit.setOnClickListener(new View.OnClickListener() {
+        btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -155,9 +180,10 @@ public class AddPayment extends AppCompatActivity {
                 DatePickerDialog date = new DatePickerDialog(AddPayment.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int mYear, int mMonth, int mDayOfMonth) {
-                        datePaySplit.setText(mDayOfMonth + '/' + mMonth + '/' + mYear);
+                        String date = String.format("%02d/%02d/%s", mDayOfMonth,mMonth + 1,mYear);
+                        datePaySplit.setText(date);
                     }
-                }, day,month, year);
+                }, year, month,day);
 
                 date.show();
             }
@@ -165,12 +191,80 @@ public class AddPayment extends AppCompatActivity {
 
     }
 
-
-
     private BigDecimal calcularParcelas(int parcelas, BigDecimal valor){
-        BigDecimal resultado;
-        resultado = (BigDecimal) valor.divide(BigDecimal.valueOf(parcelas), MathContext.DECIMAL32);
-        return resultado;
+        valorParcelado = (BigDecimal) valor.divide(BigDecimal.valueOf(parcelas), MathContext.DECIMAL32);
+        return valorParcelado;
+    }
+
+
+    private void salvar(){
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String validacao = validate();
+                if(validacao != "Validado"){
+                   Toast.makeText(getApplicationContext(), validacao, Toast.LENGTH_SHORT).show();
+                }else{
+
+                    ContentValues debt = new ContentValues();
+                    debt.put(DebtsDbHelper.COLUMN_DEBT_DESC, txtDescPay.getText().toString());
+                    debt.put(DebtsDbHelper.COLUMN_VALUE, txtValueFull.getValue().toString());
+                    debt.put(DebtsDbHelper.COLUMN_DEBT_SPLIT, qtdParcelas);
+                    debt.put(DebtsDbHelper.COLUMN_VALUE_SPLIT, valorParcelado.toString());
+                    debt.put(DebtsDbHelper.COLUMN_USU_ID, idCliente);
+                    debt.put(DebtsDbHelper.COLUMN_DATE_DEBT, DateUltility.getCurrentData("USA"));
+                    debt.put(DebtsDbHelper.COLUMN_STATUS_DEBT, 0);
+
+                    ContentValues payment = new ContentValues();
+                    payment.put(PaymentDbHelper.COLUMN_AMOUNT_PAY, valorParcelado.toString());
+                    payment.put(PaymentDbHelper.COLUMN_PAYDAY, formaPagamento == "Parcelado" ? DateUltility.formataUSA(datePaySplit.getText().toString()) : DateUltility.getCurrentData("USA"));
+                    payment.put(PaymentDbHelper.COLUMN_STATUS_PAYMENT, 0);
+
+                    DebtController save = new DebtController();
+                    boolean result = save.store(debt, payment, getApplicationContext());
+                    String mensagem = null;
+
+                    if(result){
+                        mensagem = "Debito cadastrado com sucesso!!";
+                        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT);
+                    }else{
+                        mensagem = "Houve um erro ao salvar!";
+                        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT);
+                    }
+                }
+            }
+        });
+
+    }
+
+
+    private String validate(){
+
+        int idRadio = rdGrpFormPay.getCheckedRadioButtonId();
+        RadioButton rb = findViewById(idRadio);
+        formaPagamento = rb.getText().toString();
+
+        if(txtDescPay.getText().toString().isEmpty()){
+            return "Informe uma Descrição para o débito";
+        }
+
+        if(txtValueFull.getValue().toString().equals("0")){
+            return "Informe um valor para o débito";
+        }
+
+        if(rb.getText().toString().equals("Parcelado")){
+            if(spPaymentSplit.getSelectedItem().toString().isEmpty()){
+                return "Informe uma quantidade de parcelas!";
+            }
+
+            if(datePaySplit.getText().toString().isEmpty()){
+                return "Informe uma data de vencimento das parcelas";
+            }
+        }
+
+        return "Validado";
     }
 
 }

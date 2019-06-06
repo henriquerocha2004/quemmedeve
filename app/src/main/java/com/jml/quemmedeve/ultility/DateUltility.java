@@ -1,5 +1,6 @@
 package com.jml.quemmedeve.ultility;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,18 +13,40 @@ public class DateUltility {
 
 
     public static String formataBR(String date){
-        String data = formatoBR.format(Date.parse(date));
-        return data;
+
+        try {
+            Date dataUSA = formatoUSA.parse(date);
+            String dataBR = formatoBR.format(dataUSA);
+            return dataBR;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return date;
+        }
     }
 
     public static String formataUSA(String date){
-        String data = formatoUSA.format(Date.parse(date));
-        return data;
+        try {
+            Date dataBR = formatoBR.parse(date);
+            String dataUSA = formatoUSA.format(dataBR);
+            return dataUSA;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return date;
+        }
     }
 
     public static String getCurrentData(String formato){
-        Date data = new Date(System.currentTimeMillis());
-        String stringData = data.toString();
-        return formato == "USA" ? formataUSA(stringData) : formataBR(stringData);
+        Date data = new Date();
+        return formato == "USA" ? formatoUSA.format(data) : formatoBR.format(data);
+    }
+
+    public static String gerarProximaDataDePagamento(String data)throws ParseException{
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(formatoUSA.parse(data));
+        cal.add(cal.MONTH, 1);
+        Date d = cal.getTime();
+        String dt = formatoUSA.format(d);
+        return dt;
     }
 }

@@ -28,7 +28,12 @@ import com.jml.quemmedeve.ultility.DateUltility;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import ru.kolotnev.formattedittext.DecimalEditText;
@@ -56,7 +61,7 @@ public class AddPayment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_payment);
         Intent it = getIntent();
-        idCliente = Long.toString(it.getLongExtra("idCliente", 0));
+        idCliente = it.getStringExtra("idCliente");
 
         txtValueFull = findViewById(R.id.txtValueFull);
         txtDescPagamento = findViewById(R.id.txtDescPagamento);
@@ -116,8 +121,8 @@ public class AddPayment extends AppCompatActivity {
                 }else if(item.toString().isEmpty()){
 
                 }else{
-                    int parcela = Integer.parseInt(item.toString().substring(0, (item.toString().length() == 2 ? 1 : 2)));
-                    BigDecimal valor = calcularParcelas(parcela, valorPagar);
+                    qtdParcelas = item.toString().substring(0, (item.toString().length() == 2 ? 1 : 2));
+                    BigDecimal valor = calcularParcelas(Integer.parseInt(qtdParcelas), valorPagar);
                     String descPagamento = String.format("Parcelado em %s de R$ %,.2f", item.toString(), valor);
                     txtDescPagamento.setText(descPagamento);
                 }
@@ -145,6 +150,7 @@ public class AddPayment extends AppCompatActivity {
                     if(!itemSpinner.isEmpty()){
                         BigDecimal valorTotal = txtValueFull.getValue();
                         qtdParcelas = itemSpinner.substring(0, itemSpinner.indexOf("x"));
+                        System.out.println(qtdParcelas);
                         BigDecimal valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorTotal);
                         descPagamento = String.format("Parcelado em %s de R$ %,.2f", qtdParcelas, valorParcelado);
                     }else{
@@ -219,19 +225,19 @@ public class AddPayment extends AppCompatActivity {
 
                     ContentValues payment = new ContentValues();
                     payment.put(PaymentDbHelper.COLUMN_AMOUNT_PAY, valorParcelado.toString());
-                    payment.put(PaymentDbHelper.COLUMN_PAYDAY, formaPagamento == "Parcelado" ? DateUltility.formataUSA(datePaySplit.getText().toString()) : DateUltility.getCurrentData("USA"));
+                    payment.put(PaymentDbHelper.COLUMN_PAYDAY, (formaPagamento.equals("Parcelado") ? DateUltility.formataUSA(datePaySplit.getText().toString()) : DateUltility.getCurrentData("USA")));
                     payment.put(PaymentDbHelper.COLUMN_STATUS_PAYMENT, 0);
 
                     DebtController save = new DebtController();
                     boolean result = save.store(debt, payment, getApplicationContext());
                     String mensagem = null;
 
-                    if(result){
+                    if(result == true){
                         mensagem = "Debito cadastrado com sucesso!!";
-                        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();
                     }else{
                         mensagem = "Houve um erro ao salvar!";
-                        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

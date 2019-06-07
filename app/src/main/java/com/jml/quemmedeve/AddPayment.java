@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,12 +26,7 @@ import com.jml.quemmedeve.ultility.DateUltility;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import ru.kolotnev.formattedittext.DecimalEditText;
@@ -61,14 +54,16 @@ public class AddPayment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_payment);
         Intent it = getIntent();
-        idCliente = it.getStringExtra("idCliente");
 
+        idCliente = it.getStringExtra("idCliente");
         txtValueFull = findViewById(R.id.txtValueFull);
         txtDescPagamento = findViewById(R.id.txtDescPagamento);
         datePaySplit = findViewById(R.id.datePaySplit);
         btnCalendar = findViewById(R.id.btnCalendar);
         btnSalvar = findViewById(R.id.btnSalvar);
         txtDescPay = findViewById(R.id.txtDescPay);
+        valorParcelado = new BigDecimal(0);
+        qtdParcelas = "0";
 
         mountSpinner();
         eventFormPayment();
@@ -122,8 +117,8 @@ public class AddPayment extends AppCompatActivity {
 
                 }else{
                     qtdParcelas = item.toString().substring(0, (item.toString().length() == 2 ? 1 : 2));
-                    BigDecimal valor = calcularParcelas(Integer.parseInt(qtdParcelas), valorPagar);
-                    String descPagamento = String.format("Parcelado em %s de R$ %,.2f", item.toString(), valor);
+                    valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorPagar);
+                    String descPagamento = String.format("Parcelado em %s de R$ %,.2f", item.toString(), valorParcelado);
                     txtDescPagamento.setText(descPagamento);
                 }
             }
@@ -150,8 +145,7 @@ public class AddPayment extends AppCompatActivity {
                     if(!itemSpinner.isEmpty()){
                         BigDecimal valorTotal = txtValueFull.getValue();
                         qtdParcelas = itemSpinner.substring(0, itemSpinner.indexOf("x"));
-                        System.out.println(qtdParcelas);
-                        BigDecimal valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorTotal);
+                        valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorTotal);
                         descPagamento = String.format("Parcelado em %s de R$ %,.2f", qtdParcelas, valorParcelado);
                     }else{
                        Toast.makeText(getApplicationContext(), "Informe um valor válido para o parcelamento!", Toast.LENGTH_SHORT);

@@ -2,7 +2,6 @@ package com.jml.quemmedeve;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.provider.CalendarContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         Intent calIntent = new Intent(Intent.ACTION_INSERT);
         calIntent.setData(CalendarContract.Events.CONTENT_URI);
         calIntent.setType("vnd.android.cursor.item/event");
-        calIntent.putExtra(CalendarContract.Events.TITLE, "Evento do Jamelao");
-        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "My Beach House");
-        calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "A Pig Roast on the Beach");
+        calIntent.putExtra(CalendarContract.Events.TITLE, "Evento Ieda");
+        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "São Cristóvão");
+        calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "Está gravida");
         calIntent.putExtra(CalendarContract.Events.RRULE, "FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=7;UNTIL=20190907T000000Z");
         startActivity(calIntent);
 

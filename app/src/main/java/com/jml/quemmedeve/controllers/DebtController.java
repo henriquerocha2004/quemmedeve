@@ -8,11 +8,14 @@ import android.util.Log;
 import com.jml.quemmedeve.database.DebtsDbHelper;
 import com.jml.quemmedeve.database.PaymentDbHelper;
 import com.jml.quemmedeve.ultility.DateUltility;
-
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DebtController {
+
+    public  List<String> datas = new ArrayList<String>();
 
 
     public boolean store(ContentValues debt, ContentValues payment,  Context context){
@@ -24,11 +27,14 @@ public class DebtController {
             long idDebt = db.insert(DebtsDbHelper.TABLE_NAME, null, debt);
             int parcelas = Integer.parseInt(debt.get(DebtsDbHelper.COLUMN_DEBT_SPLIT).toString());
 
+            datas.add(payment.get(PaymentDbHelper.COLUMN_PAYDAY).toString());
+
             for(int i = 1; i <= parcelas ; i++){
 
                 if(i > 1){
                     String dataPagamento = payment.get(PaymentDbHelper.COLUMN_PAYDAY).toString();
                     String Data = DateUltility.gerarProximaDataDePagamento(dataPagamento);
+                    datas.add(Data);
                     payment.put(PaymentDbHelper.COLUMN_PAYDAY, Data);
                 }
 

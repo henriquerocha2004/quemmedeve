@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -26,6 +27,7 @@ import com.jml.quemmedeve.ultility.DateUltility;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -47,6 +49,7 @@ public class AddPayment extends AppCompatActivity {
     private Locale ptBR = new Locale("pt", "BR");
     private BigDecimal valorParcelado;
     private String idCliente;
+    private CheckBox cbLembrarMe;
 
 
     @Override
@@ -62,6 +65,7 @@ public class AddPayment extends AppCompatActivity {
         btnCalendar = findViewById(R.id.btnCalendar);
         btnSalvar = findViewById(R.id.btnSalvar);
         txtDescPay = findViewById(R.id.txtDescPay);
+        cbLembrarMe = findViewById(R.id.cbLembrarMe);
         valorParcelado = new BigDecimal(0);
         qtdParcelas = "0";
 
@@ -96,8 +100,10 @@ public class AddPayment extends AppCompatActivity {
 
                 if(index == 0){
                     spPaymentSplit.setEnabled(false);
+                    cbLembrarMe.setChecked(false);
                 }else{
                     spPaymentSplit.setEnabled(true);
+                    cbLembrarMe.setChecked(true);
                 }
             }
         });
@@ -227,8 +233,21 @@ public class AddPayment extends AppCompatActivity {
                     String mensagem = null;
 
                     if(result == true){
-                        mensagem = "Debito cadastrado com sucesso!!";
-                        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();
+
+                        try {
+
+                            if(cbLembrarMe.isChecked()){
+                                Intent it = DateUltility.setEventOnCalendar(save.datas);
+                                startActivity(it);
+                            }
+
+                            mensagem = "Debito cadastrado com sucesso!!";
+                            Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                     }else{
                         mensagem = "Houve um erro ao salvar!";
                         Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();

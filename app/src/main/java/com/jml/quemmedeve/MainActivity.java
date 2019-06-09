@@ -22,24 +22,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnAdicionarCli = (Button) findViewById(R.id.btnAdicionarCli);
+        btnAdicionarCli = findViewById(R.id.btnAdicionarCli);
         btnAdicionarCli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerClientDialog();
             }
         });
-
-
-        Intent calIntent = new Intent(Intent.ACTION_INSERT);
-        calIntent.setData(CalendarContract.Events.CONTENT_URI);
-        calIntent.setType("vnd.android.cursor.item/event");
-        calIntent.putExtra(CalendarContract.Events.TITLE, "Evento Ieda");
-        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "São Cristóvão");
-        calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "Está gravida");
-        calIntent.putExtra(CalendarContract.Events.RRULE, "FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=7;UNTIL=20190907T000000Z");
-        startActivity(calIntent);
-
 
     }
 
@@ -51,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         modal.setMessage("Informe os dados do Cliente:");
         modal.setView(view);
 
-        final EditText nomeCliente = (EditText) view.findViewById(R.id.txtNome);
+        final EditText nomeCliente =  view.findViewById(R.id.txtNome);
         nomeCliente.setContentDescription("Informe o Nome");
 
-        final EditText telefoneCliente = (EditText) view.findViewById(R.id.txtTelefone);
+        final EditText telefoneCliente = view.findViewById(R.id.txtTelefone);
         telefoneCliente.setContentDescription("Informe o Telefone");
 
         modal.setPositiveButton("SALVAR", new DialogInterface.OnClickListener() {

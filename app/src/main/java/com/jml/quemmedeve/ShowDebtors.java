@@ -1,6 +1,5 @@
 package com.jml.quemmedeve;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -33,7 +32,27 @@ public class ShowDebtors extends AppCompatActivity {
         idCliente = Long.toString(it.getLongExtra("idCliente", 0));
         btnAdicionarDebito = (Button) findViewById(R.id.btnAdicionarDebito);
         adicionarDebito();
-        idCliente = "1";
+        checkDebtor();
+    }
+
+    protected void onRestart() {
+        super.onRestart();
+        checkDebtor();
+    }
+
+    private void adicionarDebito(){
+
+        btnAdicionarDebito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(ShowDebtors.this, AddPayment.class);
+                it.putExtra("idCliente", idCliente);
+                startActivity(it);
+            }
+        });
+    }
+
+    private void checkDebtor(){
 
         Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
         Cursor debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext());
@@ -67,18 +86,6 @@ public class ShowDebtors extends AppCompatActivity {
         }finally {
 
         }
-    }
-
-    private void adicionarDebito(){
-
-        btnAdicionarDebito.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(ShowDebtors.this, AddPayment.class);
-                it.putExtra("idCliente", idCliente);
-                startActivity(it);
-            }
-        });
     }
 
 }

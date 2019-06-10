@@ -83,5 +83,30 @@ public class ClienteController {
         return result;
     }
 
+    public static Cursor getAllClientsList(Context context){
+
+        DebtorsDbHelper helper = new DebtorsDbHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor result = null;
+
+        try {
+            result = db.rawQuery("SELECT debtors._id , debtors.name, printf('%.2f',SUM(debts.value)) as total FROM debtors \n" +
+                    "INNER JOIN debts ON debts.usu_id_debt = debtors._id AND debts.status_debt = 0", null);
+
+            if(result != null){
+                result.moveToFirst();
+            }
+
+        }catch (SQLException e){
+            Log.i("Erro: ", e.getMessage());
+        }finally {
+            db.close();
+        }
+
+        return result;
+    }
+
+
+
 
 }

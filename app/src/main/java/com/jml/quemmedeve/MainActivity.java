@@ -2,8 +2,7 @@ package com.jml.quemmedeve;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.util.Calendar;
-import android.provider.CalendarContract;
+import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,18 +10,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.jml.quemmedeve.controllers.ClienteController;
+import com.jml.quemmedeve.database.DebtorsDbHelper;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnAdicionarCli;
+    private ListView listDebtors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getDebtorsList();
+
         btnAdicionarCli = findViewById(R.id.btnAdicionarCli);
         btnAdicionarCli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,5 +78,19 @@ public class MainActivity extends AppCompatActivity {
         modal.setNegativeButton("CANCELAR", null);
         AlertDialog dialog = modal.create();
         dialog.show();
+    }
+
+    private void getDebtorsList(){
+
+        Cursor getDebtors = ClienteController.getAllClientsList(getApplicationContext());
+
+        if(getDebtors.getCount() > 0){
+            String[] columns = new String[] {DebtorsDbHelper.COLUMN_NAME, "total"};
+            int[] fieldsViewId = new int[] {R.id.txtNameDebtor, R.id.txtTotalDebts};
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list_debtors_fields, getDebtors, columns, fieldsViewId, 0);
+            listDebtors = findViewById(R.id.listDebtors);
+            listDebtors.setAdapter(adapter);
+        }
+
     }
 }

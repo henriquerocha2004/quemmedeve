@@ -3,6 +3,7 @@ package com.jml.quemmedeve;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.DebtController;
 import com.jml.quemmedeve.database.DebtsDbHelper;
 import com.jml.quemmedeve.database.PaymentDbHelper;
@@ -235,14 +237,17 @@ public class AddPayment extends AppCompatActivity {
                     if(result == true){
 
                         try {
-
                             if(cbLembrarMe.isChecked()){
-                                Intent it = DateUltility.setEventOnCalendar(save.datas);
+                                Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
+                                cliente.moveToFirst();
+                                String[] dados = {cliente.getString(cliente.getColumnIndex("name")), debt.get(DebtsDbHelper.COLUMN_DEBT_DESC).toString(), valorParcelado.toString(), qtdParcelas};
+                                Intent it = DateUltility.setEventOnCalendar(save.datas, dados);
                                 startActivity(it);
                             }
 
                             mensagem = "Debito cadastrado com sucesso!!";
                             Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();
+                            finish();
 
                         } catch (ParseException e) {
                             e.printStackTrace();

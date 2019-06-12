@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -52,6 +53,19 @@ public class ShowDebtors extends AppCompatActivity {
         });
     }
 
+
+    private void visualizarDebito(){
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent it = new Intent(ShowDebtors.this, DetailDebt.class);
+                it.putExtra("idDebt", id);
+                startActivity(it);
+            }
+        });
+    }
+
     private void checkDebtor(){
 
         Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
@@ -76,6 +90,8 @@ public class ShowDebtors extends AppCompatActivity {
 
                 lista = findViewById(R.id.listDebitos);
                 lista.setAdapter(adapter);
+
+                visualizarDebito();
 
                 txtNomeClient = findViewById(R.id.txtNomeClient);
                 txtValTotal = findViewById(R.id.txtValTotal);

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
+
+import ru.kolotnev.formattedittext.MaskedEditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected void onRestart() {
+        super.onRestart();
+        getDebtorsList();
+    }
+
     public void registerClientDialog(){
 
         AlertDialog.Builder modal = new AlertDialog.Builder(this);
@@ -50,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         final EditText nomeCliente =  view.findViewById(R.id.txtNome);
         nomeCliente.setContentDescription("Informe o Nome");
 
-        final EditText telefoneCliente = view.findViewById(R.id.txtTelefone);
+        final MaskedEditText telefoneCliente = view.findViewById(R.id.txtTelefone);
         telefoneCliente.setContentDescription("Informe o Telefone");
 
         modal.setPositiveButton("SALVAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                long idRow = ClienteController.store(nomeCliente.getText().toString(), telefoneCliente.getText().toString(), getApplicationContext());
+                long idRow = ClienteController.store(nomeCliente.getText().toString(), telefoneCliente.getText(true).toString(), getApplicationContext());
 
                 int duracao = Toast.LENGTH_SHORT;
                 Toast toast = null;
@@ -90,7 +98,21 @@ public class MainActivity extends AppCompatActivity {
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list_debtors_fields, getDebtors, columns, fieldsViewId, 0);
             listDebtors = findViewById(R.id.listDebtors);
             listDebtors.setAdapter(adapter);
+            callDetailsDebtor();
         }
+    }
+
+    private void callDetailsDebtor(){
+
+        listDebtors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent it = new Intent(MainActivity.this, ShowDebtors.class);
+                it.putExtra("idCliente", id);
+                startActivity(it);
+            }
+        });
+
 
     }
 }

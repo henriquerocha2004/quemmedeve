@@ -90,8 +90,8 @@ public class ClienteController {
         Cursor result = null;
 
         try {
-            result = db.rawQuery("SELECT debtors._id , debtors.name, printf('%.2f',SUM(debts.value)) as total FROM debtors \n" +
-                    "INNER JOIN debts ON debts.usu_id_debt = debtors._id AND debts.status_debt = 0", null);
+            result = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',debts.value) as total FROM debtors \n" +
+                                      "INNER JOIN debts ON debts.usu_id_debt = debtors._id AND debts.status_debt = 0 GROUP BY debtors._id ORDER BY debtors.name ASC", null);
 
             if(result != null){
                 result.moveToFirst();

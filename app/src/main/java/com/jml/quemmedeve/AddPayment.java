@@ -223,12 +223,20 @@ public class AddPayment extends AppCompatActivity {
                     debt.put(DebtsDbHelper.COLUMN_VALUE_SPLIT, valorParcelado.toString());
                     debt.put(DebtsDbHelper.COLUMN_USU_ID, idCliente);
                     debt.put(DebtsDbHelper.COLUMN_DATE_DEBT, DateUltility.getCurrentData("USA"));
-                    debt.put(DebtsDbHelper.COLUMN_STATUS_DEBT, 0);
+
 
                     ContentValues payment = new ContentValues();
                     payment.put(PaymentDbHelper.COLUMN_AMOUNT_PAY, valorParcelado.toString());
                     payment.put(PaymentDbHelper.COLUMN_PAYDAY, (formaPagamento.equals("Parcelado") ? DateUltility.formataUSA(datePaySplit.getText().toString()) : DateUltility.getCurrentData("USA")));
-                    payment.put(PaymentDbHelper.COLUMN_STATUS_PAYMENT, 0);
+
+
+                    if(qtdParcelas == "0"){
+                        debt.put(DebtsDbHelper.COLUMN_STATUS_DEBT, 1);
+                        payment.put(PaymentDbHelper.COLUMN_STATUS_PAYMENT, 1);
+                    }else{
+                        debt.put(DebtsDbHelper.COLUMN_STATUS_DEBT, 0);
+                        payment.put(PaymentDbHelper.COLUMN_STATUS_PAYMENT, 0);
+                    }
 
                     DebtController save = new DebtController();
                     boolean result = save.store(debt, payment, getApplicationContext());

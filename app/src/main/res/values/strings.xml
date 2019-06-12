@@ -4,6 +4,10 @@
     <string name="descri_o">Descrição</string>
     <string name="data_do_d_bito">Data do débito</string>
     <string name="valor">Valor</string>
+    <string name="lista_de_devedores">Lista de Devedores</string>
+    <string name="nome">Nome:</string>
+    <string name="total_da_divida">Total da Divida:</string>
+    <string name="adicionar_cliente">Adicionar Cliente</string>
 
     <string-array name="payments_options">
         <item></item>

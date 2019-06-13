@@ -48,12 +48,12 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_PAYMENT);
+        db.execSQL(SQL_CREATE_TRIGGER_UPDATE_DEBT);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_PAYMENT);
-        db.execSQL(SQL_CREATE_TRIGGER_UPDATE_DEBT);
         onCreate(db);
     }
 

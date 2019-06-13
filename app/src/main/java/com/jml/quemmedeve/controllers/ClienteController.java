@@ -8,12 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.jml.quemmedeve.database.DebtorsDbHelper;
-import com.jml.quemmedeve.database.DebtsDbHelper;
 
 public class ClienteController {
-
-
-
 
     //Função que armazena os dados do cliente
     public static long store(String nome, String telefone, Context context){
@@ -65,10 +61,11 @@ public class ClienteController {
         try {
 
          String[] arg = {id};
-         result = db.rawQuery("SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, strftime('%d-%m-%Y', debts.date_debt) as date_debt , debts.debt_split" +
+         result = db.rawQuery("SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, strftime('%d-%m-%Y', debts.date_debt) as date_debt , debts.debt_split, " +
+                                    "(CASE WHEN status_debt == 0 THEN 'Pendente' ELSE 'Pago' END) status_pay" +
                                     " FROM debtors" +
                                     " INNER JOIN debts ON debts.usu_id_debt = debtors._id" +
-                                    " WHERE debtors._id = ? AND debts.status_debt = 0", arg);
+                                    " WHERE debtors._id = ? ORDER BY status_pay DESC", arg);
 
          if(result != null){
              result.moveToFirst();

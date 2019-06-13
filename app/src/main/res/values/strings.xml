@@ -24,6 +24,10 @@
         <item>11x</item>
         <item>12x</item>
     </string-array>
+
+    <string-array name="splits">
+        
+    </string-array>
 </resources>
 
 

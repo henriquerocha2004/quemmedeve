@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -97,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
             int[] fieldsViewId = new int[] {R.id.txtNameDebtor, R.id.txtTotalDebts};
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list_debtors_fields, getDebtors, columns, fieldsViewId, 0);
             listDebtors = findViewById(R.id.listDebtors);
+
+            if(listDebtors.getHeaderViewsCount() == 0){
+                LayoutInflater inflater = getLayoutInflater();
+                ViewGroup header = (ViewGroup) inflater.inflate(R.layout.desc_fields_list_debtors, listDebtors, false);
+                listDebtors.addHeaderView(header, null, false);
+            }
+
             listDebtors.setAdapter(adapter);
             callDetailsDebtor();
         }

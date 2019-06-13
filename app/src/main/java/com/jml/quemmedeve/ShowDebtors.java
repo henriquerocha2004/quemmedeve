@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -83,12 +85,18 @@ public class ShowDebtors extends AppCompatActivity {
                 debitos.moveToFirst();
 
 
-                String[] collumnsBd = new String[] {DebtsDbHelper.COLUMN_DEBT_DESC, DebtsDbHelper.COLUMN_VALUE, DebtsDbHelper.COLUMN_DATE_DEBT, DebtsDbHelper.COLUMN_DEBT_SPLIT};
-                int[] idFieldsView = new int[] {R.id.desc_debt,R.id.date_debt,R.id.debt_split, R.id.debt_value};
+                String[] collumnsBd = new String[] {DebtsDbHelper.COLUMN_DEBT_DESC, DebtsDbHelper.COLUMN_VALUE, DebtsDbHelper.COLUMN_DATE_DEBT, DebtsDbHelper.COLUMN_DEBT_SPLIT, "status_pay"};
+                int[] idFieldsView = new int[] {R.id.desc_debt,R.id.date_debt,R.id.debt_split, R.id.debt_value, R.id.txtStatus};
 
                 SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.fields_list_view_cliente, debitos,collumnsBd,idFieldsView, 0);
-
                 lista = findViewById(R.id.listDebitos);
+
+                if(lista.getHeaderViewsCount() == 0){
+                    LayoutInflater inflater = getLayoutInflater();
+                    ViewGroup header = (ViewGroup) inflater.inflate(R.layout.desc_fields_show_debtor, lista, false);
+                    lista.addHeaderView(header, null, false);
+                }
+
                 lista.setAdapter(adapter);
 
                 visualizarDebito();

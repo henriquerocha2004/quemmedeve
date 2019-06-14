@@ -1,11 +1,13 @@
 package com.jml.quemmedeve;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -33,7 +35,40 @@ public class ShowDebtors extends AppCompatActivity {
         idCliente = Long.toString(it.getLongExtra("idCliente", 0));
         btnAdicionarDebito = (Button) findViewById(R.id.btnAdicionarDebito);
         adicionarDebito();
-        idCliente = "1";
+        checkDebtor();
+    }
+
+    protected void onRestart() {
+        super.onRestart();
+        checkDebtor();
+    }
+
+    private void adicionarDebito(){
+
+        btnAdicionarDebito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(ShowDebtors.this, AddPayment.class);
+                it.putExtra("idCliente", idCliente);
+                startActivity(it);
+            }
+        });
+    }
+
+
+    private void visualizarDebito(){
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent it = new Intent(ShowDebtors.this, DetailDebt.class);
+                it.putExtra("idDebt", id);
+                startActivity(it);
+            }
+        });
+    }
+
+    private void checkDebtor(){
 
         Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
         Cursor debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext());
@@ -50,13 +85,21 @@ public class ShowDebtors extends AppCompatActivity {
                 debitos.moveToFirst();
 
 
-                String[] collumnsBd = new String[] {DebtsDbHelper.COLUMN_DEBT_DESC, DebtsDbHelper.COLUMN_VALUE, DebtsDbHelper.COLUMN_DATE_DEBT, DebtsDbHelper.COLUMN_DEBT_SPLIT};
-                int[] idFieldsView = new int[] {R.id.desc_debt,R.id.date_debt,R.id.debt_split, R.id.debt_value};
+                String[] collumnsBd = new String[] {DebtsDbHelper.COLUMN_DEBT_DESC, DebtsDbHelper.COLUMN_VALUE, DebtsDbHelper.COLUMN_DATE_DEBT, DebtsDbHelper.COLUMN_DEBT_SPLIT, "status_pay"};
+                int[] idFieldsView = new int[] {R.id.desc_debt,R.id.date_debt,R.id.debt_split, R.id.debt_value, R.id.txtStatus};
 
                 SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.fields_list_view_cliente, debitos,collumnsBd,idFieldsView, 0);
-
                 lista = findViewById(R.id.listDebitos);
+
+                if(lista.getHeaderViewsCount() == 0){
+                    LayoutInflater inflater = getLayoutInflater();
+                    ViewGroup header = (ViewGroup) inflater.inflate(R.layout.desc_fields_show_debtor, lista, false);
+                    lista.addHeaderView(header, null, false);
+                }
+
                 lista.setAdapter(adapter);
+
+                visualizarDebito();
 
                 txtNomeClient = findViewById(R.id.txtNomeClient);
                 txtValTotal = findViewById(R.id.txtValTotal);
@@ -67,18 +110,6 @@ public class ShowDebtors extends AppCompatActivity {
         }finally {
 
         }
-    }
-
-    private void adicionarDebito(){
-
-        btnAdicionarDebito.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(ShowDebtors.this, AddPayment.class);
-                it.putExtra("idCliente", idCliente);
-                startActivity(it);
-            }
-        });
     }
 
 }

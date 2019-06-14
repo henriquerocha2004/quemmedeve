@@ -26,6 +26,18 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
                     COLUMN_PAYDAY + " DATE NOT NULL, "+
                     COLUMN_STATUS_PAYMENT + " BOOLEAN NOT NULL DEFAULT(0))";
 
+    private static final String SQL_CREATE_TRIGGER_UPDATE_DEBT =
+            "CREATE TRIGGER update_debt" +
+               "AFTER UPDATE OF " + COLUMN_STATUS_PAYMENT + " ON " + TABLE_NAME +
+               " FOR EACH ROW"+
+            " BEGIN " +
+                "UPDATE " + DebtsDbHelper.TABLE_NAME + " SET " + DebtsDbHelper.COLUMN_STATUS_DEBT + " = (" +
+                    "CASE WHEN ( SELECT COUNT("+COLUMN_ID+") AS parcPagas FROM "+TABLE_NAME+" as pay WHERE " +
+                                " pay."+COLUMN_ID+" = New."+COLUMN_DEBT_ID+" AND pay."+COLUMN_STATUS_PAYMENT+" = 1)" +
+                    " == (SELECT "+DebtsDbHelper.COLUMN_DEBT_SPLIT+" FROM "+DebtsDbHelper.TABLE_NAME+" WHERE "+DebtsDbHelper.COLUMN_ID+" = New."+COLUMN_DEBT_ID+")" +
+                    "THEN 1 ELSE 0 END)" +
+                    " WHERE "+COLUMN_ID+" = New."+COLUMN_DEBT_ID+";" +
+            "END;";
 
 
     public PaymentDbHelper(Context context){
@@ -36,6 +48,7 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_PAYMENT);
+        db.execSQL(SQL_CREATE_TRIGGER_UPDATE_DEBT);
     }
 
     @Override

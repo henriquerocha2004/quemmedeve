@@ -5,17 +5,11 @@ import android.provider.CalendarContract;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
-
-import static android.support.v4.content.ContextCompat.startActivity;
 
 public class DateUltility {
-    //        20190907T000000Z
     private static SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat formatoUSA = new SimpleDateFormat( "yyyy-MM-dd");
     private static SimpleDateFormat formatoParaCalendário = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
@@ -59,7 +53,7 @@ public class DateUltility {
         return dt;
     }
 
-    public static Intent setEventOnCalendar(List<String> datas) throws ParseException {
+    public static Intent setEventOnCalendar(List<String> datas, String[] dados) throws ParseException {
 
             int quantidadeDeDatas = datas.size();
 
@@ -79,18 +73,16 @@ public class DateUltility {
             System.out.println(String.format("FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=%s;UNTIL=%s", diaPrimeiraParcela, dataFinal));
 
             cal.setTime(dia);
-
+            long time = cal.getTimeInMillis();
 
             Intent calIntent = new Intent(Intent.ACTION_INSERT);
             calIntent.setData(CalendarContract.Events.CONTENT_URI);
             calIntent.setType("vnd.android.cursor.item/event");
-            calIntent.putExtra(CalendarContract.Events.TITLE, "Evento de Vendas");
-            calIntent.putExtra(CalendarContract.Events.DTSTART, cal.getTimeInMillis());
-            calIntent.putExtra(CalendarContract.Events.DURATION, dataFinal);
-            calIntent.putExtra(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault());
-
-            calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Lauro de Freitas");
-            calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "Venda de um aparelho mi Valor da parcela 100,00");
+            calIntent.putExtra(CalendarContract.Events.TITLE, "Dívida de "+dados[0]);
+            calIntent.putExtra(CalendarContract.Events.DESCRIPTION, dados[1] + " - Valor parcelado a cobrar: R$ "+ dados[2]+", dividido em "+ dados[3]+" vezes.");
+            calIntent.putExtra(CalendarContract.Events.EVENT_TIMEZONE, java.util.Locale.getDefault());
+            calIntent.putExtra("beginTime", time + 36000000);
+            calIntent.putExtra("endTime", time + 36000000 + 1800000);
             calIntent.putExtra(CalendarContract.Events.RRULE, String.format("FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=%s;UNTIL=%s", diaPrimeiraParcela, dataFinal));
 
             return calIntent;

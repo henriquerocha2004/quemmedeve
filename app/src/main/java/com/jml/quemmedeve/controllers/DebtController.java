@@ -2,9 +2,12 @@ package com.jml.quemmedeve.controllers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.jml.quemmedeve.database.DebtorsDbHelper;
 import com.jml.quemmedeve.database.DebtsDbHelper;
 import com.jml.quemmedeve.database.PaymentDbHelper;
 import com.jml.quemmedeve.ultility.DateUltility;
@@ -51,6 +54,39 @@ public class DebtController {
             db.endTransaction();
         }
         return false;
+    }
+
+    public static Cursor getdebtAndPaymentById(String id, Context context){
+
+        DebtsDbHelper helper = new DebtsDbHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor result = null;
+        try {
+            String[] arg = {id};
+            result =  db.rawQuery("SELECT " +
+                                "dbt."+DebtsDbHelper.COLUMN_DEBT_DESC+","+
+                                " strftime('%d-%m-%Y', dbt."+DebtsDbHelper.COLUMN_DATE_DEBT+") date_debt, " +
+                                " dbt."+DebtsDbHelper.COLUMN_VALUE+"," +
+                                "dbt."+DebtsDbHelper.COLUMN_VALUE_SPLIT+", " +
+                                "dbt."+DebtsDbHelper.COLUMN_DEBT_SPLIT+","+
+                                "q.parc," +
+                                "(printf('%.2f', dbt."+DebtsDbHelper.COLUMN_VALUE+" - (q.parc * dbt."+DebtsDbHelper.COLUMN_VALUE_SPLIT+"))) valor_restante " +
+                            "FROM "+DebtsDbHelper.TABLE_NAME+" as dbt, " +
+                                  "( SELECT COUNT(pay."+PaymentDbHelper.COLUMN_ID+") parc " +
+                                  " FROM "+DebtsDbHelper.TABLE_NAME+", "+PaymentDbHelper.TABLE_NAME+" as pay " +
+                                    " WHERE pay."+PaymentDbHelper.COLUMN_DEBT_ID+" = "+DebtsDbHelper.TABLE_NAME+"."+DebtsDbHelper.COLUMN_ID+"" +
+                                            " AND pay."+PaymentDbHelper.COLUMN_STATUS_PAYMENT+" = 1 ) q" +
+                                    " WHERE dbt."+DebtsDbHelper.COLUMN_ID+" = ?", arg);
+           if(result != null){
+               result.moveToFirst();
+           }
+
+        }catch (SQLException e){
+            Log.i("Erro: ", e.getMessage());
+        }
+
+        return result;
+
     }
 
 }

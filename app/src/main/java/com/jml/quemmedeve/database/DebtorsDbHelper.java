@@ -48,6 +48,8 @@ public class DebtorsDbHelper extends SQLiteOpenHelper {
 
         db.execSQL(debtTable.getSQL_CREATE_DEBTS());
         db.execSQL(payTable.getSQL_CREATE_PAYMENT());
+        db.execSQL(payTable.getSQL_CREATE_TRIGGER_UPDATE_DEBT());
         db.execSQL(userTable.getSQL_CREATE_USER());
+
     }
 }

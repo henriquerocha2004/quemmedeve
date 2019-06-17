@@ -67,6 +67,12 @@ public class DetailDebt extends AppCompatActivity {
         txtNumSplits.setText(getDebt.getString(getDebt.getColumnIndex("debt_split")));
         txtSplitPay.setText(getDebt.getString(getDebt.getColumnIndex("parc")));
         txtRemainingValue.setText("R$ "+getDebt.getString(getDebt.getColumnIndex("valor_restante")));
+
+        if(txtNumSplits.getText().equals(txtSplitPay.getText().toString())){
+            btnPay.setEnabled(false);
+        }
+
+
     }
 
     private void callPayment(){
@@ -129,7 +135,6 @@ public class DetailDebt extends AppCompatActivity {
 
                 AlertDialog dialog = modal.create();
                 dialog.show();
-
 
             }
         });

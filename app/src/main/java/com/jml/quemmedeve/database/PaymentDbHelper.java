@@ -28,12 +28,12 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_TRIGGER_UPDATE_DEBT =
             "CREATE TRIGGER update_debt" +
-               "AFTER UPDATE OF " + COLUMN_STATUS_PAYMENT + " ON " + TABLE_NAME +
+               " AFTER UPDATE OF " + COLUMN_STATUS_PAYMENT + " ON " + TABLE_NAME +
                " FOR EACH ROW"+
             " BEGIN " +
                 "UPDATE " + DebtsDbHelper.TABLE_NAME + " SET " + DebtsDbHelper.COLUMN_STATUS_DEBT + " = (" +
                     "CASE WHEN ( SELECT COUNT("+COLUMN_ID+") AS parcPagas FROM "+TABLE_NAME+" as pay WHERE " +
-                                " pay."+COLUMN_ID+" = New."+COLUMN_DEBT_ID+" AND pay."+COLUMN_STATUS_PAYMENT+" = 1)" +
+                                " pay."+COLUMN_DEBT_ID+" = New."+COLUMN_DEBT_ID+" AND pay."+COLUMN_STATUS_PAYMENT+" = 1)" +
                     " == (SELECT "+DebtsDbHelper.COLUMN_DEBT_SPLIT+" FROM "+DebtsDbHelper.TABLE_NAME+" WHERE "+DebtsDbHelper.COLUMN_ID+" = New."+COLUMN_DEBT_ID+")" +
                     "THEN 1 ELSE 0 END)" +
                     " WHERE "+COLUMN_ID+" = New."+COLUMN_DEBT_ID+";" +
@@ -60,6 +60,7 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     public String getSQL_CREATE_PAYMENT(){
         return SQL_CREATE_PAYMENT;
     }
+    public String getSQL_CREATE_TRIGGER_UPDATE_DEBT(){ return SQL_CREATE_TRIGGER_UPDATE_DEBT;}
 
 
 }

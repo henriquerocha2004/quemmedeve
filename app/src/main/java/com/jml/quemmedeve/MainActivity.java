@@ -100,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list_debtors_fields, getDebtors, columns, fieldsViewId, 0);
             listDebtors = findViewById(R.id.listDebtors);
 
-            if(listDebtors.getHeaderViewsCount() == 0){
-                LayoutInflater inflater = getLayoutInflater();
-                ViewGroup header = (ViewGroup) inflater.inflate(R.layout.desc_fields_list_debtors, listDebtors, false);
-                listDebtors.addHeaderView(header, null, false);
-            }
+//            if(listDebtors.getHeaderViewsCount() == 0){
+//                LayoutInflater inflater = getLayoutInflater();
+//                ViewGroup header = (ViewGroup) inflater.inflate(R.layout.desc_fields_list_debtors, listDebtors, false);
+//                listDebtors.addHeaderView(header, null, false);
+//            }
 
             listDebtors.setAdapter(adapter);
             callDetailsDebtor();

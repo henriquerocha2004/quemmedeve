@@ -25,15 +25,15 @@
         android:layout_marginBottom="8dp"
         android:text="@string/lista_de_devedores"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:fontFamily="sans-serif-smallcaps"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintVertical_bias="0.045" />
 
     <Button
         android:id="@+id/btnAdicionarCli"
@@ -50,15 +50,15 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.987" />
 
     <ListView
         android:id="@+id/listDebtors"
-        android:layout_width="587dp"
-        android:layout_height="156dp"
+        android:layout_width="263dp"
+        android:layout_height="278dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -67,9 +67,9 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintVertical_bias="0.619" />
 
 </android.support.constraint.ConstraintLayout>

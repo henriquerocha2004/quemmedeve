@@ -30,9 +30,6 @@ public class DetailDebt extends AppCompatActivity {
     private Button btnPay;
     private List<Integer> idParcelas = new ArrayList<>();
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +99,6 @@ public class DetailDebt extends AppCompatActivity {
 
 
                     do{
-
                         idParcelas.add(payment.getInt(payment.getColumnIndex("_id")));
                         parcelasSp.add("Vencimento dia: " + payment.getString(payment.getColumnIndex("payday")));
 

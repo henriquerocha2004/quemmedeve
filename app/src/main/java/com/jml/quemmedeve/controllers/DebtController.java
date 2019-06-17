@@ -62,7 +62,7 @@ public class DebtController {
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor result = null;
         try {
-            String[] arg = {id};
+            String[] arg = {id, id};
             result =  db.rawQuery("SELECT " +
                                 "dbt."+DebtsDbHelper.COLUMN_DEBT_DESC+","+
                                 " strftime('%d-%m-%Y', dbt."+DebtsDbHelper.COLUMN_DATE_DEBT+") date_debt, " +
@@ -73,8 +73,8 @@ public class DebtController {
                                 "(printf('%.2f', dbt."+DebtsDbHelper.COLUMN_VALUE+" - (q.parc * dbt."+DebtsDbHelper.COLUMN_VALUE_SPLIT+"))) valor_restante " +
                             "FROM "+DebtsDbHelper.TABLE_NAME+" as dbt, " +
                                   "( SELECT COUNT(pay."+PaymentDbHelper.COLUMN_ID+") parc " +
-                                  " FROM "+DebtsDbHelper.TABLE_NAME+", "+PaymentDbHelper.TABLE_NAME+" as pay " +
-                                    " WHERE pay."+PaymentDbHelper.COLUMN_DEBT_ID+" = "+DebtsDbHelper.TABLE_NAME+"."+DebtsDbHelper.COLUMN_ID+"" +
+                                  " FROM "+PaymentDbHelper.TABLE_NAME+" as pay " +
+                                    " WHERE pay."+PaymentDbHelper.COLUMN_DEBT_ID+" = ?" +
                                             " AND pay."+PaymentDbHelper.COLUMN_STATUS_PAYMENT+" = 1 ) q" +
                                     " WHERE dbt."+DebtsDbHelper.COLUMN_ID+" = ?", arg);
            if(result != null){
@@ -86,6 +86,52 @@ public class DebtController {
         }
 
         return result;
+
+    }
+
+    public static Cursor getDebtForPayment(String id, Context context){
+
+        PaymentDbHelper helper = new PaymentDbHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor result = null;
+
+        try {
+            String[] arg = {id};
+
+            result = db.rawQuery("SELECT _id, printf('%.2f', amount_to_pay) as amount_to_pay, strftime('%d-%m-%Y', payday) as payday FROM payment WHERE debt_id = ? AND status_payment = 0", arg);
+
+            if(result != null){
+                result.moveToFirst();
+            }
+
+        }catch (SQLException e){
+            Log.i("Erro: ", e.getMessage());
+        }
+
+        return result;
+
+    }
+
+
+    public static boolean makePayment(Context context, String id){
+
+        PaymentDbHelper helper = new PaymentDbHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put("status_payment", 1);
+        Cursor result = null;
+
+        try {
+
+            String[] args = {id};
+            db.update(PaymentDbHelper.TABLE_NAME, valores, "_id = ?", args);
+
+        }catch (SQLException e){
+            Log.i("Erro: ", e.getMessage());
+            return false;
+        }
+
+        return true;
 
     }
 

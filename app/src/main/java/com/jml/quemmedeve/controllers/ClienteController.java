@@ -7,7 +7,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jml.quemmedeve.bean.DebtorsBean;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteController {
 
@@ -80,18 +84,26 @@ public class ClienteController {
         return result;
     }
 
-    public static Cursor getAllClientsList(Context context){
+    public static List<DebtorsBean> getAllClientsList(Context context){
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor result = null;
+        Cursor debtors = null;
+        List<DebtorsBean> listDebtors = new ArrayList<>();
 
         try {
-            result = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',SUM(debts.value)) as total FROM debtors \n" +
+            debtors = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',SUM(debts.value)) as total FROM debtors \n" +
                                       "INNER JOIN debts ON debts.usu_id_debt = debtors._id AND debts.status_debt = 0 GROUP BY debtors._id ORDER BY debtors.name ASC", null);
 
-            if(result != null){
-                result.moveToFirst();
+            if(debtors != null){
+                debtors.moveToFirst();
+
+                do{
+                    DebtorsBean debtor = new DebtorsBean();
+                    debtor.setName(debtors.getString(1));
+                    debtor.setValueDebt(debtors.getString(2));
+                    listDebtors.add(debtor);
+                }while(debtors.moveToNext());
             }
 
         }catch (SQLException e){
@@ -100,7 +112,7 @@ public class ClienteController {
             db.close();
         }
 
-        return result;
+        return listDebtors;
     }
 
 

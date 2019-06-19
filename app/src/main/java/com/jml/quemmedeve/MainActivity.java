@@ -112,16 +112,32 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //            listDebtors.setAdapter(adapter);
 
-            listDebtors = findViewById(R.id.listDebtors);
-            listDebtors.setHasFixedSize(true);
+            if(!getDebtors.isEmpty()){
+                listDebtors = findViewById(R.id.listDebtors);
+                listDebtors.setHasFixedSize(true);
+                listDebtors.setClickable(true);
 
-            LinearLayoutManager ln = new LinearLayoutManager(getApplicationContext());
-            listDebtors.setLayoutManager(ln);
+                LinearLayoutManager ln = new LinearLayoutManager(getApplicationContext());
+                listDebtors.setLayoutManager(ln);
 
-            Adapter adp = new Adapter(getDebtors, getApplicationContext());
-            listDebtors.setAdapter(adp);
+                final Adapter adp = new Adapter(getDebtors, getApplicationContext());
+                adp.setClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       long id = adp.getIdDebtor(listDebtors.indexOfChild(v));
+                        Intent it = new Intent(MainActivity.this, ShowDebtors.class);
+                        it.putExtra("idCliente", id);
+                        startActivity(it);
+                    }
+                });
 
-            callDetailsDebtor();
+                listDebtors.setAdapter(adp);
+
+                callDetailsDebtor();
+            }
+
+
+
 //        }
     }
 
@@ -135,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(it);
 //            }
 //        });
+
+
 
 
     }

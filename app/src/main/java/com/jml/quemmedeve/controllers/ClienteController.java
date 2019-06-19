@@ -95,11 +95,13 @@ public class ClienteController {
             debtors = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',SUM(debts.value)) as total FROM debtors \n" +
                                       "INNER JOIN debts ON debts.usu_id_debt = debtors._id AND debts.status_debt = 0 GROUP BY debtors._id ORDER BY debtors.name ASC", null);
 
-            if(debtors != null){
+
+            if(debtors.getCount() > 0){
                 debtors.moveToFirst();
 
                 do{
                     DebtorsBean debtor = new DebtorsBean();
+                    debtor.setId(debtors.getInt(0));
                     debtor.setName(debtors.getString(1));
                     debtor.setValueDebt(debtors.getString(2));
                     listDebtors.add(debtor);

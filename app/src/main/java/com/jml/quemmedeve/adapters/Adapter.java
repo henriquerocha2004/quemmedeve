@@ -15,6 +15,7 @@ public class Adapter extends RecyclerView.Adapter {
 
     private List<DebtorsBean> list;
     private Context context;
+    private View.OnClickListener mClickListener;
 
     public Adapter(List<DebtorsBean> list, Context context){
         this.list = list;
@@ -26,6 +27,12 @@ public class Adapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_debtors_fields, viewGroup, false);
         DebtorsViewHolder holder = new DebtorsViewHolder(view);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mClickListener.onClick(v);
+            }
+        });
         return holder;
     }
 
@@ -47,4 +54,13 @@ public class Adapter extends RecyclerView.Adapter {
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
+    public void setClickListener(View.OnClickListener callback){
+        mClickListener = callback;
+    }
+
+    public int getIdDebtor(int position){
+        return list.get(position).getId();
+    }
+
 }

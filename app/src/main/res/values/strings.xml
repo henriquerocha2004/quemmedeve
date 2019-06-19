@@ -8,6 +8,9 @@
     <string name="nome">Nome:</string>
     <string name="total_da_divida">Total da Divida:</string>
     <string name="adicionar_cliente">Adicionar Cliente</string>
+    <string name="valor_a_receber">Valor a Receber:</string>
+    <string name="r_10_000_00">R$ 10.000,00</string>
+    <string name="quem_me_deve">Quem me deve?</string>
 
     <string-array name="payments_options">
         <item></item>

@@ -92,8 +92,10 @@ public class ClienteController {
         List<DebtorsBean> listDebtors = new ArrayList<>();
 
         try {
-            debtors = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',SUM(debts.value)) as total FROM debtors \n" +
-                                      "INNER JOIN debts ON debts.usu_id_debt = debtors._id AND debts.status_debt = 0 GROUP BY debtors._id ORDER BY debtors.name ASC", null);
+            debtors = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',SUM(payment.amount_to_pay)) as total FROM debtors \n" +
+                                      "INNER JOIN debts ON debts.usu_id_debt = debtors._id " +
+                                      "INNER JOIN payment ON payment.debt_id = debts.id "+
+                                      " WHERE payment.status_payment = 0 GROUP BY debtors._id ORDER BY debtors.name ASC", null);
 
 
             if(debtors.getCount() > 0){
@@ -116,8 +118,4 @@ public class ClienteController {
 
         return listDebtors;
     }
-
-
-
-
 }

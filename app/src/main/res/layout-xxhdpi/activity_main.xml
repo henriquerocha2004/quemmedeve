@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -30,10 +31,10 @@
         app:fontFamily="sans-serif-smallcaps"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.572"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138" />
+        app:layout_constraintVertical_bias="0.077" />
 
     <Button
         android:id="@+id/btnAdicionarCli"
@@ -74,8 +75,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listDebtors"
-        android:layout_width="333dp"
-        android:layout_height="404dp"
+        android:layout_width="330dp"
+        android:layout_height="367dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -84,9 +85,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.546">
+        app:layout_constraintVertical_bias="0.551">
 
     </android.support.v7.widget.RecyclerView>
 

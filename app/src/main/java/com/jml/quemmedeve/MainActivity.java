@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         getDebtorsList();
+        getReceivables();
     }
 
     public void registerClientDialog(){

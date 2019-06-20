@@ -94,7 +94,7 @@ public class ClienteController {
         try {
             debtors = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',SUM(payment.amount_to_pay)) as total FROM debtors \n" +
                                       "INNER JOIN debts ON debts.usu_id_debt = debtors._id " +
-                                      "INNER JOIN payment ON payment.debt_id = debts.id "+
+                                      "INNER JOIN payment ON payment.debt_id = debts._id "+
                                       " WHERE payment.status_payment = 0 GROUP BY debtors._id ORDER BY debtors.name ASC", null);
 
 

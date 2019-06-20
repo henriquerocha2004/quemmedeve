@@ -2,8 +2,6 @@ package com.jml.quemmedeve;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.CalendarContract;
-import android.database.Cursor;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,24 +10,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.jml.quemmedeve.adapters.Adapter;
+import com.jml.quemmedeve.adapters.AdapterListDebtors;
 import com.jml.quemmedeve.bean.DebtorsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.PaymentController;
-import com.jml.quemmedeve.database.DebtorsDbHelper;
-
 import java.util.List;
-
 import ru.kolotnev.formattedittext.MaskedEditText;
 
 public class MainActivity extends AppCompatActivity {
@@ -122,13 +111,15 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager ln = new LinearLayoutManager(getApplicationContext());
                 listDebtors.setLayoutManager(ln);
 
-                final Adapter adp = new Adapter(getDebtors, getApplicationContext());
+                final AdapterListDebtors adp = new AdapterListDebtors(getDebtors, getApplicationContext());
                 adp.setClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                        long id = adp.getIdDebtor(listDebtors.indexOfChild(v));
+                        String dividaTotal = adp.getTotalValor(listDebtors.indexOfChild(v));
                         Intent it = new Intent(MainActivity.this, ShowDebtors.class);
                         it.putExtra("idCliente", id);
+                        it.putExtra("dividaTotal", dividaTotal);
                         startActivity(it);
                     }
                 });
@@ -139,9 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void getReceivables(){
         String valorReceber = PaymentController.receivables(getApplicationContext());
-
-        System.out.println(valorReceber);
-
         valor.setText("R$ "+valorReceber);
     }
 }

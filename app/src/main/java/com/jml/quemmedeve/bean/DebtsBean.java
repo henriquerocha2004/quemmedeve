@@ -8,8 +8,16 @@ public class DebtsBean {
    private String value;
    private String date_debt;
    private String debt_split;
+   private String value_split;
    private int status_debt;
 
+    public String getValue_split() {
+        return value_split;
+    }
+
+    public void setValue_split(String value_split) {
+        this.value_split = value_split;
+    }
 
     public int getId() {
         return id;

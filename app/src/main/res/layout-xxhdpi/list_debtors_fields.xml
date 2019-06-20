@@ -41,7 +41,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtTotalDebts"
+                android:id="@+id/debt_value"
                 android:layout_width="189dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtNameDebtor"

@@ -8,16 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.jml.quemmedeve.R;
 import com.jml.quemmedeve.bean.DebtorsBean;
-import com.jml.quemmedeve.viewHolders.DebtorsViewHolder;
+import com.jml.quemmedeve.viewHolders.ListDebtorsViewHolder;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter {
+public class AdapterListDebtors extends RecyclerView.Adapter {
 
     private List<DebtorsBean> list;
     private Context context;
     private View.OnClickListener mClickListener;
 
-    public Adapter(List<DebtorsBean> list, Context context){
+    public AdapterListDebtors(List<DebtorsBean> list, Context context){
         this.list = list;
         this.context = context;
     }
@@ -26,7 +26,7 @@ public class Adapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_debtors_fields, viewGroup, false);
-        DebtorsViewHolder holder = new DebtorsViewHolder(view);
+        ListDebtorsViewHolder holder = new ListDebtorsViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +39,7 @@ public class Adapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        DebtorsViewHolder holder = (DebtorsViewHolder) viewHolder;
+        ListDebtorsViewHolder holder = (ListDebtorsViewHolder) viewHolder;
         DebtorsBean debtor = list.get(i);
         holder.nome.setText(debtor.getName());
         holder.debtValue.setText(debtor.getValueDebt());
@@ -61,6 +61,10 @@ public class Adapter extends RecyclerView.Adapter {
 
     public int getIdDebtor(int position){
         return list.get(position).getId();
+    }
+
+    public String getTotalValor(int position){
+        return list.get(position).getValueDebt();
     }
 
 }

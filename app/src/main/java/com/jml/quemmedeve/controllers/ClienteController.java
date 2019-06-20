@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.jml.quemmedeve.bean.DebtorsBean;
+import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
 
 import java.util.ArrayList;
@@ -56,23 +57,42 @@ public class ClienteController {
         return cursor;
     }
 
-    public static Cursor getDebtsClient(String id, Context context){
+    public static List<DebtsBean> getDebtsClient(String id, Context context){
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor result = null;
-
+        Cursor debts = null;
+        List<DebtsBean> debtsList = new ArrayList<>();
         try {
 
          String[] arg = {id};
-         result = db.rawQuery("SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, strftime('%d-%m-%Y', debts.date_debt) as date_debt , debts.debt_split, " +
-                                    "(CASE WHEN status_debt == 0 THEN 'Pendente' ELSE 'Pago' END) status_pay" +
-                                    " FROM debtors" +
-                                    " INNER JOIN debts ON debts.usu_id_debt = debtors._id" +
-                                    " WHERE debtors._id = ? ORDER BY status_pay DESC", arg);
+            debts = db.rawQuery(
+                  "SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, printf('%.2f', debts.value_split) as value_split , debts.debt_split, " +
+                      "debts.status_debt" +
+                      " FROM debts" +
+                      " WHERE debts.usu_id_debt = ? ORDER BY status_debt DESC", arg);
 
-         if(result != null){
-             result.moveToFirst();
+
+         System.out.println(debts.getCount());
+
+         if(debts.getCount() > 0){
+             debts.moveToFirst();
+
+             do{
+                 DebtsBean debt = new DebtsBean();
+                 debt.setId(debts.getInt(0));
+                 debt.setDebt_desc(debts.getString(1));
+                 debt.setValue(debts.getString(2));
+                 debt.setValue_split(debts.getString(3));
+                 debt.setDebt_split(debts.getString(4));
+                 debt.setStatus_debt(debts.getInt(5));
+
+                 System.out.println(debt.toString());
+
+
+                 debtsList.add(debt);
+             }while (debts.moveToNext());
+
          }
 
         }catch (SQLException e){
@@ -81,7 +101,7 @@ public class ClienteController {
             db.close();
         }
 
-        return result;
+        return debtsList;
     }
 
     public static List<DebtorsBean> getAllClientsList(Context context){

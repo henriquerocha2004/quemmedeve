@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.jml.quemmedeve.R;
 import com.jml.quemmedeve.bean.DebtsBean;
+import com.jml.quemmedeve.ultility.NumberUtility;
 import com.jml.quemmedeve.viewHolders.ListDebtsViewHolder;
 import java.util.List;
 
@@ -47,8 +48,8 @@ public class AdapterListDebts extends RecyclerView.Adapter {
 
         DebtsBean debt = list.get(i);
         holder.desc_debt.setText(debt.getDebt_desc());
-        holder.debt_value.setText("R$ "+debt.getValue());
-        holder.split_value.setText("R$ "+debt.getValue_split());
+        holder.debt_value.setText(NumberUtility.converterBr(debt.getValue()));
+        holder.split_value.setText(NumberUtility.converterBr(debt.getValue_split()));
         holder.debt_split.setText(debt.getDebt_split());
         holder.txtStatus.setText((debt.getStatus_debt() == 0 ? "Pendente" : "Pago"));
     }

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.jml.quemmedeve.bean.DebtorsBean;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
+import com.jml.quemmedeve.ultility.NumberUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,14 +40,16 @@ public class ClienteController {
 
        try {
 
-           String[] campos = {DebtorsDbHelper.COLUMN_NAME};
-           String condicao = DebtorsDbHelper.COLUMN_ID + " = ?";
-           String[] args = {id};
-           cursor = db.query(DebtorsDbHelper.TABLE_NAME, campos,condicao,args,null,null,null);
+          String[] args = {id};
 
-           if(cursor != null){
-               cursor.moveToFirst();
-           }
+          cursor = db.rawQuery("SELECT debtors.name, debtors.phone, printf('%.2f', SUM(payment.amount_to_pay)) as valor_total FROM debtors" +
+                  " INNER JOIN debts ON debts.usu_id_debt = debtors._id" +
+                  " INNER JOIN payment ON payment.debt_id = debts._id " +
+                  "WHERE debtors._id = ? AND payment.status_payment = 0", args);
+
+          if(cursor != null){
+              cursor.moveToFirst();
+          }
 
        }catch (SQLException e){
            Log.i("Erro: ", e.getMessage());
@@ -125,7 +128,7 @@ public class ClienteController {
                     DebtorsBean debtor = new DebtorsBean();
                     debtor.setId(debtors.getInt(0));
                     debtor.setName(debtors.getString(1));
-                    debtor.setValueDebt(debtors.getString(2));
+                    debtor.setValueDebt(NumberUtility.converterBr(debtors.getString(2)));
                     listDebtors.add(debtor);
                 }while(debtors.moveToNext());
             }

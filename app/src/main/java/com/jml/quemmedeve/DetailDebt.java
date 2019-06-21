@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jml.quemmedeve.controllers.DebtController;
+import com.jml.quemmedeve.ultility.NumberUtility;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,10 +62,10 @@ public class DetailDebt extends AppCompatActivity {
 
         txtDescDebt.setText(getDebt.getString(getDebt.getColumnIndex("debt_desc")));
         txtDataDebt.setText(getDebt.getString(getDebt.getColumnIndex("date_debt")));
-        txtValueTotal.setText("R$ "+getDebt.getString(getDebt.getColumnIndex("value")));
+        txtValueTotal.setText(NumberUtility.converterBr(getDebt.getString(getDebt.getColumnIndex("value"))));
         txtNumSplits.setText(getDebt.getString(getDebt.getColumnIndex("debt_split")));
         txtSplitPay.setText(getDebt.getString(getDebt.getColumnIndex("parc")));
-        txtRemainingValue.setText("R$ "+getDebt.getString(getDebt.getColumnIndex("valor_restante")));
+        txtRemainingValue.setText(NumberUtility.converterBr(getDebt.getString(getDebt.getColumnIndex("valor_restante"))));
 
         if(txtNumSplits.getText().equals(txtSplitPay.getText().toString())){
             btnPay.setEnabled(false);
@@ -92,7 +94,7 @@ public class DetailDebt extends AppCompatActivity {
 
                 Cursor payment = DebtController.getDebtForPayment(Long.toString(idDebt) , getApplicationContext());
 
-                valor.setText("R$ "+payment.getString(payment.getColumnIndex("amount_to_pay")));
+                valor.setText(NumberUtility.converterBr(payment.getString(payment.getColumnIndex("amount_to_pay"))));
 
                 idParcelas.clear();
                 parcelasSp.clear();
@@ -110,7 +112,7 @@ public class DetailDebt extends AppCompatActivity {
                 parcelas.setAdapter(dataadapter);
 
 
-                modal.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+                modal.setPositiveButton("Pagar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

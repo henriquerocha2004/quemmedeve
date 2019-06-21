@@ -18,6 +18,8 @@ import com.jml.quemmedeve.adapters.AdapterListDebtors;
 import com.jml.quemmedeve.bean.DebtorsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.PaymentController;
+import com.jml.quemmedeve.ultility.NumberUtility;
+
 import java.util.List;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     toast.show();
                     Intent it = new Intent(MainActivity.this, ShowDebtors.class);
                     it.putExtra("idCliente", idRow);
+                    it.putExtra("nomeCliente", nomeCliente.getText().toString());
                     startActivity(it);
                 }else{
                    toast =  Toast.makeText(getApplicationContext(), "Não Foi possível salvar os dados!",duracao);
@@ -115,11 +118,10 @@ public class MainActivity extends AppCompatActivity {
                 adp.setClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       long id = adp.getIdDebtor(listDebtors.indexOfChild(v));
-                        String dividaTotal = adp.getTotalValor(listDebtors.indexOfChild(v));
+                        long id = adp.getIdDebtor(listDebtors.getChildAdapterPosition(v));
+                        String dividaTotal = adp.getTotalValor(listDebtors.getChildAdapterPosition(v));
                         Intent it = new Intent(MainActivity.this, ShowDebtors.class);
                         it.putExtra("idCliente", id);
-                        it.putExtra("dividaTotal", dividaTotal);
                         startActivity(it);
                     }
                 });
@@ -130,6 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void getReceivables(){
         String valorReceber = PaymentController.receivables(getApplicationContext());
-        valor.setText("R$ "+valorReceber);
+        valor.setText(NumberUtility.converterBr(valorReceber));
     }
 }

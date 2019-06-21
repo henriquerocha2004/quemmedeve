@@ -21,7 +21,7 @@ public class DebtorsBean {
     }
 
     public void setValueDebt(String valueDebt) {
-        this.valueDebt = "R$ "+valueDebt;
+        this.valueDebt = valueDebt;
     }
 
     public int getId() {

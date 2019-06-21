@@ -20,9 +20,12 @@ import com.jml.quemmedeve.adapters.AdapterListDebts;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.database.DebtsDbHelper;
+import com.jml.quemmedeve.ultility.NumberUtility;
+
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 
 public class ShowDebtors extends AppCompatActivity {
@@ -30,9 +33,9 @@ public class ShowDebtors extends AppCompatActivity {
     private TextView txtNomeClient;
     private TextView txtValTotal;
     private String idCliente;
-    private String dividaTotal;
     private Locale ptBR = new Locale("pt", "BR");
     private RecyclerView lista;
+    private String nomeCliente;
     private Button btnAdicionarDebito;
     private Button btnEfetuarPagamento;
 
@@ -41,7 +44,7 @@ public class ShowDebtors extends AppCompatActivity {
         setContentView(R.layout.show_debtor);
         Intent it = getIntent();
         idCliente = Long.toString(it.getLongExtra("idCliente", 0));
-        dividaTotal = it.getStringExtra("dividaTotal");
+        nomeCliente = (it.getStringExtra("nomeCliente") == null ? null : it.getStringExtra("nomeCliente"));
         btnAdicionarDebito = (Button) findViewById(R.id.btnAdicionarDebito);
         adicionarDebito();
         checkDebtor();
@@ -64,26 +67,10 @@ public class ShowDebtors extends AppCompatActivity {
         });
     }
 
-
-    private void visualizarDebito(){
-
-//        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent it = new Intent(ShowDebtors.this, DetailDebt.class);
-//                it.putExtra("idDebt", id);
-//                startActivity(it);
-//            }
-//        });
-    }
-
     private void checkDebtor(){
 
         Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
         List<DebtsBean> debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext());
-
-        System.out.println(debitos);
-
 
         try{
             if(!debitos.isEmpty()){
@@ -99,7 +86,7 @@ public class ShowDebtors extends AppCompatActivity {
                 adp.setClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        long idDebt = adp.getIdDebt(lista.indexOfChild(v));
+                        long idDebt = adp.getIdDebt(lista.getChildAdapterPosition(v));
                         Intent it = new Intent(ShowDebtors.this, DetailDebt.class);
                         it.putExtra("idDebt", idDebt);
                         startActivity(it);
@@ -107,28 +94,12 @@ public class ShowDebtors extends AppCompatActivity {
                 });
 
                 lista.setAdapter(adp);
-
-//                String[] collumnsBd = new String[] {DebtsDbHelper.COLUMN_DEBT_DESC, DebtsDbHelper.COLUMN_VALUE, DebtsDbHelper.COLUMN_DATE_DEBT, DebtsDbHelper.COLUMN_DEBT_SPLIT, "status_pay"};
-//                int[] idFieldsView = new int[] {R.id.desc_debt,R.id.date_debt,R.id.debt_split, R.id.debt_value, R.id.txtStatus};
-//
-//                SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.fields_list_view_cliente, debitos,collumnsBd,idFieldsView, 0);
-//                lista = findViewById(R.id.listDebitos);
-//
-//                if(lista.getHeaderViewsCount() == 0){
-//                    LayoutInflater inflater = getLayoutInflater();
-//                    ViewGroup header = (ViewGroup) inflater.inflate(R.layout.desc_fields_show_debtor, lista, false);
-//                    lista.addHeaderView(header, null, false);
-//                }
-//
-//                lista.setAdapter(adapter);
-
-                visualizarDebito();
-
-                txtNomeClient = findViewById(R.id.txtNomeClient);
-                txtValTotal = findViewById(R.id.txtValTotal);
-                txtNomeClient.setText(cliente.getString(cliente.getColumnIndex("name")));
-                txtValTotal.setText(dividaTotal);
             }
+
+            txtNomeClient = findViewById(R.id.txtNomeClient);
+            txtValTotal = findViewById(R.id.txtValTotal);
+            txtNomeClient.setText(cliente.getString(0) == null ? nomeCliente : cliente.getString(0));
+            txtValTotal.setText(NumberUtility.converterBr(cliente.getString(2)));
 
         }finally {
 

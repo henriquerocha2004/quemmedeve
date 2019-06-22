@@ -3,6 +3,7 @@ package com.jml.quemmedeve;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class DetailDebt extends AppCompatActivity {
     private TextView txtNumSplits;
     private TextView txtSplitPay;
     private TextView txtRemainingValue;
-    private Button btnPay;
+    private FloatingActionButton btnPay;
     private List<Integer> idParcelas = new ArrayList<>();
 
     @Override

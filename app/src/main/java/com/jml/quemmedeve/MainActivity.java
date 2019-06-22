@@ -89,11 +89,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent it = new Intent(MainActivity.this, ShowDebtors.class);
                     it.putExtra("idCliente", idRow);
                     it.putExtra("nomeCliente", nomeCliente.getText().toString());
+                    it.putExtra("telefoneCliente", telefoneCliente.getText(true).toString());
                     startActivity(it);
                 }else{
                    toast =  Toast.makeText(getApplicationContext(), "Não Foi possível salvar os dados!",duracao);
                    toast.show();
                 }
+
+
             }
         });
 

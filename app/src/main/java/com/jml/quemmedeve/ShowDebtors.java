@@ -77,8 +77,6 @@ public class ShowDebtors extends AppCompatActivity {
         List<DebtsBean> debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext());
 
         try{
-            if(!debitos.isEmpty()){
-
                 lista = findViewById(R.id.listDebitos);
                 lista.setHasFixedSize(true);
                 lista.setClickable(true);
@@ -98,7 +96,7 @@ public class ShowDebtors extends AppCompatActivity {
                 });
 
                 lista.setAdapter(adp);
-            }
+
 
             txtNomeClient = findViewById(R.id.txtNomeClient);
             txtValTotal = findViewById(R.id.txtValTotal);

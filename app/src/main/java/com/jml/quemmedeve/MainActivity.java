@@ -109,28 +109,27 @@ public class MainActivity extends AppCompatActivity {
 
         List<DebtorsBean> getDebtors = ClienteController.getAllClientsList(getApplicationContext());
 
-            if(!getDebtors.isEmpty()){
-                listDebtors = findViewById(R.id.listDebtors);
-                listDebtors.setHasFixedSize(true);
-                listDebtors.setClickable(true);
+            listDebtors = findViewById(R.id.listDebtors);
+            listDebtors.setHasFixedSize(true);
+            listDebtors.setClickable(true);
 
-                LinearLayoutManager ln = new LinearLayoutManager(getApplicationContext());
-                listDebtors.setLayoutManager(ln);
+            LinearLayoutManager ln = new LinearLayoutManager(getApplicationContext());
+            listDebtors.setLayoutManager(ln);
 
-                final AdapterListDebtors adp = new AdapterListDebtors(getDebtors, getApplicationContext());
-                adp.setClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        long id = adp.getIdDebtor(listDebtors.getChildAdapterPosition(v));
-                        String dividaTotal = adp.getTotalValor(listDebtors.getChildAdapterPosition(v));
-                        Intent it = new Intent(MainActivity.this, ShowDebtors.class);
-                        it.putExtra("idCliente", id);
-                        startActivity(it);
-                    }
-                });
+            final AdapterListDebtors adp = new AdapterListDebtors(getDebtors, getApplicationContext());
+            adp.setClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long id = adp.getIdDebtor(listDebtors.getChildAdapterPosition(v));
+                    String dividaTotal = adp.getTotalValor(listDebtors.getChildAdapterPosition(v));
+                    Intent it = new Intent(MainActivity.this, ShowDebtors.class);
+                    it.putExtra("idCliente", id);
+                    startActivity(it);
+                }
+            });
 
-                listDebtors.setAdapter(adp);
-            }
+            listDebtors.setAdapter(adp);
+
     }
 
     private void getReceivables(){

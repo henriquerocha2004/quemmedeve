@@ -75,8 +75,8 @@ public class DebtController {
                                   "( SELECT COUNT(pay."+PaymentDbHelper.COLUMN_ID+") parc " +
                                   " FROM "+PaymentDbHelper.TABLE_NAME+" as pay " +
                                     " WHERE pay."+PaymentDbHelper.COLUMN_DEBT_ID+" = ?" +
-                                            " AND pay."+PaymentDbHelper.COLUMN_STATUS_PAYMENT+" = 1 ) q" +
-                                    " WHERE dbt."+DebtsDbHelper.COLUMN_ID+" = ?", arg);
+                                            " AND pay."+PaymentDbHelper.COLUMN_STATUS_PAYMENT+" = 1 AND pay.soft_delete = 0) q" +
+                                    " WHERE dbt."+DebtsDbHelper.COLUMN_ID+" = ? AND dbt.soft_delete = 0", arg);
            if(result != null){
                result.moveToFirst();
            }
@@ -98,7 +98,7 @@ public class DebtController {
         try {
             String[] arg = {id};
 
-            result = db.rawQuery("SELECT _id, printf('%.2f', amount_to_pay) as amount_to_pay, strftime('%d-%m-%Y', payday) as payday FROM payment WHERE debt_id = ? AND status_payment = 0", arg);
+            result = db.rawQuery("SELECT _id, printf('%.2f', amount_to_pay) as amount_to_pay, strftime('%d-%m-%Y', payday) as payday FROM payment WHERE debt_id = ? AND status_payment = 0 AND soft_delete = 0", arg);
 
             if(result != null){
                 result.moveToFirst();
@@ -111,7 +111,6 @@ public class DebtController {
         return result;
 
     }
-
 
     public static boolean makePayment(Context context, String id){
 
@@ -132,7 +131,24 @@ public class DebtController {
         }
 
         return true;
+    }
 
+    public static boolean deleteDebt(Context context, String id){
+
+        DebtsDbHelper helper = new DebtsDbHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        boolean result = false;
+        ContentValues valores = new ContentValues();
+        valores.put("soft_delete", 1);
+        try {
+            String[] args = {id};
+            db.update(DebtsDbHelper.TABLE_NAME, valores, "_id = ?", args);
+            result = true;
+        }catch (SQLException e){
+            Log.i("Erro: ", e.getMessage());
+        }
+
+        return result;
     }
 
 }

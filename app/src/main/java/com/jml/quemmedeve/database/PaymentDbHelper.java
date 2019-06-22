@@ -13,6 +13,7 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     public static String COLUMN_AMOUNT_PAY = "amount_to_pay";
     public static String COLUMN_PAYDAY = "payday";
     public static String COLUMN_STATUS_PAYMENT = "status_payment";
+    public static String COLUMN_SOFT_DELETE = "soft_delete";
     private static final String SQL_DELETE_PAYMENT = "DROP TABLE IF EXISTS " + TABLE_NAME;
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "qmd.db";
@@ -24,7 +25,8 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
                     COLUMN_DEBT_ID + " INTEGER NOT NULL REFERENCES debts(_id)," +
                     COLUMN_AMOUNT_PAY + " DOUBLE NOT NULL, "+
                     COLUMN_PAYDAY + " DATE NOT NULL, "+
-                    COLUMN_STATUS_PAYMENT + " BOOLEAN NOT NULL DEFAULT(0))";
+                    COLUMN_STATUS_PAYMENT + " BOOLEAN NOT NULL DEFAULT(0)," +
+                    COLUMN_SOFT_DELETE +" INTEGER NOT NULL DEFAULT(0))";
 
     private static final String SQL_CREATE_TRIGGER_UPDATE_DEBT =
             "CREATE TRIGGER update_debt" +
@@ -39,6 +41,17 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
                     " WHERE "+COLUMN_ID+" = New."+COLUMN_DEBT_ID+";" +
             "END;";
 
+    private static final String SQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT =
+         "CREATE TRIGGER mark_delete_receipt\n" +
+                 "         AFTER UPDATE OF soft_delete\n" +
+                 "            ON payment\n" +
+                 "      FOR EACH ROW\n" +
+                 "BEGIN\n" +
+                 "    UPDATE receipt\n" +
+                 "       SET soft_delete = 1\n" +
+                 "     WHERE rec_id_pay = New._id;\n" +
+                 "END;\n";
+
 
     public PaymentDbHelper(Context context){
         super(context,DATABASE_NAME,null, DATABASE_VERSION);
@@ -49,6 +62,7 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_PAYMENT);
         db.execSQL(SQL_CREATE_TRIGGER_UPDATE_DEBT);
+        db.execSQL(SQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT);
     }
 
     @Override
@@ -61,6 +75,9 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
         return SQL_CREATE_PAYMENT;
     }
     public String getSQL_CREATE_TRIGGER_UPDATE_DEBT(){ return SQL_CREATE_TRIGGER_UPDATE_DEBT;}
+    public String getSQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT(){
+        return SQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT;
+    }
 
 
 }

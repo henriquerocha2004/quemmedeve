@@ -14,7 +14,7 @@ public class PaymentController {
         Cursor resultado = null;
         String valor = null;
 
-        resultado = db.rawQuery("SELECT printf('%.2f', SUM(amount_to_pay)) as amount_to_pay FROM payment WHERE status_payment = 0", null);
+        resultado = db.rawQuery("SELECT printf('%.2f', SUM(amount_to_pay)) as amount_to_pay FROM payment WHERE status_payment = 0 AND soft_delete = 0", null);
 
         System.out.println(resultado.getCount());
 

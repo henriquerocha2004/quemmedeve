@@ -31,6 +31,7 @@ public class DetailDebt extends AppCompatActivity {
     private TextView txtSplitPay;
     private TextView txtRemainingValue;
     private FloatingActionButton btnPay;
+    private FloatingActionButton btnDelete;
     private List<Integer> idParcelas = new ArrayList<>();
 
     @Override
@@ -47,9 +48,11 @@ public class DetailDebt extends AppCompatActivity {
         txtSplitPay = findViewById(R.id.txtSplitPay);
         txtRemainingValue = findViewById(R.id.txtValorRestante);
         btnPay = findViewById(R.id.btnPay);
+        btnDelete = findViewById(R.id.btnDelete);
 
         detailsDebt();
         callPayment();
+        deleteDebt();
     }
 
     protected void onRestart() {
@@ -76,7 +79,6 @@ public class DetailDebt extends AppCompatActivity {
     }
 
     private void callPayment(){
-
 
         final List<String>  parcelasSp = new ArrayList<>();
 
@@ -132,6 +134,38 @@ public class DetailDebt extends AppCompatActivity {
                 });
                 modal.setNegativeButton("Cancelar", null);
 
+                AlertDialog dialog = modal.create();
+                dialog.show();
+            }
+        });
+    }
+
+    private void deleteDebt(){
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder modal = new AlertDialog.Builder(DetailDebt.this);
+                modal.setTitle("Tem Certeza que deseja apagar esse débito?");
+
+                modal.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        boolean delete = DebtController.deleteDebt(getApplicationContext(), Long.toString(idDebt));
+
+                        if(delete == true){
+                            Toast.makeText(getApplicationContext(), "Débito apagado com sucesso!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Houve uma falha ao deletar o débito", Toast.LENGTH_SHORT);
+                        }
+
+                    }
+                });
+
+                modal.setNegativeButton("NÃO", null);
                 AlertDialog dialog = modal.create();
                 dialog.show();
 

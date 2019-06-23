@@ -32,6 +32,7 @@ public class DetailDebt extends AppCompatActivity {
     private TextView txtRemainingValue;
     private FloatingActionButton btnPay;
     private FloatingActionButton btnDelete;
+    private FloatingActionButton btnShare;
     private List<Integer> idParcelas = new ArrayList<>();
 
     @Override
@@ -49,10 +50,12 @@ public class DetailDebt extends AppCompatActivity {
         txtRemainingValue = findViewById(R.id.txtValorRestante);
         btnPay = findViewById(R.id.btnPay);
         btnDelete = findViewById(R.id.btnDelete);
+        btnShare = findViewById(R.id.btnShare);
 
         detailsDebt();
         callPayment();
         deleteDebt();
+        shareContent();
     }
 
     protected void onRestart() {
@@ -74,14 +77,11 @@ public class DetailDebt extends AppCompatActivity {
         if(txtNumSplits.getText().equals(txtSplitPay.getText().toString())){
             btnPay.setEnabled(false);
         }
-
-
     }
 
     private void callPayment(){
 
         final List<String>  parcelasSp = new ArrayList<>();
-
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +141,6 @@ public class DetailDebt extends AppCompatActivity {
     }
 
     private void deleteDebt(){
-
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,10 +167,31 @@ public class DetailDebt extends AppCompatActivity {
                 modal.setNegativeButton("NÃO", null);
                 AlertDialog dialog = modal.create();
                 dialog.show();
-
             }
         });
+    }
 
 
+    private void shareContent(){
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String resumoDébito = "" +
+                        txtDescDebt.getText()+"\n" +
+                        "\n" +
+                        "Data do débito: "+ txtDataDebt.getText() + "\n" +
+                        "Valor Total: "+ txtValueTotal.getText() + "\n" +
+                        "Total de Parcelas: " + txtNumSplits.getText() + "\n" +
+                        "Parcelas Pagas: " + txtSplitPay.getText() + "\n" +
+                        "Valor Restante: " + txtRemainingValue.getText() + "\n";
+
+                Intent send = new Intent();
+                send.setAction(Intent.ACTION_SEND);
+                send.putExtra(Intent.EXTRA_TEXT, resumoDébito);
+                send.setType("text/plain");
+                startActivity(send);
+            }
+        });
     }
 }

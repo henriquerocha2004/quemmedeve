@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,7 +45,7 @@ public class AddPayment extends AppCompatActivity {
     private TextView txtDescPagamento;
     private TextView datePaySplit;
     private EditText txtDescPay;
-    private Button btnCalendar;
+    private FloatingActionButton btnCalendar;
     private Button btnSalvar;
     private String formaPagamento;
     private String qtdParcelas;

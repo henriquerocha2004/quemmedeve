@@ -20,12 +20,15 @@ import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.PaymentController;
 import com.jml.quemmedeve.ultility.NumberUtility;
 
+import org.mortbay.jetty.Main;
+
 import java.util.List;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnAdicionarCli;
+    private Button btnClientes;
     private RecyclerView listDebtors;
     private TextView valor;
 
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         valor = view.findViewById(R.id.valor);
         btnAdicionarCli = findViewById(R.id.btnAdicionarCli);
+        btnClientes = findViewById(R.id.btnClientes);
         btnAdicionarCli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         getReceivables();
         getDebtorsList();
+        showClients();
 
     }
 
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         getDebtorsList();
         getReceivables();
+        showClients();
     }
 
     public void registerClientDialog(){
@@ -107,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getDebtorsList(){
 
-        List<DebtorsBean> getDebtors = ClienteController.getAllClientsList(getApplicationContext());
+        List<DebtorsBean> getDebtors = ClienteController.getAllDebtors(getApplicationContext());
 
             listDebtors = findViewById(R.id.listDebtors);
             listDebtors.setHasFixedSize(true);
@@ -135,5 +141,16 @@ public class MainActivity extends AppCompatActivity {
     private void getReceivables(){
         String valorReceber = PaymentController.receivables(getApplicationContext());
         valor.setText(NumberUtility.converterBr(valorReceber));
+    }
+
+    private void showClients(){
+
+        btnClientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(MainActivity.this, ListClients.class);
+                startActivity(it);
+            }
+        });
     }
 }

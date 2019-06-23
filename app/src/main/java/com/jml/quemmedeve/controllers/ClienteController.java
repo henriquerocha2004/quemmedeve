@@ -107,7 +107,7 @@ public class ClienteController {
         return debtsList;
     }
 
-    public static List<DebtorsBean> getAllClientsList(Context context){
+    public static List<DebtorsBean> getAllDebtors(Context context){
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -141,4 +141,35 @@ public class ClienteController {
 
         return listDebtors;
     }
+
+
+    public static List<DebtorsBean> getAllClients(Context context){
+
+        DebtorsDbHelper helper = new DebtorsDbHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor clients = null;
+        List<DebtorsBean> listClients = new ArrayList<>();
+
+        try{
+            clients = db.rawQuery("SELECT _id, name, phone as total FROM debtors WHERE soft_delete = 0", null);
+
+            if(clients.getCount() > 0){
+                clients.moveToFirst();
+
+                do{
+                    DebtorsBean client = new DebtorsBean();
+                    client.setId(clients.getInt(0));
+                    client.setName(clients.getString(1));
+                    client.setValueDebt(clients.getString(2));
+                    listClients.add(client);
+                }while (clients.moveToNext());
+
+            }
+
+        }catch (SQLException e){
+            Log.i("Erro: ", e.getMessage());
+        }
+        return listClients;
+    }
+
 }

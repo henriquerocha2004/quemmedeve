@@ -67,4 +67,6 @@ public class AdapterListDebtors extends RecyclerView.Adapter {
         return list.get(position).getValueDebt();
     }
 
+    public String getNameClient(int position){ return list.get(position).getName();}
+
 }

@@ -15,10 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.jml.quemmedeve.adapters.AdapterListDebts;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.ultility.NumberUtility;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -73,7 +75,7 @@ public class ShowDebtors extends AppCompatActivity {
 
     private void checkDebtor(){
 
-        Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
+        final Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
         List<DebtsBean> debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext());
 
         try{
@@ -88,6 +90,10 @@ public class ShowDebtors extends AppCompatActivity {
                 adp.setClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        nomeCliente = cliente.getString(0);
+                        telefoneCliente = cliente.getString(1);
+
                         long idDebt = adp.getIdDebt(lista.getChildAdapterPosition(v));
                         Intent it = new Intent(ShowDebtors.this, DetailDebt.class);
                         it.putExtra("idDebt", idDebt);
@@ -96,7 +102,6 @@ public class ShowDebtors extends AppCompatActivity {
                 });
 
                 lista.setAdapter(adp);
-
 
             txtNomeClient = findViewById(R.id.txtNomeClient);
             txtValTotal = findViewById(R.id.txtValTotal);

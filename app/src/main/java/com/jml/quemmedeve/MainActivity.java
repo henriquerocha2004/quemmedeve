@@ -1,17 +1,23 @@
 package com.jml.quemmedeve;
 
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.TextView;
 import android.widget.Toast;
 import com.jml.quemmedeve.adapters.AdapterListDebtors;
@@ -112,31 +118,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDebtorsList(){
-
-        List<DebtorsBean> getDebtors = ClienteController.getAllDebtors(getApplicationContext());
-
-            listDebtors = findViewById(R.id.listDebtors);
-            listDebtors.setHasFixedSize(true);
-            listDebtors.setClickable(true);
-
-            LinearLayoutManager ln = new LinearLayoutManager(getApplicationContext());
-            listDebtors.setLayoutManager(ln);
-
-            final AdapterListDebtors adp = new AdapterListDebtors(getDebtors, getApplicationContext());
-            adp.setClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    long id = adp.getIdDebtor(listDebtors.getChildAdapterPosition(v));
-                    String dividaTotal = adp.getTotalValor(listDebtors.getChildAdapterPosition(v));
-                    Intent it = new Intent(MainActivity.this, ShowDebtors.class);
-                    it.putExtra("idCliente", id);
-                    startActivity(it);
-                }
-            });
-
-            listDebtors.setAdapter(adp);
-
+        List<DebtorsBean> getDebtors = ClienteController.getAllDebtors(getApplicationContext(), false, null);
+        mountRecyclerViewDebtors(getDebtors);
     }
+
+    private void getDebtorsSearchList(String value){
+        List<DebtorsBean> getDebtors = ClienteController.getAllDebtors(getApplicationContext(), true, value);
+        mountRecyclerViewDebtors(getDebtors);
+    }
+
+    private void mountRecyclerViewDebtors(List<DebtorsBean> debtors){
+
+        listDebtors = findViewById(R.id.listDebtors);
+        listDebtors.setHasFixedSize(true);
+        listDebtors.setClickable(true);
+
+        LinearLayoutManager ln = new LinearLayoutManager(getApplicationContext());
+        listDebtors.setLayoutManager(ln);
+
+        final AdapterListDebtors adp = new AdapterListDebtors(debtors, getApplicationContext());
+        adp.setClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long id = adp.getIdDebtor(listDebtors.getChildAdapterPosition(v));
+                String dividaTotal = adp.getTotalValor(listDebtors.getChildAdapterPosition(v));
+                Intent it = new Intent(MainActivity.this, ShowDebtors.class);
+                it.putExtra("idCliente", id);
+                startActivity(it);
+            }
+        });
+
+        listDebtors.setAdapter(adp);
+    }
+
+
 
     private void getReceivables(){
         String valorReceber = PaymentController.receivables(getApplicationContext());
@@ -144,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showClients(){
-
         btnClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,5 +166,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.busca_menu, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.busca).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                getDebtorsSearchList(s);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

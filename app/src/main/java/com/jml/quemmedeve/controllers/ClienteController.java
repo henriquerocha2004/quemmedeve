@@ -73,7 +73,7 @@ public class ClienteController {
                   "SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, printf('%.2f', debts.value_split) as value_split , debts.debt_split, " +
                       "debts.status_debt" +
                       " FROM debts" +
-                      " WHERE debts.usu_id_debt = ? AND debts.soft_delete = 0 ORDER BY status_debt DESC", arg);
+                      " WHERE debts.usu_id_debt = ? AND debts.soft_delete = 0 ORDER BY status_debt ASC", arg);
 
 
          System.out.println(debts.getCount());
@@ -107,7 +107,13 @@ public class ClienteController {
         return debtsList;
     }
 
-    public static List<DebtorsBean> getAllDebtors(Context context){
+    public static List<DebtorsBean> getAllDebtors(Context context, boolean searchOrigin, String likeCondition){
+
+        String conditionSearch = "";
+
+        if(searchOrigin == true){
+            conditionSearch = "AND debtors.name LIKE '%"+likeCondition+"%'";
+        }
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -118,7 +124,7 @@ public class ClienteController {
             debtors = db.rawQuery("SELECT distinct(debtors._id) as _id , debtors.name as name, printf('%.2f',SUM(payment.amount_to_pay)) as total FROM debtors \n" +
                                       "INNER JOIN debts ON debts.usu_id_debt = debtors._id " +
                                       "INNER JOIN payment ON payment.debt_id = debts._id "+
-                                      " WHERE payment.status_payment = 0 AND debts.soft_delete = 0 GROUP BY debtors._id ORDER BY debtors.name ASC", null);
+                                      " WHERE payment.status_payment = 0 AND debts.soft_delete = 0 "+conditionSearch+" GROUP BY debtors._id ORDER BY debtors.name ASC", null);
 
 
             if(debtors.getCount() > 0){
@@ -143,7 +149,14 @@ public class ClienteController {
     }
 
 
-    public static List<DebtorsBean> getAllClients(Context context){
+    public static List<DebtorsBean> getAllClients(Context context, boolean searchOrigin, String likeCondition){
+
+        String conditionSearch = "";
+
+        if(searchOrigin == true){
+            conditionSearch = "AND debtors.name LIKE '%"+likeCondition+"%'";
+        }
+
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -151,7 +164,7 @@ public class ClienteController {
         List<DebtorsBean> listClients = new ArrayList<>();
 
         try{
-            clients = db.rawQuery("SELECT _id, name, phone as total FROM debtors WHERE soft_delete = 0", null);
+            clients = db.rawQuery("SELECT _id, name, phone as total FROM debtors WHERE soft_delete = 0 "+conditionSearch+" ORDER BY name ASC", null);
 
             if(clients.getCount() > 0){
                 clients.moveToFirst();

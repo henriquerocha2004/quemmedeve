@@ -38,12 +38,8 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             android:text="R$ 10.000,00"
-            android:textAlignment="center"
             android:textColor="@android:color/background_light"
             android:textSize="20sp" />
     </TableRow>
-
-
-
 
 </TableLayout>

@@ -1,6 +1,7 @@
 package com.jml.quemmedeve;
 
 import android.Manifest;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -91,8 +94,8 @@ public class ShowDebtors extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        nomeCliente = cliente.getString(0);
-                        telefoneCliente = cliente.getString(1);
+                        nomeCliente =  nomeCliente == null ?  cliente.getString(0) : nomeCliente;
+                        telefoneCliente = telefoneCliente == null ? cliente.getString(1) : telefoneCliente;
 
                         long idDebt = adp.getIdDebt(lista.getChildAdapterPosition(v));
                         Intent it = new Intent(ShowDebtors.this, DetailDebt.class);
@@ -114,6 +117,7 @@ public class ShowDebtors extends AppCompatActivity {
 
         }
     }
+
 
     //Funções Relacionadas a realizar ligações.
 

@@ -13,6 +13,7 @@
     <string name="quem_me_deve">Quem me deve?</string>
     <string name="textview">TextView</string>
     <string name="clientes_cadastrados">Clientes Cadastrados:</string>
+    <string name="busca">busca</string>
 
     <string-array name="payments_options">
         <item></item>

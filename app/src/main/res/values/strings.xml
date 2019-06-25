@@ -14,6 +14,8 @@
     <string name="textview">TextView</string>
     <string name="clientes_cadastrados">Clientes Cadastrados:</string>
     <string name="busca">busca</string>
+    <string name="novo_cliente">Novo Cliente</string>
+    <string name="meus_clientes">Meus Clientes</string>
 
     <string-array name="payments_options">
         <item></item>

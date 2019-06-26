@@ -20,7 +20,7 @@ public class DebtController {
 
     public  List<String> datas = new ArrayList<String>();
 
-
+    // Função que salva um débito de um cliente
     public boolean store(ContentValues debt, ContentValues payment,  Context context){
         DebtsDbHelper debts = new DebtsDbHelper(context);
         SQLiteDatabase db = debts.getWritableDatabase();
@@ -56,6 +56,7 @@ public class DebtController {
         return false;
     }
 
+    // Função que localiza um débito pelo ID
     public static Cursor getdebtAndPaymentById(String id, Context context){
 
         DebtsDbHelper helper = new DebtsDbHelper(context);
@@ -112,6 +113,7 @@ public class DebtController {
 
     }
 
+    // Função que realiza o pagamento de uma parcela.
     public static boolean makePayment(Context context, String id){
 
         PaymentDbHelper helper = new PaymentDbHelper(context);
@@ -133,6 +135,7 @@ public class DebtController {
         return true;
     }
 
+    // Função que remove um débito
     public static boolean deleteDebt(Context context, String id){
 
         DebtsDbHelper helper = new DebtsDbHelper(context);

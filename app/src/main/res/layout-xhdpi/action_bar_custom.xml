@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/colorPrimary"
+    >
+
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/lbTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Quem me deve ?"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/lbDescValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Valor a Receber: "
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/valor"
+            android:layout_width="239dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:text="R$ 10.000,00"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
+    </TableRow>
+
+</TableLayout>

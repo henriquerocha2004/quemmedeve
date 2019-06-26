@@ -32,6 +32,7 @@ public class ClienteController {
     }
 
 
+    //Função que faz a consulta pelo ID do cliente
     public static Cursor findById(String id, Context context){
 
        Cursor cursor = null;
@@ -60,6 +61,7 @@ public class ClienteController {
         return cursor;
     }
 
+    // Função que coleta todos os déditos do cliente
     public static List<DebtsBean> getDebtsClient(String id, Context context){
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
@@ -107,6 +109,7 @@ public class ClienteController {
         return debtsList;
     }
 
+    // Função que coleta todos os clientes com débitos a pagar
     public static List<DebtorsBean> getAllDebtors(Context context, boolean searchOrigin, String likeCondition){
 
         String conditionSearch = "";
@@ -148,7 +151,7 @@ public class ClienteController {
         return listDebtors;
     }
 
-
+    // Função que coleta todos os clientes.
     public static List<DebtorsBean> getAllClients(Context context, boolean searchOrigin, String likeCondition){
 
         String conditionSearch = "";

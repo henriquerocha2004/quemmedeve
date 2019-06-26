@@ -167,8 +167,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listDebitos"
-        android:layout_width="405dp"
-        android:layout_height="76dp"
+        android:layout_width="350dp"
+        android:layout_height="74dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -177,10 +177,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.681">
+        app:layout_constraintVertical_bias="0.669">
 
     </android.support.v7.widget.RecyclerView>
 

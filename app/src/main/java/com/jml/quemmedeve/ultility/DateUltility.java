@@ -53,6 +53,8 @@ public class DateUltility {
         return dt;
     }
 
+    //Função que insere o evento no calendário.
+
     public static Intent setEventOnCalendar(List<String> datas, String[] dados) throws ParseException {
 
             int quantidadeDeDatas = datas.size();

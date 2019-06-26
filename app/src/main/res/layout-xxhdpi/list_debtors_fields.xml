@@ -37,6 +37,7 @@
                 android:layout_marginEnd="21dp"
                 android:layout_marginRight="21dp"
                 android:hint="Nome"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -51,6 +52,7 @@
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
                 android:text="@string/valor"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
                 tools:ignore="UnknownId" />
 

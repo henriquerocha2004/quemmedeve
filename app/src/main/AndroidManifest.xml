@@ -13,15 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ListClients"></activity>
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/CustomTheme">
+        <activity android:name=".MenuPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ListClients" />
+        <activity
+            android:name=".ListDebtors"
+            android:theme="@style/CustomTheme">
         </activity>
         <activity android:name=".DetailDebt" />
         <activity android:name=".RegisterDebtors" />

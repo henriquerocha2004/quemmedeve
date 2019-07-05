@@ -3,7 +3,6 @@ package com.jml.quemmedeve;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,12 +24,10 @@ import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.PaymentController;
 import com.jml.quemmedeve.ultility.NumberUtility;
 
-import org.mortbay.jetty.Main;
-
 import java.util.List;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
-public class MainActivity extends AppCompatActivity {
+public class ListDebtors extends AppCompatActivity {
 
     private Button btnAdicionarCli;
     private Button btnClientes;
@@ -98,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 if(idRow > 0){
                     toast = Toast.makeText(getApplicationContext(), "Salvo com sucesso!",duracao);
                     toast.show();
-                    Intent it = new Intent(MainActivity.this, ShowDebtors.class);
+                    Intent it = new Intent(ListDebtors.this, ShowDebtors.class);
                     it.putExtra("idCliente", idRow);
                     it.putExtra("nomeCliente", nomeCliente.getText().toString());
                     it.putExtra("telefoneCliente", telefoneCliente.getText(true).toString());
@@ -142,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 long id = adp.getIdDebtor(listDebtors.getChildAdapterPosition(v));
                 String dividaTotal = adp.getTotalValor(listDebtors.getChildAdapterPosition(v));
-                Intent it = new Intent(MainActivity.this, ShowDebtors.class);
+                Intent it = new Intent(ListDebtors.this, ShowDebtors.class);
                 it.putExtra("idCliente", id);
                 startActivity(it);
             }
@@ -162,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         btnClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(MainActivity.this, ListClients.class);
+                Intent it = new Intent(ListDebtors.this, ListClients.class);
                 startActivity(it);
             }
         });

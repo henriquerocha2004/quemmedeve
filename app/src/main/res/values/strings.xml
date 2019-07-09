@@ -18,6 +18,7 @@
     <string name="meus_clientes">Meus Clientes</string>
     <string name="lembrar_me_dos_parcelamentos">Lembrar-me dos Parcelamentos</string>
     <string name="o_que_deseja_fazer">O que deseja fazer?</string>
+    <string name="backup">Backup</string>
 
     <string-array name="payments_options">
         <item></item>

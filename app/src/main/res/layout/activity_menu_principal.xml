@@ -7,57 +7,56 @@
     tools:context=".MenuPrincipal">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view2"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
+        android:id="@+id/card_backup"
+        android:layout_width="166dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85">
+        app:layout_constraintVertical_bias="0.69">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/person_name"
+                android:id="@+id/lbbackup"
                 android:layout_width="94dp"
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/novo_cliente"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/backup"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imagebackup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="57dp"
+                android:layout_marginRight="57dp"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
+                app:srcCompat="@mipmap/ic_save_blk" />
 
 
         </RelativeLayout>
@@ -66,57 +65,57 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view2"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
+        android:id="@+id/card_options"
+        android:layout_width="166dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85">
+        app:layout_constraintVertical_bias="0.69">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/person_name"
+                android:id="@+id/lbConfig"
                 android:layout_width="94dp"
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/novo_cliente"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginBottom="16dp"
+                android:text="Configurações"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageConfig"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="58dp"
+                android:layout_marginRight="58dp"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
+                app:srcCompat="@mipmap/ic_settings_black" />
 
 
         </RelativeLayout>
@@ -125,116 +124,57 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view2"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
+        android:id="@+id/card_debt"
+        android:layout_width="166dp"
+        android:layout_height="100dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62">
+        app:layout_constraintVertical_bias="0.44">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/person_name"
+                android:id="@+id/lbDebt"
                 android:layout_width="94dp"
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/novo_cliente"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginBottom="16dp"
+                android:text="Novo Débito"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageDebt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="57dp"
+                android:layout_marginRight="57dp"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
-
-
-        </RelativeLayout>
-
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view2"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/person_name"
-                android:layout_width="94dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/novo_cliente"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
-                android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
+                app:srcCompat="@drawable/ic_cash_multiple_black_48dp" />
 
 
         </RelativeLayout>
@@ -244,56 +184,56 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_reports"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
+        android:layout_width="166dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62">
+        app:layout_constraintVertical_bias="0.44">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/lb_reports"
+                android:id="@+id/lbreports"
                 android:layout_width="94dp"
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginBottom="16dp"
                 android:text="Relatórios"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageReports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginRight="64dp"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
+                app:srcCompat="@drawable/ic_file_chart_black_36dp" />
 
 
         </RelativeLayout>
@@ -302,41 +242,41 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/new_debt"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
+        android:id="@+id/card_clients"
+        android:layout_width="166dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39">
+        app:layout_constraintVertical_bias="0.19">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/lb_new_debt"
+                android:id="@+id/lbClients"
                 android:layout_width="94dp"
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
-                android:text="Novo Débito"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginBottom="16dp"
+                android:text="Clientes"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
@@ -348,129 +288,11 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginRight="55dp"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
-
-
-        </RelativeLayout>
-
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/list_clients"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/lbMeusClientes"
-                android:layout_width="94dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/meus_clientes"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
-                android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
-
-
-        </RelativeLayout>
-
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_new_client"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/person_name"
-                android:layout_width="94dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/novo_cliente"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
-                android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
+                app:srcCompat="@drawable/ic_account_outline_black_48dp" />
 
 
         </RelativeLayout>
@@ -493,31 +315,31 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintVertical_bias="0.099" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_debtors_list"
-        android:layout_width="117dp"
-        android:layout_height="108dp"
+        android:id="@+id/card_debtors"
+        android:layout_width="166dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154">
+        app:layout_constraintVertical_bias="0.19">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -530,8 +352,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
                 android:layout_marginBottom="14dp"
                 android:text="Devedores"
                 android:textAlignment="center"
@@ -545,11 +367,11 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="37dp"
-                android:layout_marginRight="37dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="58dp"
+                android:layout_marginRight="58dp"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/usericon" />
+                app:srcCompat="@drawable/ic_account_minus_outline_black_48dp" />
 
 
         </RelativeLayout>

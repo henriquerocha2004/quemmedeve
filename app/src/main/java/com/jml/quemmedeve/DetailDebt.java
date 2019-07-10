@@ -96,7 +96,6 @@ public class DetailDebt extends AppCompatActivity {
                 final Spinner parcelas = view.findViewById(R.id.spParcelas);
 
                 Cursor payment = DebtController.getDebtForPayment(Long.toString(idDebt) , getApplicationContext());
-
                 valor.setText(NumberUtility.converterBr(payment.getString(payment.getColumnIndex("amount_to_pay"))));
 
                 idParcelas.clear();
@@ -106,8 +105,6 @@ public class DetailDebt extends AppCompatActivity {
                         idParcelas.add(payment.getInt(payment.getColumnIndex("_id")));
                         parcelasSp.add("Vencimento dia: " + payment.getString(payment.getColumnIndex("payday")));
                     }while (payment.moveToNext());
-
-                    parcelasSp.add("Pagar Tudo");
 
                 ArrayAdapter<String> dataadapter = new ArrayAdapter<String>(DetailDebt.this, android.R.layout.simple_spinner_item, parcelasSp);
                 dataadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

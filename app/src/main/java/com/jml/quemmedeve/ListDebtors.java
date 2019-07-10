@@ -3,7 +3,6 @@ package com.jml.quemmedeve;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,15 +24,12 @@ import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.PaymentController;
 import com.jml.quemmedeve.ultility.NumberUtility;
 
-import org.mortbay.jetty.Main;
-
 import java.util.List;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
-public class MainActivity extends AppCompatActivity {
+public class ListDebtors extends AppCompatActivity {
 
-    private Button btnAdicionarCli;
-    private Button btnClientes;
+
     private RecyclerView listDebtors;
     private TextView valor;
 
@@ -50,18 +45,8 @@ public class MainActivity extends AppCompatActivity {
         View view = getSupportActionBar().getCustomView();
 
         valor = view.findViewById(R.id.valor);
-        btnAdicionarCli = findViewById(R.id.btnAdicionarCli);
-        btnClientes = findViewById(R.id.btnClientes);
-        btnAdicionarCli.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerClientDialog();
-            }
-        });
-
         getReceivables();
         getDebtorsList();
-        showClients();
 
     }
 
@@ -69,53 +54,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         getDebtorsList();
         getReceivables();
-        showClients();
     }
 
-    public void registerClientDialog(){
 
-        AlertDialog.Builder modal = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.register_debtors, null);
-        modal.setMessage("Informe os dados do Cliente:");
-        modal.setView(view);
-
-        final EditText nomeCliente =  view.findViewById(R.id.txtNome);
-        nomeCliente.setContentDescription("Informe o Nome");
-
-        final MaskedEditText telefoneCliente = view.findViewById(R.id.txtTelefone);
-        telefoneCliente.setContentDescription("Informe o Telefone");
-
-        modal.setPositiveButton("SALVAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                long idRow = ClienteController.store(nomeCliente.getText().toString(), telefoneCliente.getText(true).toString(), getApplicationContext());
-
-                int duracao = Toast.LENGTH_SHORT;
-                Toast toast = null;
-
-                if(idRow > 0){
-                    toast = Toast.makeText(getApplicationContext(), "Salvo com sucesso!",duracao);
-                    toast.show();
-                    Intent it = new Intent(MainActivity.this, ShowDebtors.class);
-                    it.putExtra("idCliente", idRow);
-                    it.putExtra("nomeCliente", nomeCliente.getText().toString());
-                    it.putExtra("telefoneCliente", telefoneCliente.getText(true).toString());
-                    startActivity(it);
-                }else{
-                   toast =  Toast.makeText(getApplicationContext(), "Não Foi possível salvar os dados!",duracao);
-                   toast.show();
-                }
-
-
-            }
-        });
-
-        modal.setNegativeButton("CANCELAR", null);
-        AlertDialog dialog = modal.create();
-        dialog.show();
-    }
 
     private void getDebtorsList(){
         List<DebtorsBean> getDebtors = ClienteController.getAllDebtors(getApplicationContext(), false, null);
@@ -142,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 long id = adp.getIdDebtor(listDebtors.getChildAdapterPosition(v));
                 String dividaTotal = adp.getTotalValor(listDebtors.getChildAdapterPosition(v));
-                Intent it = new Intent(MainActivity.this, ShowDebtors.class);
+                Intent it = new Intent(ListDebtors.this, ShowDebtors.class);
                 it.putExtra("idCliente", id);
                 startActivity(it);
             }
@@ -156,16 +97,6 @@ public class MainActivity extends AppCompatActivity {
     private void getReceivables(){
         String valorReceber = PaymentController.receivables(getApplicationContext());
         valor.setText(NumberUtility.converterBr(valorReceber));
-    }
-
-    private void showClients(){
-        btnClientes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(MainActivity.this, ListClients.class);
-                startActivity(it);
-            }
-        });
     }
 
 

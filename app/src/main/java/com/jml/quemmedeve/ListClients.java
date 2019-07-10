@@ -1,32 +1,96 @@
 package com.jml.quemmedeve;
 
 import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.jml.quemmedeve.adapters.AdapterListDebtors;
 import com.jml.quemmedeve.bean.DebtorsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
 
 import java.util.List;
 
+import ru.kolotnev.formattedittext.MaskedEditText;
+
 public class ListClients extends AppCompatActivity {
 
     private RecyclerView listClients;
+    private Button btnAdicionarCli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_clients);
         listClients = findViewById(R.id.listClients);
+        btnAdicionarCli = findViewById(R.id.btnAdicionarCli);
         showClientsList();
+
+
+        btnAdicionarCli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerClientDialog();
+            }
+        });
+
     }
 
+    public void registerClientDialog(){
+
+        AlertDialog.Builder modal = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.register_debtors, null);
+        modal.setMessage("Informe os dados do Cliente:");
+        modal.setView(view);
+
+        final EditText nomeCliente =  view.findViewById(R.id.txtNome);
+        nomeCliente.setContentDescription("Informe o Nome");
+
+        final MaskedEditText telefoneCliente = view.findViewById(R.id.txtTelefone);
+        telefoneCliente.setContentDescription("Informe o Telefone");
+
+        modal.setPositiveButton("SALVAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                long idRow = ClienteController.store(nomeCliente.getText().toString(), telefoneCliente.getText(true).toString(), getApplicationContext());
+
+                int duracao = Toast.LENGTH_SHORT;
+                Toast toast = null;
+
+                if(idRow > 0){
+                    toast = Toast.makeText(getApplicationContext(), "Salvo com sucesso!",duracao);
+                    toast.show();
+                    Intent it = new Intent(ListClients.this, ShowDebtors.class);
+                    it.putExtra("idCliente", idRow);
+                    it.putExtra("nomeCliente", nomeCliente.getText().toString());
+                    it.putExtra("telefoneCliente", telefoneCliente.getText(true).toString());
+                    startActivity(it);
+                }else{
+                    toast =  Toast.makeText(getApplicationContext(), "Não Foi possível salvar os dados!",duracao);
+                    toast.show();
+                }
+
+
+            }
+        });
+
+        modal.setNegativeButton("CANCELAR", null);
+        AlertDialog dialog = modal.create();
+        dialog.show();
+    }
 
     private void showClientsList(){
         List<DebtorsBean> clients = ClienteController.getAllClients(getApplicationContext(), false, null);

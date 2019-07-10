@@ -102,12 +102,12 @@ public class DetailDebt extends AppCompatActivity {
                 idParcelas.clear();
                 parcelasSp.clear();
 
-
                     do{
                         idParcelas.add(payment.getInt(payment.getColumnIndex("_id")));
                         parcelasSp.add("Vencimento dia: " + payment.getString(payment.getColumnIndex("payday")));
-
                     }while (payment.moveToNext());
+
+                    parcelasSp.add("Pagar Tudo");
 
                 ArrayAdapter<String> dataadapter = new ArrayAdapter<String>(DetailDebt.this, android.R.layout.simple_spinner_item, parcelasSp);
                 dataadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -120,10 +120,9 @@ public class DetailDebt extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                      String idPayment = idParcelas.get(parcelas.getSelectedItemPosition()).toString();
-
                      boolean update = DebtController.makePayment(getApplicationContext(), idPayment);
 
-                     if(update == true){
+                     if(update){
                          Toast.makeText(getApplicationContext(), "Pagamento feito com sucesso", Toast.LENGTH_SHORT).show();
                          detailsDebt();
                      }else{

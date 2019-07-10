@@ -72,6 +72,9 @@ public class AddPayment extends AppCompatActivity {
         valorParcelado = new BigDecimal(0);
         qtdParcelas = "0";
 
+
+        System.out.println(idCliente);
+
         mountSpinner();
         eventFormPayment();
         eventChangeValue();
@@ -256,6 +259,8 @@ public class AddPayment extends AppCompatActivity {
 
                             mensagem = "Debito cadastrado com sucesso!!";
                             Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();
+                            Intent it = new Intent(AddPayment.this, MenuPrincipal.class);
+                            startActivity(it);
                             finish();
 
                         } catch (ParseException e) {

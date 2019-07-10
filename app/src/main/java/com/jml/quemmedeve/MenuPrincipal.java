@@ -40,6 +40,7 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(MenuPrincipal.this, ListClients.class);
+                it.putExtra("showButton", "true");
                 startActivity(it);
             }
         });
@@ -56,7 +57,14 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     private void callDebts() {
-
+        card_debts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(MenuPrincipal.this, ListClients.class);
+                it.putExtra("showButton", "false");
+                startActivity(it);
+            }
+        });
     }
 
     private void callBackup() {

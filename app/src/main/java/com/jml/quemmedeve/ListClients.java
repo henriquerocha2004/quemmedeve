@@ -28,15 +28,23 @@ public class ListClients extends AppCompatActivity {
 
     private RecyclerView listClients;
     private Button btnAdicionarCli;
+    private String showButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_clients);
         listClients = findViewById(R.id.listClients);
+        Intent it = getIntent();
+        showButton = it.getStringExtra("showButton");
         btnAdicionarCli = findViewById(R.id.btnAdicionarCli);
-        showClientsList();
 
+        if(showButton.equals("false")){
+            btnAdicionarCli.setVisibility(View.INVISIBLE);
+        }
+
+        showClientsList();
 
         btnAdicionarCli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,16 +126,27 @@ public class ListClients extends AppCompatActivity {
                 long id = adp.getIdDebtor(listClients.getChildAdapterPosition(v));
                 String nomeCliente = adp.getNameClient(listClients.getChildAdapterPosition(v));
                 String telefoneCliente = adp.getTotalValor(listClients.getChildAdapterPosition(v));
-                Intent it = new Intent(ListClients.this, ShowDebtors.class);
-                it.putExtra("idCliente", id);
-                it.putExtra("nomeCliente", nomeCliente);
-                it.putExtra("telefoneCliente", telefoneCliente);
+                Intent it = null;
+
+                if(showButton.equals("false")){
+                    it = new Intent(ListClients.this, AddPayment.class);
+                    it.putExtra("idCliente", id);
+                }else{
+                    it = new Intent(ListClients.this, ShowDebtors.class);
+                    it.putExtra("idCliente", id);
+                    it.putExtra("nomeCliente", nomeCliente);
+                    it.putExtra("telefoneCliente", telefoneCliente);
+                }
+
                 startActivity(it);
             }
         });
 
         listClients.setAdapter(adp);
     }
+
+
+
 
 
     @Override

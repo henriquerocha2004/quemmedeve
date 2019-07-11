@@ -2,6 +2,7 @@ package com.jml.quemmedeve;
 
 import android.Manifest;
 import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,13 +11,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.jml.quemmedeve.adapters.AdapterListDebts;
@@ -40,6 +44,7 @@ public class ShowDebtors extends AppCompatActivity {
     private String telefoneCliente;
     private TextView txtContact;
     private Button btnAdicionarDebito;
+    private Button shareDebtsPending;
     private FloatingActionButton btnCall;
     private Button btnEfetuarPagamento;
     private static final Integer REQUEST_CODE = 1;
@@ -51,11 +56,13 @@ public class ShowDebtors extends AppCompatActivity {
         idCliente = Long.toString(it.getLongExtra("idCliente", 0));
         nomeCliente = (it.getStringExtra("nomeCliente") == null ? null : it.getStringExtra("nomeCliente"));
         telefoneCliente = (it.getStringExtra("telefoneCliente") == null ? null : it.getStringExtra("telefoneCliente"));
-        btnAdicionarDebito = (Button) findViewById(R.id.btnAdicionarDebito);
+        btnAdicionarDebito = findViewById(R.id.btnAdicionarDebito);
+        shareDebtsPending = findViewById(R.id.shareDebtsPending);
         btnCall = findViewById(R.id.btnCall);
         adicionarDebito();
         checkDebtor();
         actionBtnDial();
+        shareDebtsPending();
     }
 
 
@@ -118,6 +125,36 @@ public class ShowDebtors extends AppCompatActivity {
         }
     }
 
+    private void shareDebtsPending(){
+        shareDebtsPending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder modal = new AlertDialog.Builder(ShowDebtors.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.screen_select_period, null);
+                modal.setMessage("Informe o que Deseja enviar:");
+                modal.setView(view);
+
+                final RadioGroup rbgTypeSend = view.findViewById(R.id.rbgTypeSend);
+
+                modal.setPositiveButton("Gerar e Enviar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        int rdButtonId = rbgTypeSend.getCheckedRadioButtonId();
+                        View radioBtn = rbgTypeSend.findViewById(rdButtonId);
+                        final int indexRbSelected = rbgTypeSend.indexOfChild(radioBtn);
+
+
+
+                    }
+                });
+
+                AlertDialog dialog = modal.create();
+                dialog.show();
+            }
+        });
+    }
 
     //Funções Relacionadas a realizar ligações.
 

@@ -1,5 +1,6 @@
 package com.jml.quemmedeve.ultility;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.provider.CalendarContract;
 
@@ -51,6 +52,27 @@ public class DateUltility {
         Date d = cal.getTime();
         String dt = formatoUSA.format(d);
         return dt;
+    }
+
+    // Função que retorna o primeiro e ultimo dia do mes corrente
+    public static ContentValues getFistDataMonthLastDataMonth(){
+
+        ContentValues dates = new ContentValues();
+        Calendar c = Calendar.getInstance();
+        Date d = new Date();
+        d = c.getTime();
+
+        // Pego o primeiro dia do mes
+        c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH));
+        d = c.getTime();
+        dates.put("primeiraDataMes", formatoUSA.format(d));
+
+        // Pego o segundo dia do mes
+        c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+        d = c.getTime();
+        dates.put("ultimaDataMes", formatoUSA.format(d));
+
+        return dates;
     }
 
     //Função que insere o evento no calendário.

@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
 import com.jml.quemmedeve.database.DebtsDbHelper;
 import com.jml.quemmedeve.database.PaymentDbHelper;
@@ -110,8 +111,34 @@ public class DebtController {
         }
 
         return result;
+    }
+
+    public static List<DebtsBean> getDebtsForDebtor(String idDebtor, int typeQuery ,Context context){
+
+        String addDataCondition = "";
+
+        if(typeQuery == 0){
+            ContentValues dates = DateUltility.getFistDataMonthLastDataMonth();
+            addDataCondition = "AND date_debt BETWEEN "+ dates.get("primeiraDataMes") + " AND " + dates.get("ultimaDataMes");
+        }
+
+        List<DebtsBean> debts = new ArrayList<>();
+        DebtsDbHelper helper = new DebtsDbHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String[] args = {idDebtor};
+        Cursor resultSet = db.rawQuery(
+                "SELECT _id, debt_desc, printf('%.2f',value) as full_value, date_debt, printf('%.2f',payment.amount_to_pay) as amount_to_pay , printf('%.2f', SUM(payment.amount_to_pay)) as remaining_value\n" +
+                "    FROM debts \n" +
+                "        INNER JOIN payment ON payment.debt_id = debts._id\n" +
+                "    WHERE debts.usu_id_debt = ? AND debts.soft_delete = 0 AND payment.status_payment = 0 AND payment.soft_delete = 0" + addDataCondition + " ORDER BY debts.date_debt DESC", args);
+
+        if(resultSet.getCount() > 0){
+
+        }
 
     }
+
+
 
     // Função que realiza o pagamento de uma parcela.
     public static boolean makePayment(Context context, String id){

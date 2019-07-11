@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jml.quemmedeve.adapters.AdapterListDebtors;
@@ -29,6 +30,7 @@ public class ListClients extends AppCompatActivity {
     private RecyclerView listClients;
     private Button btnAdicionarCli;
     private String showButton;
+    private TextView lbTitle;
 
 
     @Override
@@ -39,9 +41,11 @@ public class ListClients extends AppCompatActivity {
         Intent it = getIntent();
         showButton = it.getStringExtra("showButton");
         btnAdicionarCli = findViewById(R.id.btnAdicionarCli);
+        lbTitle = findViewById(R.id.lbtitle);
 
         if(showButton.equals("false")){
             btnAdicionarCli.setVisibility(View.INVISIBLE);
+            lbTitle.setText("Informe um cliente:");
         }
 
         showClientsList();
@@ -130,7 +134,7 @@ public class ListClients extends AppCompatActivity {
 
                 if(showButton.equals("false")){
                     it = new Intent(ListClients.this, AddPayment.class);
-                    it.putExtra("idCliente", id);
+                    it.putExtra("idCliente", Long.toString(id));
                 }else{
                     it = new Intent(ListClients.this, ShowDebtors.class);
                     it.putExtra("idCliente", id);

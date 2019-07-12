@@ -1,6 +1,6 @@
 package com.jml.quemmedeve.bean;
 
-public class DebtsBean {
+public class DebtsBean extends PaymentBean{
 
    private int id;
    private int usu_id_debt;
@@ -10,6 +10,9 @@ public class DebtsBean {
    private String debt_split;
    private String value_split;
    private int status_debt;
+
+    //Atributos Auxiliares
+    private String remainig_value;
 
     public String getValue_split() {
         return value_split;

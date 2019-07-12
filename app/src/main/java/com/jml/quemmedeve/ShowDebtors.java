@@ -22,10 +22,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jml.quemmedeve.adapters.AdapterListDebts;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
+import com.jml.quemmedeve.controllers.DebtController;
 import com.jml.quemmedeve.ultility.NumberUtility;
 
 import java.util.List;
@@ -145,8 +147,12 @@ public class ShowDebtors extends AppCompatActivity {
                         View radioBtn = rbgTypeSend.findViewById(rdButtonId);
                         final int indexRbSelected = rbgTypeSend.indexOfChild(radioBtn);
 
-
-
+                        List<DebtsBean> debts = DebtController.getDebtsForDebtor(idCliente, indexRbSelected, getApplicationContext());
+                        if(debts.isEmpty()){
+                            Toast.makeText(getApplicationContext(), "Não foram encontrados débitos em aberto para esse cliente!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            shareContent(debts);
+                        }
                     }
                 });
 
@@ -154,6 +160,26 @@ public class ShowDebtors extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    private void shareContent(List<DebtsBean> debts){
+        double valorTotal = 0;
+        String resumoDébito = "";
+
+        for(DebtsBean debt : debts){
+           resumoDébito += "Data do débito: "+debt.getDate_debt() + " - Descrição: "+ debt.getDebt_desc()+ " - Valor: R$ " + debt.getAmount_to_pay() + "\n";
+           valorTotal += Double.parseDouble(debt.getAmount_to_pay());
+        }
+
+        resumoDébito += "\n\n Total: " + NumberUtility.converterBr(Double.toString(valorTotal));
+
+
+
+        Intent send = new Intent();
+        send.setAction(Intent.ACTION_SEND);
+        send.putExtra(Intent.EXTRA_TEXT, resumoDébito);
+        send.setType("text/plain");
+        startActivity(send);
     }
 
     //Funções Relacionadas a realizar ligações.

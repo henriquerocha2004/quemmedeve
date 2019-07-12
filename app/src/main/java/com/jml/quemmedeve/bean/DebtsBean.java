@@ -14,6 +14,14 @@ public class DebtsBean extends PaymentBean{
     //Atributos Auxiliares
     private String remainig_value;
 
+    public String getRemainig_value() {
+        return remainig_value;
+    }
+
+    public void setRemainig_value(String remainig_value) {
+        this.remainig_value = remainig_value;
+    }
+
     public String getValue_split() {
         return value_split;
     }

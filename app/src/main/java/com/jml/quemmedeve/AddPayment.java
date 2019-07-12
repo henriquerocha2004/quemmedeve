@@ -72,9 +72,6 @@ public class AddPayment extends AppCompatActivity {
         valorParcelado = new BigDecimal(0);
         qtdParcelas = "0";
 
-
-        System.out.println(idCliente);
-
         mountSpinner();
         eventFormPayment();
         eventChangeValue();

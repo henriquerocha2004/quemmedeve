@@ -70,7 +70,7 @@ public class AddPayment extends AppCompatActivity {
         txtDescPay = findViewById(R.id.txtDescPay);
         cbLembrarMe = findViewById(R.id.cbLembrarMe);
         valorParcelado = new BigDecimal(0);
-        qtdParcelas = "0";
+        qtdParcelas = "1";
 
         mountSpinner();
         eventFormPayment();
@@ -101,7 +101,7 @@ public class AddPayment extends AppCompatActivity {
                 View rdBtn = rdGrpFormPay.findViewById(checkedId);
                 int index = rdGrpFormPay.indexOfChild(rdBtn);
 
-                if(index == 0){
+                if(index == 0 || index == 2){
                     spPaymentSplit.setEnabled(false);
                     cbLembrarMe.setChecked(false);
                 }else{
@@ -150,15 +150,10 @@ public class AddPayment extends AppCompatActivity {
 
                 if(spPaymentSplit.isEnabled() == true){
                     String itemSpinner = spPaymentSplit.getSelectedItem().toString();
-
-                    if(!itemSpinner.isEmpty()){
-                        BigDecimal valorTotal = txtValueFull.getValue();
-                        qtdParcelas = itemSpinner.substring(0, itemSpinner.indexOf("x"));
-                        valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorTotal);
-                        descPagamento = String.format("Parcelado em %s de R$ %,.2f", qtdParcelas, valorParcelado);
-                    }else{
-                       Toast.makeText(getApplicationContext(), "Informe um valor válido para o parcelamento!", Toast.LENGTH_SHORT);
-                    }
+                    BigDecimal valorTotal = txtValueFull.getValue();
+                    qtdParcelas = itemSpinner.substring(0, itemSpinner.indexOf("x"));
+                    valorParcelado = calcularParcelas(Integer.parseInt(qtdParcelas), valorTotal);
+                    descPagamento = String.format("Parcelado em %s de R$ %,.2f", qtdParcelas, valorParcelado);
 
                 }else {
                     descPagamento = String.format("Dívida de R$ %,.2f", txtValueFull.getValue());
@@ -231,7 +226,7 @@ public class AddPayment extends AppCompatActivity {
                     payment.put(PaymentDbHelper.COLUMN_PAYDAY, (formaPagamento.equals("Parcelado") ? DateUltility.formataUSA(datePaySplit.getText().toString()) : DateUltility.getCurrentData("USA")));
 
 
-                    if(qtdParcelas == "0"){
+                    if(formaPagamento.equals("A vista")){
                         debt.put(DebtsDbHelper.COLUMN_STATUS_DEBT, 1);
                         payment.put(PaymentDbHelper.COLUMN_STATUS_PAYMENT, 1);
                     }else{
@@ -298,6 +293,13 @@ public class AddPayment extends AppCompatActivity {
                 return "Informe uma data de vencimento das parcelas";
             }
         }
+
+        if(rb.getText().toString().equals("A Prazo")){
+            if(datePaySplit.getText().toString().isEmpty()){
+                return "Informe uma data de vencimento das parcelas";
+            }
+        }
+
 
         return "Validado";
     }

@@ -45,11 +45,11 @@
         app:rounding="2" />
 
 
-
     <Spinner
         android:id="@+id/spPaymentForm"
-        android:layout_width="168dp"
-        android:layout_height="35dp"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="172dp"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -84,8 +84,8 @@
 
     <RadioGroup
         android:id="@+id/rdGrpFormPay"
-        android:layout_width="145dp"
-        android:layout_height="71dp"
+        android:layout_width="164dp"
+        android:layout_height="87dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -113,6 +113,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Parcelado" />
+
+        <RadioButton
+            android:id="@+id/radioButtomPrazo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="A Prazo" />
     </RadioGroup>
 
     <TextView
@@ -154,8 +161,8 @@
 
     <TextView
         android:id="@+id/txtDescPagamento"
-        android:layout_width="361dp"
-        android:layout_height="67dp"
+        android:layout_width="356dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"

@@ -28,6 +28,7 @@ import com.jml.quemmedeve.adapters.AdapterListDebts;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.DebtController;
+import com.jml.quemmedeve.ultility.DateUltility;
 import com.jml.quemmedeve.ultility.NumberUtility;
 
 import java.util.List;
@@ -164,16 +165,14 @@ public class ShowDebtors extends AppCompatActivity {
 
     private void shareContent(List<DebtsBean> debts){
         double valorTotal = 0;
-        String resumoDébito = "";
+        String resumoDébito = "Olá, tudo bem? \n Segue abaixo os débitos ainda pendentes: \n\n";
 
         for(DebtsBean debt : debts){
-           resumoDébito += "Data do débito: "+debt.getDate_debt() + " - Descrição: "+ debt.getDebt_desc()+ " - Valor: R$ " + debt.getAmount_to_pay() + "\n";
+           resumoDébito += "Dia: "+ DateUltility.formataBR(debt.getDate_debt()) + " - Pedido: "+ debt.getDebt_desc()+ " - Valor: R$ " + debt.getAmount_to_pay() + "\n";
            valorTotal += Double.parseDouble(debt.getAmount_to_pay());
         }
 
         resumoDébito += "\n\n Total: " + NumberUtility.converterBr(Double.toString(valorTotal));
-
-
 
         Intent send = new Intent();
         send.setAction(Intent.ACTION_SEND);

@@ -53,6 +53,8 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
                  "END;\n";
 
 
+
+
     public PaymentDbHelper(Context context){
         super(context,DATABASE_NAME,null, DATABASE_VERSION);
     }
@@ -75,9 +77,6 @@ public class PaymentDbHelper extends SQLiteOpenHelper {
         return SQL_CREATE_PAYMENT;
     }
     public String getSQL_CREATE_TRIGGER_UPDATE_DEBT(){ return SQL_CREATE_TRIGGER_UPDATE_DEBT;}
-    public String getSQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT(){
-        return SQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT;
-    }
-
-
+    public String getSQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT(){ return SQL_CREATE_TRIGGER_MARK_DELETE_RECEIPT; }
+    public String getSQL_CREATE_TRIGGER_MARK_DEBT(){ return  SQL_CREATE_TRIGGER_UPDATE_DEBT; }
 }

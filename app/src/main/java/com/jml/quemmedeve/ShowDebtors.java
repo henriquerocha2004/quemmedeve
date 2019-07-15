@@ -31,6 +31,7 @@ import com.jml.quemmedeve.adapters.AdapterListDebts;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.DebtController;
+import com.jml.quemmedeve.controllers.PaymentController;
 import com.jml.quemmedeve.ultility.DateUltility;
 import com.jml.quemmedeve.ultility.NumberUtility;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
@@ -120,7 +121,6 @@ public class ShowDebtors extends AppCompatActivity {
         final Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
         List<DebtsBean> debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext(), period, monthYear);
 
-        try{
                 lista = findViewById(R.id.listDebitos);
                 lista.setHasFixedSize(true);
                 lista.setClickable(true);
@@ -152,9 +152,6 @@ public class ShowDebtors extends AppCompatActivity {
             txtContact.setText(cliente.getString(1) == null ? telefoneCliente : cliente.getString(1));
             txtValTotal.setText(NumberUtility.converterBr(cliente.getString(2)));
 
-        }finally {
-
-        }
     }
 
     private void shareDebtsPending(){
@@ -232,6 +229,20 @@ public class ShowDebtors extends AppCompatActivity {
                         int rdButtonId = rbgPayall.getCheckedRadioButtonId();
                         View radioBtn = rbgPayall.findViewById(rdButtonId);
                         final int indexRbSelected = rbgPayall.indexOfChild(radioBtn);
+                        String monthYear = String.format("%s-%02d", year, month);
+                        boolean pay = PaymentController.massPayment(getApplicationContext(), indexRbSelected, monthYear, idCliente);
+
+                        System.out.println(pay);
+
+                        String message = "";
+                        if(pay){
+                             message = "Pagamentos Realizados com sucesso!";
+                        }else{
+                             message = "Houve uma Falha ao realizar os pagamentos!";
+                        }
+
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+//                        onRestart();
                     }
                 });
 

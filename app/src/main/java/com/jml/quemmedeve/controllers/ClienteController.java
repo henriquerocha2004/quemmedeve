@@ -104,6 +104,7 @@ public class ClienteController {
         }catch (SQLException e){
             Log.i("Erro: ", e.getMessage());
         }finally {
+            debts.close();
             db.close();
         }
 
@@ -146,6 +147,7 @@ public class ClienteController {
         }catch (SQLException e){
             Log.i("Erro: ", e.getMessage());
         }finally {
+            debtors.close();
             db.close();
         }
 

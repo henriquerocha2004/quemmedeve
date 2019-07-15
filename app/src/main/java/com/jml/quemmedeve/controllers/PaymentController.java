@@ -1,9 +1,14 @@
 package com.jml.quemmedeve.controllers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.jml.quemmedeve.database.DebtorsDbHelper;
+import com.jml.quemmedeve.database.PaymentDbHelper;
 
 public class PaymentController {
 
@@ -16,8 +21,6 @@ public class PaymentController {
 
         resultado = db.rawQuery("SELECT printf('%.2f', SUM(amount_to_pay)) as amount_to_pay FROM payment WHERE status_payment = 0 AND soft_delete = 0", null);
 
-        System.out.println(resultado.getCount());
-
         if(resultado.getCount() > 0){
             resultado.moveToFirst();
             valor = resultado.getString(0);
@@ -25,4 +28,40 @@ public class PaymentController {
 
         return valor;
     }
+
+    public static boolean massPayment(Context context, int filterTypePayment, String mesAno, String idClient){
+
+        String addConditionByMonth = "";
+        PaymentDbHelper helper = new PaymentDbHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] args = {idClient};
+
+        if(filterTypePayment == 1){
+            addConditionByMonth = " AND payday BETWEEN '"+mesAno+"-01' AND '"+mesAno+"-31'";
+        }
+
+        db.rawQuery("UPDATE payment SET status_payment = 1 WHERE debt_id IN (" +
+                "SELECT _id FROM debts WHERE usu_id_debt = ?  AND status_debt = 0 AND soft_delete = 0" +
+                ") AND soft_delete = 0 "+addConditionByMonth, args);
+        return true;
+
+//        db.beginTransaction();
+
+//        try{
+//
+//
+//
+////            db.setTransactionSuccessful();
+//
+//
+//        }catch (Exception e){
+//            Log.i("Error: ", e.getMessage());
+//        }finally {
+////            db.endTransaction();
+//        }
+//
+//        return false;
+    }
+
+
 }

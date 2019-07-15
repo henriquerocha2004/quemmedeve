@@ -62,7 +62,15 @@ public class ClienteController {
     }
 
     // Função que coleta todos os déditos do cliente
-    public static List<DebtsBean> getDebtsClient(String id, Context context){
+    public static List<DebtsBean> getDebtsClient(String id, Context context, boolean period, String monthYear){
+
+        String conditionPeriod = "";
+
+        if(period){
+            conditionPeriod = " AND payment.payday BETWEEN '"+monthYear+"-01' AND '"+monthYear+"-31'";
+        }
+
+
 
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -75,11 +83,8 @@ public class ClienteController {
                   "SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, printf('%.2f', debts.value_split) as value_split , debts.debt_split, " +
                       "debts.status_debt" +
                       " FROM debts" +
-                      " WHERE debts.usu_id_debt = ? AND debts.soft_delete = 0 ORDER BY status_debt ASC", arg);
-
-
-         System.out.println(debts.getCount());
-
+                      " INNER JOIN payment ON payment.debt_id = debts._id"+
+                      " WHERE debts.usu_id_debt = ? AND debts.soft_delete = 0 "+conditionPeriod+" GROUP BY debts.debt_desc ORDER BY status_debt ASC", arg);
          if(debts.getCount() > 0){
              debts.moveToFirst();
 
@@ -91,10 +96,6 @@ public class ClienteController {
                  debt.setValue_split(debts.getString(3));
                  debt.setDebt_split(debts.getString(4));
                  debt.setStatus_debt(debts.getInt(5));
-
-                 System.out.println(debt.toString());
-
-
                  debtsList.add(debt);
              }while (debts.moveToNext());
 

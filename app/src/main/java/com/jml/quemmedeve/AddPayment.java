@@ -215,8 +215,8 @@ public class AddPayment extends AppCompatActivity {
                     ContentValues debt = new ContentValues();
                     debt.put(DebtsDbHelper.COLUMN_DEBT_DESC, txtDescPay.getText().toString());
                     debt.put(DebtsDbHelper.COLUMN_VALUE, txtValueFull.getValue().toString());
-                    debt.put(DebtsDbHelper.COLUMN_DEBT_SPLIT, qtdParcelas);
-                    debt.put(DebtsDbHelper.COLUMN_VALUE_SPLIT, valorParcelado.toString());
+                    debt.put(DebtsDbHelper.COLUMN_DEBT_SPLIT, (formaPagamento.equals("Parcelado") ? qtdParcelas : "1"));
+                    debt.put(DebtsDbHelper.COLUMN_VALUE_SPLIT,  (formaPagamento.equals("Parcelado") ? valorParcelado.toString() : txtValueFull.getValue().toString()));
                     debt.put(DebtsDbHelper.COLUMN_USU_ID, idCliente);
                     debt.put(DebtsDbHelper.COLUMN_DATE_DEBT, DateUltility.getCurrentData("USA"));
 

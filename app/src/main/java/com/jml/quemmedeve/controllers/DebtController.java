@@ -176,9 +176,11 @@ public class DebtController {
             Log.i("Erro: ", e.getMessage());
             return false;
         }
-
         return true;
     }
+
+
+
 
     // Função que remove um débito
     public static boolean deleteDebt(Context context, String id){

@@ -1,6 +1,7 @@
 package com.jml.quemmedeve;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +33,9 @@ import com.jml.quemmedeve.controllers.ClienteController;
 import com.jml.quemmedeve.controllers.DebtController;
 import com.jml.quemmedeve.ultility.DateUltility;
 import com.jml.quemmedeve.ultility.NumberUtility;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,7 +54,16 @@ public class ShowDebtors extends AppCompatActivity {
     private Button btnAdicionarDebito;
     private Button shareDebtsPending;
     private FloatingActionButton btnCall;
+    private Button btnPayAll;
     private Button btnEfetuarPagamento;
+    private RadioGroup rbgMonthFilter;
+    private RadioButton rbAll;
+    private RadioButton rbSelectMonth;
+    private TextView txtMes;
+    private int rbSelectedIndex;
+    private int month;
+    private int year;
+
     private static final Integer REQUEST_CODE = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +73,28 @@ public class ShowDebtors extends AppCompatActivity {
         idCliente = Long.toString(it.getLongExtra("idCliente", 0));
         nomeCliente = (it.getStringExtra("nomeCliente") == null ? null : it.getStringExtra("nomeCliente"));
         telefoneCliente = (it.getStringExtra("telefoneCliente") == null ? null : it.getStringExtra("telefoneCliente"));
+
         btnAdicionarDebito = findViewById(R.id.btnAdicionarDebito);
         shareDebtsPending = findViewById(R.id.shareDebtsPending);
         btnCall = findViewById(R.id.btnCall);
+        btnPayAll = findViewById(R.id.btnPayAll);
+        rbAll = findViewById(R.id.rbAll);
+        rbSelectMonth = findViewById(R.id.rbSelectMonth);
+        rbgMonthFilter = findViewById(R.id.rbgMonthFilter);
+        txtMes = findViewById(R.id.txtMes);
+
         adicionarDebito();
-        checkDebtor();
+        checkDebtor(false);
         actionBtnDial();
         shareDebtsPending();
+        filterPendingPayments();
+        payAll();
     }
 
 
     protected void onRestart() {
         super.onRestart();
-        checkDebtor();
+        checkDebtor(false);
     }
 
     private void adicionarDebito(){
@@ -86,10 +109,16 @@ public class ShowDebtors extends AppCompatActivity {
         });
     }
 
-    private void checkDebtor(){
+    private void checkDebtor(boolean period){
+
+        String monthYear = null;
+
+        if(month != 0){
+            monthYear = String.format("%s-%02d", year, month);
+        }
 
         final Cursor cliente = ClienteController.findById(idCliente, getApplicationContext());
-        List<DebtsBean> debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext());
+        List<DebtsBean> debitos = ClienteController.getDebtsClient(idCliente, getApplicationContext(), period, monthYear);
 
         try{
                 lista = findViewById(R.id.listDebitos);
@@ -179,6 +208,74 @@ public class ShowDebtors extends AppCompatActivity {
         send.putExtra(Intent.EXTRA_TEXT, resumoDébito);
         send.setType("text/plain");
         startActivity(send);
+    }
+
+    private void payAll(){
+        btnPayAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder modal = new AlertDialog.Builder(ShowDebtors.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.payment_options_all, null);
+                modal.setMessage("O que deseja pagar?");
+                modal.setView(view);
+
+                final RadioGroup rbgPayall = view.findViewById(R.id.rbgPaymentAll);
+                final RadioButton rbPeriodMonth = view.findViewById(R.id.rbPayThisMonth);
+                if(rbSelectedIndex == 0){
+                    rbPeriodMonth.setEnabled(false);
+                }
+
+                modal.setPositiveButton("Pagar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int rdButtonId = rbgPayall.getCheckedRadioButtonId();
+                        View radioBtn = rbgPayall.findViewById(rdButtonId);
+                        final int indexRbSelected = rbgPayall.indexOfChild(radioBtn);
+                    }
+                });
+
+                modal.setNegativeButton("Cancelar", null);
+
+                AlertDialog dialog = modal.create();
+                dialog.show();
+            }
+        });
+    }
+
+    private void filterPendingPayments(){
+        rbAll.setSelected(true);
+        rbgMonthFilter.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                View rdBtn = rbgMonthFilter.findViewById(checkedId);
+                rbSelectedIndex = rbgMonthFilter.indexOfChild(rdBtn);
+
+                if(rbSelectedIndex == 1){
+                    showDate();
+                }else{
+                    checkDebtor(false);
+                }
+            }
+        });
+    }
+
+    private void showDate(){
+        final Calendar c = Calendar.getInstance();
+
+        final int currentMonth = c.get(Calendar.MONTH);
+        int currentYear = c.get(Calendar.YEAR);
+
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(ShowDebtors.this, new MonthPickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(int selectedMonth, int selectedYear) {
+                month = selectedMonth + 1;
+                year = selectedYear;
+                txtMes.setText(month + "/" + year);
+                checkDebtor(true);
+            }
+        }, currentYear, currentMonth);
+        builder.build().show();
     }
 
     //Funções Relacionadas a realizar ligações.

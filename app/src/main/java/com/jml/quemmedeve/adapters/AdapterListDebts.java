@@ -43,9 +43,6 @@ public class AdapterListDebts extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ListDebtsViewHolder holder = (ListDebtsViewHolder) viewHolder;
-
-        System.out.println(holder);
-
         DebtsBean debt = list.get(i);
         holder.desc_debt.setText(debt.getDebt_desc());
         holder.debt_value.setText(NumberUtility.converterBr(debt.getValue()));

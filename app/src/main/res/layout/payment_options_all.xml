@@ -27,6 +27,7 @@
             android:layout_width="328dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:text="Pagar todos os débitos pendentes" />
 
         <RadioButton

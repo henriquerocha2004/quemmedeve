@@ -86,15 +86,12 @@ public class DateUltility {
 
             Date dia = formatoUSA.parse(dataPrimeiraParcela);
             int diaPrimeiraParcela = dia.getDay();
-            System.out.println(diaPrimeiraParcela);
-
             Date dataFinalUsa = formatoUSA.parse(dataUltimaParcela);
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(dataFinalUsa);
             cal.add(Calendar.DAY_OF_MONTH, 3);
             String dataFinal = formatoParaCalendário.format(cal.getTime());
-            System.out.println(String.format("FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=%s;UNTIL=%s", diaPrimeiraParcela, dataFinal));
 
             cal.setTime(dia);
             long time = cal.getTimeInMillis();

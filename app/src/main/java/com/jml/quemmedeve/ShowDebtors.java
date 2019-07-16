@@ -165,6 +165,10 @@ public class ShowDebtors extends AppCompatActivity {
                 modal.setView(view);
 
                 final RadioGroup rbgTypeSend = view.findViewById(R.id.rbgTypeSend);
+                final RadioButton rbShareMonth = view.findViewById(R.id.rbPendMonth);
+                if(rbSelectedIndex == 0){
+                    rbShareMonth.setEnabled(false);
+                }
 
                 modal.setPositiveButton("Gerar e Enviar", new DialogInterface.OnClickListener() {
                     @Override
@@ -232,8 +236,6 @@ public class ShowDebtors extends AppCompatActivity {
                         String monthYear = String.format("%s-%02d", year, month);
                         boolean pay = PaymentController.massPayment(getApplicationContext(), indexRbSelected, monthYear, idCliente);
 
-                        System.out.println(pay);
-
                         String message = "";
                         if(pay){
                              message = "Pagamentos Realizados com sucesso!";
@@ -242,12 +244,11 @@ public class ShowDebtors extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-//                        onRestart();
+                        onRestart();
                     }
                 });
 
                 modal.setNegativeButton("Cancelar", null);
-
                 AlertDialog dialog = modal.create();
                 dialog.show();
             }

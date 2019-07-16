@@ -27,7 +27,8 @@
             android:layout_width="326dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Enviar debitos pendentes desse mês" />
+            android:checked="true"
+            android:text="Enviar debitos pendentes do mês selecionado" />
 
         <RadioButton
             android:id="@+id/rbPendAll"

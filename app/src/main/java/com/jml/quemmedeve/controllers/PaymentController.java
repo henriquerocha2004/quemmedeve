@@ -36,31 +36,26 @@ public class PaymentController {
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] args = {idClient};
 
-        if(filterTypePayment == 1){
-            addConditionByMonth = " AND payday BETWEEN '"+mesAno+"-01' AND '"+mesAno+"-31'";
+        db.beginTransaction();
+
+        try{
+            if(filterTypePayment == 1){
+                addConditionByMonth = " AND payday BETWEEN '"+mesAno+"-01' AND '"+mesAno+"-31'";
+            }
+
+            db.execSQL("UPDATE payment SET status_payment = 1 WHERE debt_id IN (" +
+                    "SELECT _id FROM debts WHERE usu_id_debt = ?  AND status_debt = 0 AND soft_delete = 0" +
+                    ") AND soft_delete = 0 "+addConditionByMonth, args);
+            db.setTransactionSuccessful();
+            return true;
+
+        }catch (Exception e){
+            Log.i("Error: ", e.getMessage());
+        }finally {
+            db.endTransaction();
         }
 
-        db.rawQuery("UPDATE payment SET status_payment = 1 WHERE debt_id IN (" +
-                "SELECT _id FROM debts WHERE usu_id_debt = ?  AND status_debt = 0 AND soft_delete = 0" +
-                ") AND soft_delete = 0 "+addConditionByMonth, args);
-        return true;
-
-//        db.beginTransaction();
-
-//        try{
-//
-//
-//
-////            db.setTransactionSuccessful();
-//
-//
-//        }catch (Exception e){
-//            Log.i("Error: ", e.getMessage());
-//        }finally {
-////            db.endTransaction();
-//        }
-//
-//        return false;
+        return false;
     }
 
 

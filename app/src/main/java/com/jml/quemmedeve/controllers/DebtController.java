@@ -177,8 +177,6 @@ public class DebtController {
     }
 
 
-
-
     // Função que remove um débito
     public static boolean deleteDebt(Context context, String id){
 

@@ -41,12 +41,15 @@ public class ClienteController {
 
        try {
 
-          String[] args = {id};
+          String[] args = {id, id};
 
-          cursor = db.rawQuery("SELECT debtors.name, debtors.phone, printf('%.2f', SUM(payment.amount_to_pay)) as valor_total FROM debtors" +
-                  " INNER JOIN debts ON debts.usu_id_debt = debtors._id" +
-                  " INNER JOIN payment ON payment.debt_id = debts._id " +
-                  "WHERE debtors._id = ? AND payment.status_payment = 0 AND payment.soft_delete = 0", args);
+          cursor = db.rawQuery("SELECT debtors.name, debtors.phone, (\n" +
+                  "    SELECT printf('%.2f', SUM(payment.amount_to_pay)) as valor_total FROM payment\n" +
+                  "        INNER JOIN debts ON debts._id = payment.debt_id\n" +
+                  "    WHERE debts.usu_id_debt = ? AND payment.status_payment = 0 AND payment.soft_delete = 0\n" +
+                  ")as valor_total  \n" +
+                  "FROM debtors\n" +
+                  "WHERE debtors._id = ?", args);
 
           if(cursor != null){
               cursor.moveToFirst();
@@ -70,8 +73,6 @@ public class ClienteController {
             conditionPeriod = " AND payment.payday BETWEEN '"+monthYear+"-01' AND '"+monthYear+"-31'";
         }
 
-
-
         DebtorsDbHelper helper = new DebtorsDbHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor debts = null;
@@ -80,11 +81,11 @@ public class ClienteController {
 
          String[] arg = {id};
             debts = db.rawQuery(
-                  "SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, printf('%.2f', debts.value_split) as value_split , debts.debt_split, " +
-                      "debts.status_debt" +
-                      " FROM debts" +
-                      " INNER JOIN payment ON payment.debt_id = debts._id"+
-                      " WHERE debts.usu_id_debt = ? AND debts.soft_delete = 0 "+conditionPeriod+" GROUP BY debts.debt_desc ORDER BY status_debt ASC", arg);
+                   "SELECT debts._id, debts.debt_desc , printf('%.2f', debts.value) as value, printf('%.2f', debts.value_split) as value_split , debts.debt_split, " +
+                       "debts.status_debt" +
+                       " FROM debts" +
+                       " INNER JOIN payment ON payment.debt_id = debts._id"+
+                       " WHERE debts.usu_id_debt = ? AND debts.soft_delete = 0 "+conditionPeriod+" GROUP BY debts.debt_desc ORDER BY status_debt ASC", arg);
          if(debts.getCount() > 0){
              debts.moveToFirst();
 

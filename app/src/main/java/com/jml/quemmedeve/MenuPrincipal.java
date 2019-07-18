@@ -25,11 +25,13 @@ public class MenuPrincipal extends AppCompatActivity {
         card_clients = findViewById(R.id.card_clients);
         card_debtors = findViewById(R.id.card_debtors);
         card_debts = findViewById(R.id.card_debt);
+        card_reports = findViewById(R.id.card_reports);
         card_backup = findViewById(R.id.card_backup);
         card_options = findViewById(R.id.card_options);
 
         callClients();
         callDebtors();
+        callReports();
         callDebts();
         callBackup();
         callOptions();
@@ -62,6 +64,16 @@ public class MenuPrincipal extends AppCompatActivity {
             public void onClick(View v) {
                 Intent it = new Intent(MenuPrincipal.this, ListClients.class);
                 it.putExtra("showButton", "false");
+                startActivity(it);
+            }
+        });
+    }
+
+    private void callReports(){
+        card_reports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(MenuPrincipal.this, Reports.class);
                 startActivity(it);
             }
         });

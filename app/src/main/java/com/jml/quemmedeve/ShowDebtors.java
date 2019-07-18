@@ -49,8 +49,6 @@ public class ShowDebtors extends AppCompatActivity {
     private String idCliente;
     private Locale ptBR = new Locale("pt", "BR");
     private RecyclerView lista;
-    private String nomeCliente;
-    private String telefoneCliente;
     private TextView txtContact;
     private Button btnAdicionarDebito;
     private Button shareDebtsPending;
@@ -72,8 +70,6 @@ public class ShowDebtors extends AppCompatActivity {
         setContentView(R.layout.show_debtor);
         Intent it = getIntent();
         idCliente = Long.toString(it.getLongExtra("idCliente", 0));
-        nomeCliente = (it.getStringExtra("nomeCliente") == null ? null : it.getStringExtra("nomeCliente"));
-        telefoneCliente = (it.getStringExtra("telefoneCliente") == null ? null : it.getStringExtra("telefoneCliente"));
 
         btnAdicionarDebito = findViewById(R.id.btnAdicionarDebito);
         shareDebtsPending = findViewById(R.id.shareDebtsPending);
@@ -132,10 +128,6 @@ public class ShowDebtors extends AppCompatActivity {
                 adp.setClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        nomeCliente =  nomeCliente == null ?  cliente.getString(0) : nomeCliente;
-                        telefoneCliente = telefoneCliente == null ? cliente.getString(1) : telefoneCliente;
-
                         long idDebt = adp.getIdDebt(lista.getChildAdapterPosition(v));
                         Intent it = new Intent(ShowDebtors.this, DetailDebt.class);
                         it.putExtra("idDebt", idDebt);
@@ -145,11 +137,14 @@ public class ShowDebtors extends AppCompatActivity {
 
                 lista.setAdapter(adp);
 
+            System.out.println(cliente.getCount());
+
+
             txtNomeClient = findViewById(R.id.txtNomeClient);
             txtValTotal = findViewById(R.id.txtValTotal);
             txtContact = findViewById(R.id.txtContact);
-            txtNomeClient.setText(cliente.getString(0) == null ? nomeCliente : cliente.getString(0));
-            txtContact.setText(cliente.getString(1) == null ? telefoneCliente : cliente.getString(1));
+            txtNomeClient.setText(cliente.getString(0));
+            txtContact.setText(cliente.getString(1));
             txtValTotal.setText(NumberUtility.converterBr(cliente.getString(2)));
 
     }

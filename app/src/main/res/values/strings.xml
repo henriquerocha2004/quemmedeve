@@ -19,6 +19,10 @@
     <string name="lembrar_me_dos_parcelamentos">Lembrar-me dos Parcelamentos</string>
     <string name="o_que_deseja_fazer">O que deseja fazer?</string>
     <string name="backup">Backup</string>
+    <string name="informe_um_per_odo">Informe um período:</string>
+    <string name="gerar">Gerar</string>
+    <string name="data_incial">Data Incial</string>
+    <string name="data_final">Data Final</string>
 
     <string-array name="payments_options">
         <item></item>

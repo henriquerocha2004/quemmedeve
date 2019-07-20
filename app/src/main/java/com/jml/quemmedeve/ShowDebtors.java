@@ -137,16 +137,12 @@ public class ShowDebtors extends AppCompatActivity {
 
                 lista.setAdapter(adp);
 
-            System.out.println(cliente.getCount());
-
-
             txtNomeClient = findViewById(R.id.txtNomeClient);
             txtValTotal = findViewById(R.id.txtValTotal);
             txtContact = findViewById(R.id.txtContact);
             txtNomeClient.setText(cliente.getString(0));
             txtContact.setText(cliente.getString(1));
             txtValTotal.setText(NumberUtility.converterBr(cliente.getString(2)));
-
     }
 
     private void shareDebtsPending(){

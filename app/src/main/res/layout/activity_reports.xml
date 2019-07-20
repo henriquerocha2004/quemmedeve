@@ -16,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Informe um período:"
+        android:text="@string/informe_um_per_odo"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,61 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.07" />
-
-    <RadioGroup
-        android:id="@+id/rbgReport"
-        android:layout_width="369dp"
-        android:layout_height="348dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.469">
-
-        <RadioButton
-            android:id="@+id/rbCurrentMonth"
-            android:layout_width="328dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Mês Atual"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rbLastMonth"
-            android:layout_width="327dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Mês Anterior"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rbLast3Months"
-            android:layout_width="328dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ultimos 3 meses"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rbLast6Months"
-            android:layout_width="328dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ultimos 6 meses"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rbLast12Months"
-            android:layout_width="327dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ultimos 12 meses"
-            android:textSize="18sp" />
-    </RadioGroup>
 
     <Button
         android:id="@+id/btnReport"
@@ -91,10 +36,93 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Gerar"
+        android:text="@string/gerar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.971" />
+        app:layout_constraintVertical_bias="0.927" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/setDateStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32"
+        app:srcCompat="@drawable/ic_calendar_blank_outline_white_36dp"
+        android:focusable="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/setDateEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.569"
+        app:srcCompat="@drawable/ic_calendar_blank_outline_white_36dp"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/dateStart"
+        android:layout_width="185dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/data_incial"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33" />
+
+    <TextView
+        android:id="@+id/dateEnd"
+        android:layout_width="185dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/data_final"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.568" />
 </android.support.constraint.ConstraintLayout>

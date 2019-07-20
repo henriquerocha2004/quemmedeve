@@ -3,7 +3,6 @@ package com.jml.quemmedeve.ultility;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.provider.CalendarContract;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

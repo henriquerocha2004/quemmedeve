@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ public class Reports extends AppCompatActivity {
     private TextView dateEnd;
     private FloatingActionButton setDateStart;
     private FloatingActionButton setDateEnd;
+    private Button btnReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class Reports extends AppCompatActivity {
         dateEnd = findViewById(R.id.dateEnd);
         setDateStart = findViewById(R.id.setDateStart);
         setDateEnd = findViewById(R.id.setDateEnd);
+        btnReport = findViewById(R.id.btnReport);
 
         dateStart.setEnabled(false);
         dateEnd.setEnabled(false);
@@ -44,6 +47,14 @@ public class Reports extends AppCompatActivity {
 
 
     private void generateReport(){
+
+        btnReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
     }
 

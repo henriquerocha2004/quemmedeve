@@ -16,6 +16,7 @@ public class DebtsDbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DEBT_SPLIT = "debt_split";
     public static final String COLUMN_VALUE_SPLIT = "value_split";
     public static final String COLUMN_STATUS_DEBT = "status_debt";
+    public static final String COLUMN_FORM_PAYENT = "form_payment";
     public static final String COLUMN_SOFT_DELETE = "soft_delete";
     private static final String SQL_DELETE_DEBTS = "DROP TABLE IF EXISTS " + TABLE_NAME;
     public static final int DATABASE_VERSION = 1;
@@ -31,6 +32,7 @@ public class DebtsDbHelper extends SQLiteOpenHelper {
                     COLUMN_DEBT_SPLIT + " INTEGER NOT NULL," +
                     COLUMN_VALUE_SPLIT +" DOUBLE ," +
                     COLUMN_STATUS_DEBT + " BOOLEAN NOT NULL DEFAULT(0),"+
+                    COLUMN_FORM_PAYENT + " TEXT NOT NULL DEFAULT(AV),"+
                     COLUMN_SOFT_DELETE + " INTEGER NOT NULL DEFAULT(0) "+
               ")";
 

@@ -196,4 +196,12 @@ public class DebtController {
         return result;
     }
 
+
+//    public static List<DebtsBean> generateReport(){
+//
+//
+//
+//
+//    }
+
 }

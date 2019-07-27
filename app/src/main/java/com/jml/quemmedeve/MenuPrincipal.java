@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
 import android.view.View;
 
 public class MenuPrincipal extends AppCompatActivity {
@@ -80,6 +81,13 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     private void callBackup() {
+        card_backup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent it = new Intent(MenuPrincipal.this, Backup.class);
+               startActivity(it);
+            }
+        });
     }
 
     private void callOptions() {

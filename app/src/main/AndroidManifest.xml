@@ -4,6 +4,7 @@
     package="com.jml.quemmedeve">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ScreenReport"></activity>
+        <activity android:name=".Backup"></activity>
+        <activity android:name=".ScreenReport" />
         <activity android:name=".Reports" />
         <activity android:name=".MenuPrincipal">
             <intent-filter>

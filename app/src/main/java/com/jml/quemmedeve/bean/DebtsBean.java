@@ -27,11 +27,11 @@ public class DebtsBean extends PaymentBean implements Parcelable {
         id = source.readInt();
         usu_id_debt = source.readInt();
         debt_desc = source.readString();
+        status_debt = source.readInt();
         value = source.readString();
         date_debt = source.readString();
         debt_split = source.readString();
         value_split = source.readString();
-        status_debt = source.readInt();
         debtorName = source.readString();
         remainig_value = source.readString();
         valorTotal = source.readString();

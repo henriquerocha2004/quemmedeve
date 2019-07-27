@@ -38,8 +38,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listDebtors"
-        android:layout_width="327dp"
-        android:layout_height="425dp"
+        android:layout_width="323dp"
+        android:layout_height="361dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"

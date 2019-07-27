@@ -11,6 +11,7 @@ import com.jml.quemmedeve.bean.DebtorsBean;
 import com.jml.quemmedeve.bean.PaymentBean;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
 import com.jml.quemmedeve.database.PaymentDbHelper;
+import com.jml.quemmedeve.ultility.DateUltility;
 
 public class PaymentController {
 
@@ -30,6 +31,26 @@ public class PaymentController {
 
         return valor;
     }
+
+    public static String receivablesMonth(Context context){
+        DebtorsDbHelper helper = new DebtorsDbHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor resultado = null;
+        String valor = null;
+        ContentValues datas = DateUltility.getFistDataMonthLastDataMonth();
+
+        resultado = db.rawQuery("SELECT printf('%.2f',SUM(amount_to_pay)) as previsão FROM payment " +
+                "WHERE payday BETWEEN '"+datas.get("primeiraDataMes")+" 00:00:00' AND '"+datas.get("ultimaDataMes")+" 23:59:59' and status_payment = 0 AND soft_delete = 0", null);
+
+        if(resultado.getCount() > 0){
+            resultado.moveToFirst();
+            valor = resultado.getString(0);
+        }
+
+        return valor;
+
+    }
+
 
     public static boolean massPayment(Context context, int filterTypePayment, String mesAno, String idClient){
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.jml.quemmedeve.R;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.ultility.DateUltility;
+import com.jml.quemmedeve.ultility.NumberUtility;
 import com.jml.quemmedeve.viewHolders.ReportViewHolder;
 
 import java.util.List;
@@ -30,12 +31,12 @@ public class AdapterReport extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.report_component, viewGroup, false);
         ReportViewHolder holder = new ReportViewHolder(view);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickListener.onClick(v);
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mClickListener.onClick(v);
+//            }
+//        });
 
         return holder;
     }
@@ -45,9 +46,9 @@ public class AdapterReport extends RecyclerView.Adapter {
             ReportViewHolder holder = (ReportViewHolder) viewHolder;
             DebtsBean debt = list.get(i);
             holder.lbNomeCliente.setText(debt.getDebtorName());
-            holder.lbValor.setText(debt.getValorTotal());
+            holder.lbValor.setText(NumberUtility.converterBr(debt.getValue()));
             holder.lbDescricao.setText(debt.getDebt_desc());
-            holder.lbData.setText(DateUltility.formataBR(debt.getDebt_desc()));
+            holder.lbData.setText(DateUltility.formataBR(debt.getDate_debt()));
     }
 
     @Override
@@ -60,7 +61,7 @@ public class AdapterReport extends RecyclerView.Adapter {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void setmClickListener(View.OnClickListener callback){
+    public void setClickListener(View.OnClickListener callback){
         mClickListener = callback;
     }
 

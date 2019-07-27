@@ -32,6 +32,7 @@ public class ListDebtors extends AppCompatActivity {
 
     private RecyclerView listDebtors;
     private TextView valor;
+    private TextView valorMensal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class ListDebtors extends AppCompatActivity {
         View view = getSupportActionBar().getCustomView();
 
         valor = view.findViewById(R.id.valor);
+        valorMensal = view.findViewById(R.id.valorMensal);
         getReceivables();
         getDebtorsList();
 
@@ -95,8 +97,11 @@ public class ListDebtors extends AppCompatActivity {
 
 
     private void getReceivables(){
-        String valorReceber = PaymentController.receivables(getApplicationContext());
-        valor.setText(NumberUtility.converterBr(valorReceber));
+        String receitasTotal = PaymentController.receivables(getApplicationContext());
+        String receitasMes = PaymentController.receivablesMonth(getApplicationContext());
+        valor.setText(NumberUtility.converterBr(receitasTotal));
+        valorMensal.setText(NumberUtility.converterBr(receitasMes));
+
     }
 
 

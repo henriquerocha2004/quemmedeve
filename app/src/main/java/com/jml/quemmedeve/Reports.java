@@ -16,6 +16,7 @@ import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.controllers.DebtController;
 import com.jml.quemmedeve.ultility.DateUltility;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +74,7 @@ public class Reports extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Não foram encontrados dados para o período especificado", Toast.LENGTH_SHORT).show();
                     }else{
                         Intent it = new Intent(Reports.this, ScreenReport.class);
-                        it.putExtra("debtsRecyclerView", (Parcelable) debtsRecyclerView);
+                        it.putParcelableArrayListExtra("debtsRecyclerView", (ArrayList<? extends Parcelable>) debtsRecyclerView);
                         it.putExtra("totais", totais);
                         it.putExtra("dateStart", DateUltility.formataBR(dateStart.getText().toString()));
                         it.putExtra("dateEnd", DateUltility.formataBR(dateEnd.getText().toString()));

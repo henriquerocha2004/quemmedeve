@@ -23,6 +23,7 @@
     <string name="gerar">Gerar</string>
     <string name="data_incial">Data Incial</string>
     <string name="data_final">Data Final</string>
+    <string name="data_inicial">Data Inicial</string>
 
     <string-array name="payments_options">
         <item></item>

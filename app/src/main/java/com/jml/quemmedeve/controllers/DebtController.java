@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jml.quemmedeve.bean.DebtorsBean;
 import com.jml.quemmedeve.bean.DebtsBean;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
 import com.jml.quemmedeve.database.DebtsDbHelper;
@@ -14,6 +15,7 @@ import com.jml.quemmedeve.database.PaymentDbHelper;
 import com.jml.quemmedeve.ultility.DateUltility;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -196,12 +198,62 @@ public class DebtController {
         return result;
     }
 
+    public static HashMap generateReport(Context context, String dateStart, String dateEnd){
 
-//    public static List<DebtsBean> generateReport(){
-//
-//
-//
-//
-//    }
+         DebtorsDbHelper helper = new DebtorsDbHelper(context);
+         SQLiteDatabase db = helper.getWritableDatabase();
+         HashMap dados = new HashMap();
+         Cursor cursor = null;
+         List<DebtsBean> debtsReciclerView = new ArrayList<>();
+         DebtsBean totais = new DebtsBean();
+
+         String sql1 =  "SELECT debtors.name, debts.date_debt, debts.debt_desc, debts.value\n" +
+                        " FROM debtors INNER JOIN debts ON debts.usu_id_debt = debtors._id\n" +
+                        "WHERE date_debt BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59'";
+         String sql2 =  "SELECT printf('%.2f', SUM(debts.value)) as valor_total, (\n" +
+                 "    SELECT printf('%.2f', SUM(debts.value)) FROM debts WHERE form_payment = \"AV\" AND date_debt BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59'\n" +
+                 ")as valor_total_dinheiro, (\n" +
+                 "     SELECT printf('%.2f', SUM(debts.value)) FROM debts WHERE form_payment != \"AV\" AND date_debt BETWEEN '2019-07-01 00:00:00' AND '"+dateEnd+" 23:59:59'\n" +
+                 ")as valor_total_prazo FROM debts WHERE date_debt BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59'";
+
+         try {
+
+             cursor = db.rawQuery(sql1, null);
+
+             if(cursor.getCount() > 0){
+                 cursor.moveToFirst();
+
+                 do{
+                     DebtsBean debt = new DebtsBean();
+                     debt.setDebtorName(cursor.getString(0));
+                     debt.setDate_debt(cursor.getString(1));
+                     debt.setDebt_desc(cursor.getString(2));
+                     debt.setValue(cursor.getString(3));
+                     debtsReciclerView.add(debt);
+                 }while (cursor.moveToNext());
+
+             }
+
+             cursor = db.rawQuery(sql2, null);
+
+             if(cursor.getCount() > 0){
+                 cursor.moveToFirst();
+                 do{
+                     totais.setValorTotal(cursor.getString(0));
+                     totais.setValorTotalDinheiro(cursor.getString(1));
+                     totais.setValorTotalPrazo(cursor.getString(2));
+                 }while (cursor.moveToNext());
+             }
+
+            dados.put("debtsReciclerView", debtsReciclerView);
+            dados.put("totais", totais);
+            dados.put("error", false);
+
+         }catch (SQLException e){
+            Log.i("Erro: ", e.getMessage());
+         }
+
+         return dados;
+    }
 
 }

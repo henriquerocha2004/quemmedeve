@@ -218,11 +218,11 @@ public class AddPayment extends AppCompatActivity {
                     debt.put(DebtsDbHelper.COLUMN_DEBT_SPLIT, (formaPagamento.equals("Parcelado") ? qtdParcelas : "1"));
                     debt.put(DebtsDbHelper.COLUMN_VALUE_SPLIT,  (formaPagamento.equals("Parcelado") ? valorParcelado.toString() : txtValueFull.getValue().toString()));
                     debt.put(DebtsDbHelper.COLUMN_USU_ID, idCliente);
+                    debt.put(DebtsDbHelper.COLUMN_FORM_PAYMENT, formaPagamento.equals("Parcelado") ? "PA" : (formaPagamento.equals("A Prazo") ? "PZ" : "AV"));
                     debt.put(DebtsDbHelper.COLUMN_DATE_DEBT, DateUltility.getCurrentData("USA"));
 
-
                     ContentValues payment = new ContentValues();
-                    payment.put(PaymentDbHelper.COLUMN_AMOUNT_PAY, valorParcelado.toString());
+                    payment.put(PaymentDbHelper.COLUMN_AMOUNT_PAY, (formaPagamento.equals("Parcelado") ? valorParcelado.toString() : txtValueFull.getValue().toString()));
                     payment.put(PaymentDbHelper.COLUMN_PAYDAY, (formaPagamento.equals("Parcelado") ? DateUltility.formataUSA(datePaySplit.getText().toString()) : DateUltility.getCurrentData("USA")));
 
 

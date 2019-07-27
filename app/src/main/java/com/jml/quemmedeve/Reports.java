@@ -1,6 +1,8 @@
 package com.jml.quemmedeve;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jml.quemmedeve.bean.DebtsBean;
+import com.jml.quemmedeve.controllers.DebtController;
 import com.jml.quemmedeve.ultility.DateUltility;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class Reports extends AppCompatActivity {
 
@@ -51,7 +58,28 @@ public class Reports extends AppCompatActivity {
         btnReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(dateStart.getText().equals("Data Inicial") || dateEnd.getText().equals("Data Final")){
+                    Toast.makeText(getApplicationContext(), "Informe um período para gerar o relatório", Toast.LENGTH_SHORT).show();
+                }else{
+                    HashMap dados = DebtController.generateReport(
+                            getApplicationContext(),
+                            DateUltility.formataUSA(dateStart.getText().toString()),
+                            DateUltility.formataUSA(dateEnd.getText().toString())
+                    );
+                    List<DebtsBean> debtsRecyclerView = (List<DebtsBean>) dados.get("debtsReciclerView");
+                    DebtsBean totais = (DebtsBean) dados.get("totais");
 
+                    if(debtsRecyclerView.size() < 1){
+                        Toast.makeText(getApplicationContext(), "Não foram encontrados dados para o período especificado", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Intent it = new Intent(Reports.this, ScreenReport.class);
+                        it.putExtra("debtsRecyclerView", (Parcelable) debtsRecyclerView);
+                        it.putExtra("totais", totais);
+                        it.putExtra("dateStart", DateUltility.formataBR(dateStart.getText().toString()));
+                        it.putExtra("dateEnd", DateUltility.formataBR(dateEnd.getText().toString()));
+                        startActivity(it);
+                    }
+                }
             }
         });
 

@@ -7,6 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jml.quemmedeve.bean.DebtorsBean;
+import com.jml.quemmedeve.bean.PaymentBean;
 import com.jml.quemmedeve.database.DebtorsDbHelper;
 import com.jml.quemmedeve.database.PaymentDbHelper;
 
@@ -57,6 +59,7 @@ public class PaymentController {
 
         return false;
     }
+
 
 
 }

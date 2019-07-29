@@ -28,14 +28,12 @@ public class MenuPrincipal extends AppCompatActivity {
         card_debts = findViewById(R.id.card_debt);
         card_reports = findViewById(R.id.card_reports);
         card_backup = findViewById(R.id.card_backup);
-        card_options = findViewById(R.id.card_options);
 
         callClients();
         callDebtors();
         callReports();
         callDebts();
         callBackup();
-        callOptions();
     }
 
     private void callClients() {

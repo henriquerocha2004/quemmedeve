@@ -49,31 +49,32 @@
 
             <TextView
                 android:id="@+id/debt_value"
-                android:layout_width="132dp"
-                android:layout_height="19dp"
+                android:layout_width="71dp"
+                android:layout_height="21dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="42dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp"
-                android:layout_marginBottom="39dp"
+                android:layout_marginTop="41dp"
+                android:layout_marginEnd="92dp"
+                android:layout_marginRight="92dp"
+                android:layout_marginBottom="38dp"
                 android:text="@string/valor"
                 android:textSize="14sp"
                 tools:ignore="UnknownId" />
 
             <TextView
                 android:id="@+id/split_value"
-                android:layout_width="94dp"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="69dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginBottom="11dp"
                 android:text="@string/valor"
                 android:textSize="14sp"
                 tools:ignore="UnknownId" />
@@ -96,16 +97,16 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="63dp"
-                android:layout_height="23dp"
+                android:layout_width="51dp"
+                android:layout_height="21dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="164dp"
-                android:layout_marginRight="164dp"
-                android:layout_marginBottom="37dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="174dp"
+                android:layout_marginRight="174dp"
+                android:layout_marginBottom="39dp"
                 android:text="Total:"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -117,9 +118,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="169dp"
-                android:layout_marginRight="169dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="164dp"
+                android:layout_marginRight="164dp"
+                android:layout_marginBottom="15dp"
                 android:text="Parcelas:"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -131,9 +132,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="141dp"
-                android:layout_marginRight="141dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="135dp"
+                android:layout_marginRight="135dp"
+                android:layout_marginBottom="13dp"
                 android:text="0" />
 
             <TextView
@@ -143,9 +144,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="116dp"
-                android:layout_marginRight="116dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="103dp"
+                android:layout_marginRight="103dp"
+                android:layout_marginBottom="14dp"
                 android:text="de" />
 
             <TextView
@@ -155,9 +156,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="247dp"
-                android:layout_marginRight="247dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="257dp"
+                android:layout_marginRight="257dp"
+                android:layout_marginBottom="6dp"
                 android:text="Pago"
                 android:textSize="12sp" />
 

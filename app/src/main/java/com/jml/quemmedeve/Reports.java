@@ -70,7 +70,7 @@ public class Reports extends AppCompatActivity {
                     List<DebtsBean> debtsRecyclerView = (List<DebtsBean>) dados.get("debtsReciclerView");
                     DebtsBean totais = (DebtsBean) dados.get("totais");
 
-                    if(debtsRecyclerView.size() < 1){
+                    if(debtsRecyclerView.isEmpty()){
                         Toast.makeText(getApplicationContext(), "Não foram encontrados dados para o período especificado", Toast.LENGTH_SHORT).show();
                     }else{
                         Intent it = new Intent(Reports.this, ScreenReport.class);

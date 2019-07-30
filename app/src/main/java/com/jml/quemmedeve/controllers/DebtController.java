@@ -210,6 +210,7 @@ public class DebtController {
          String sql1 =  "SELECT debtors.name, debts.date_debt, debts.debt_desc, debts.value\n" +
                         " FROM debtors INNER JOIN debts ON debts.usu_id_debt = debtors._id\n" +
                         "WHERE date_debt BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59'";
+
          String sql2 =  "SELECT printf('%.2f', SUM(debts.value)) as valor_total, (\n" +
                  "    SELECT printf('%.2f', SUM(debts.value)) FROM debts WHERE form_payment = \"AV\" AND date_debt BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59'\n" +
                  ")as valor_total_dinheiro, (\n" +

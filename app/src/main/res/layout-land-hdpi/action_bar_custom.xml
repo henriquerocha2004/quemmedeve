@@ -2,7 +2,7 @@
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:background="@color/colorPrimary"
     android:orientation="horizontal">
 
@@ -28,19 +28,16 @@
             android:padding="10dp"
             android:text="Total de Receitas: "
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/valor"
-            android:layout_width="239dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="10dp"
             android:text="R$ 10.000,00"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
-    </TableRow>
-
-    <TableRow>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/lbReceitasMes"
@@ -49,16 +46,21 @@
             android:padding="10dp"
             android:text="Receitas mensal: "
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/valorMensal"
-            android:layout_width="239dp"
+            android:layout_width="153dp"
             android:layout_height="match_parent"
             android:padding="10dp"
             android:text="R$ 10.000,00"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
+    </TableRow>
+
+    <TableRow>
+
+
     </TableRow>
 
 </TableLayout>

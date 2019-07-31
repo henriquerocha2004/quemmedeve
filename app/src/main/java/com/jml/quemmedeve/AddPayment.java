@@ -271,7 +271,7 @@ public class AddPayment extends AppCompatActivity {
 
 
     private String validate(){
-
+        
         int idRadio = rdGrpFormPay.getCheckedRadioButtonId();
         RadioButton rb = findViewById(idRadio);
         formaPagamento = rb.getText().toString();

@@ -100,7 +100,7 @@ public class Backup extends AppCompatActivity {
 
                 if(fileDb.exists()){
                     it.setType("application/x-sqlite3");
-                    it.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + fileDb));
+                    it.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + fileDb));
                     it.putExtra(Intent.EXTRA_SUBJECT, "Backup-"+ DateUltility.getCurrentData("USA")+".db");
                     startActivity(Intent.createChooser(it, "Enviando arquivo"));
                 }else{

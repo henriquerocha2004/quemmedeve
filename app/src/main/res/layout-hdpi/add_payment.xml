@@ -5,6 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RadioGroup
+        android:id="@+id/rdGrpFormPay"
+        android:layout_width="123dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.326">
+
+        <RadioButton
+            android:id="@+id/rdButtomAvista"
+            android:layout_width="108dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="A vista"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtomParcelado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Parcelado"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtomPrazo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="A Prazo"
+            android:textSize="10sp" />
+    </RadioGroup>
+
     <EditText
         android:id="@+id/txtDescPay"
         android:layout_width="296dp"
@@ -83,41 +126,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.228" />
-
-    <RadioGroup
-        android:id="@+id/rdGrpFormPay"
-        android:layout_width="130dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.025"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.316">
-
-        <RadioButton
-            android:id="@+id/rdButtomAvista"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="A vista"
-            android:textSize="11sp" />
-
-        <RadioButton
-            android:id="@+id/radioButtomParcelado"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Parcelado"
-            android:textSize="11sp" />
-    </RadioGroup>
 
     <TextView
         android:id="@+id/textView2"

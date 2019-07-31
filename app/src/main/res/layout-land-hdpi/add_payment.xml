@@ -5,6 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RadioGroup
+        android:id="@+id/rdGrpFormPay"
+        android:layout_width="164dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.437">
+
+        <RadioButton
+            android:id="@+id/rdButtomAvista"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="A vista" />
+
+        <RadioButton
+            android:id="@+id/radioButtomParcelado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Parcelado" />
+
+        <RadioButton
+            android:id="@+id/radioButtomPrazo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="A Prazo" />
+    </RadioGroup>
+
     <EditText
         android:id="@+id/txtDescPay"
         android:layout_width="226dp"
@@ -83,41 +123,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.226" />
 
-    <RadioGroup
-        android:id="@+id/rdGrpFormPay"
-        android:layout_width="145dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.016"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.399">
-
-        <RadioButton
-            android:id="@+id/rdButtomAvista"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="A vista"
-            android:textSize="12sp" />
-
-        <RadioButton
-            android:id="@+id/radioButtomParcelado"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Parcelado"
-            android:textSize="12sp" />
-    </RadioGroup>
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -157,8 +162,8 @@
 
     <TextView
         android:id="@+id/txtDescPagamento"
-        android:layout_width="235dp"
-        android:layout_height="38dp"
+        android:layout_width="237dp"
+        android:layout_height="27dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -174,7 +179,7 @@
         app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.721" />
+        app:layout_constraintVertical_bias="0.758" />
 
     <Button
         android:id="@+id/btnSalvar"
@@ -199,8 +204,8 @@
 
     <CheckBox
         android:id="@+id/cbLembrarMe"
-        android:layout_width="160dp"
-        android:layout_height="39dp"
+        android:layout_width="197dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -210,10 +215,10 @@
         android:text="Lembrar-me "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.75" />
 
     <TextView
         android:id="@+id/datePaySplit"

@@ -225,6 +225,9 @@ public class DebtController {
                  cursor.moveToFirst();
 
                  do{
+
+                     System.out.println(cursor.getString(0));
+
                      DebtsBean debt = new DebtsBean();
                      debt.setDebtorName(cursor.getString(0));
                      debt.setDate_debt(cursor.getString(1));

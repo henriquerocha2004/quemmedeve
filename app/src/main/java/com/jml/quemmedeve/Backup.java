@@ -4,8 +4,11 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -24,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLOutput;
 
 
 public class Backup extends AppCompatActivity {
@@ -121,7 +125,7 @@ public class Backup extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent it = new Intent();
-                        it.setType("application/x-sqlite3");
+                        it.setType("*/*");
                         it.setAction(Intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(it, "Selecione o arquivo"), 1);
                     }
@@ -140,8 +144,16 @@ public class Backup extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == RESULT_OK){
+
+            Uri uri = data.getData();
+
+            File f = new File(uri.getPath());
+            String[] split = f.getPath().split(":");
+
+            System.out.println();
+
             if(MimeTypeMap.getFileExtensionFromUrl(data.getData().getPath()).equals("db")){
-                executeRestore(data.getData().getPath());
+                executeRestore(Environment.getExternalStorageState() +'/' + split[1]);
             }else{
                Toast.makeText(getApplicationContext(), "Arquivo Inválido", Toast.LENGTH_SHORT).show();
             }

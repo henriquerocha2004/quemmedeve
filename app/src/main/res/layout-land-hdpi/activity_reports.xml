@@ -28,8 +28,8 @@
     <Button
         android:id="@+id/btnReport"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="129dp"
-        android:layout_height="51dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -54,14 +54,14 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32"
-        app:srcCompat="@drawable/ic_calendar_blank_outline_white_36dp"
-        android:focusable="true" />
+        app:layout_constraintVertical_bias="0.342"
+        app:srcCompat="@drawable/ic_calendar_blank_outline_white_36dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/setDateEnd"
@@ -74,14 +74,14 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569"
-        app:srcCompat="@drawable/ic_calendar_blank_outline_white_36dp"
-        android:focusable="true" />
+        app:layout_constraintVertical_bias="0.629"
+        app:srcCompat="@drawable/ic_calendar_blank_outline_white_36dp" />
 
     <TextView
         android:id="@+id/dateStart"
@@ -100,10 +100,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintHorizontal_bias="0.292"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.33" />
+        app:layout_constraintVertical_bias="0.344" />
 
     <TextView
         android:id="@+id/dateEnd"
@@ -122,8 +122,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintHorizontal_bias="0.292"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568" />
+        app:layout_constraintVertical_bias="0.626" />
 </android.support.constraint.ConstraintLayout>

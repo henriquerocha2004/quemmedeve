@@ -34,9 +34,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="14dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginRight="45dp"
                 android:hint="Nome"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -48,9 +49,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="14dp"
-                android:layout_marginEnd="56dp"
-                android:layout_marginRight="56dp"
+                android:layout_marginEnd="94dp"
+                android:layout_marginRight="94dp"
                 android:text="@string/valor"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
                 tools:ignore="UnknownId" />
 

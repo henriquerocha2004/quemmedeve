@@ -44,6 +44,7 @@
                 android:layout_marginBottom="66dp"
                 android:hint="Descrição"
                 android:textAlignment="center"
+                android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -60,6 +61,7 @@
                 android:layout_marginRight="21dp"
                 android:layout_marginBottom="39dp"
                 android:text="@string/valor"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 tools:ignore="UnknownId" />
 
@@ -75,6 +77,7 @@
                 android:layout_marginRight="14dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/valor"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 tools:ignore="UnknownId" />
 
@@ -107,6 +110,7 @@
                 android:layout_marginRight="164dp"
                 android:layout_marginBottom="37dp"
                 android:text="Total:"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -121,6 +125,7 @@
                 android:layout_marginRight="169dp"
                 android:layout_marginBottom="10dp"
                 android:text="Parcelas:"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -134,7 +139,8 @@
                 android:layout_marginEnd="141dp"
                 android:layout_marginRight="141dp"
                 android:layout_marginBottom="10dp"
-                android:text="0" />
+                android:text="0"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/of"
@@ -146,7 +152,8 @@
                 android:layout_marginEnd="116dp"
                 android:layout_marginRight="116dp"
                 android:layout_marginBottom="10dp"
-                android:text="de" />
+                android:text="de"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/txtStatus"
@@ -159,6 +166,7 @@
                 android:layout_marginRight="261dp"
                 android:layout_marginBottom="7dp"
                 android:text="Pago"
+                android:textColor="@android:color/black"
                 android:textSize="12sp" />
 
 
